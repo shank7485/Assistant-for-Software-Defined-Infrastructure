@@ -3,8 +3,6 @@ from chatterbot.conversation import Statement
 from chatterbot import ChatBot
 from flask import Flask
 
-app = Flask(__name__)
-
 
 class CustomLogicAdapter(LogicAdapter):
     def __init__(self, **kwargs):
@@ -33,10 +31,13 @@ class OpenStackBot(object):
         self.trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
         self.corpus = 'chatterbot.corpus.openstack'
         self.chatbot = ChatBot(
-            'Ron Obvious',
+            'OpenStack Bot',
             trainer=self.trainer
         )
         self.chatbot.train(self.corpus)
 
     def get_response(self, question):
         return self.chatbot.get_response(question)
+
+app = Flask(__name__)
+bot = OpenStackBot()
