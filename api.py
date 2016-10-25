@@ -1,12 +1,35 @@
 from flask import Flask
 from flask import request
 from chatterbot import ChatBot
+from chatterbot.adapters.logic import LogicAdapter
 
 app = Flask(__name__)
 
+class MyLogicAdapter(LogicAdapter):
+    def __init__(self, **kwargs):
+        super(MyLogicAdapter, self).__init__(kwargs)
+
+    def can_process(self, statement):
+        # Return true if the statement contains the search text
+        return 'Search for' in statement.text
+        return True
+
+    def process(self, statement):
+        from chatterbot.conversation import Statement
+
+        text = "VM"# ... something you return based on your search
+        response = text
+
+        confidence = 0.5
+        return confidence, response
+
+
 chatbot = ChatBot(
     'Ron Obvious',
-    trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
+    trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
+#    logic_adapters=[
+#        "chatterbot.adapters.logic.LogicAdapter"
+#    ],
 )
 chatbot.train("chatterbot.corpus.openstack")
 
