@@ -1,20 +1,13 @@
-from flask import Flask
 from flask import request
-from chatterbot import ChatBot
-
-app = Flask(__name__)
-
-chatbot = ChatBot(
-    'Ron Obvious',
-    trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
-)
-chatbot.train("chatterbot.corpus.openstack")
+from base import OpenStackBot
+from base import app
 
 @app.route('/')
 def create_VM():
     try:
         question = request.args.get('question')
-        return str(chatbot.get_response(question))
+        bot_response = str(OpenStackBot.get_response(question))
+        return bot_response
     except:
         print('Please pass parameters')
 

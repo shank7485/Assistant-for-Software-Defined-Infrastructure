@@ -1,0 +1,43 @@
+{
+    "conversations": [
+        [
+            "Create VM",
+            "1,Sure. Creating VM."
+
+        ],
+        [
+            "Can you please create a virtual instance?",
+            "1,Please specifiy the flavor : **,**,**"
+
+        ],
+        [
+            "I want to use this flavor",
+            "1.1,Please specify the image"
+        ],
+        [
+            "Can you search for VM Nish?",
+            "1.10,Search"
+        ],
+        [
+            "Search for this VM ",
+            "1.10,Searching"
+        ],
+        [
+             "Please search VM nish",
+             "1.10,Searched"
+        ],
+        [
+             "Show my VMs",
+             "1.11,Here are your virtual instances"
+        ],
+        [
+             "Please list my virtual instances",
+             "1.11,Getting your virtual instances"
+        ],
+        [
+             "Can you show me my virtual instances",
+              "1.11,Here are your VMs"
+        ]
+
+    ]
+}
