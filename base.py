@@ -1,7 +1,8 @@
 from chatterbot.adapters.logic import LogicAdapter
 from chatterbot.conversation import Statement
 from chatterbot import ChatBot
-from flask import Flask
+from flask import Flask, session
+from flask.ext.session import Session
 
 
 class CustomLogicAdapter(LogicAdapter):
@@ -19,11 +20,17 @@ class CustomLogicAdapter(LogicAdapter):
         return confidence, response
 
 
-class Session(object):
-    def __init__(self, **kwargs):
-        self.falvor = kwargs.get('flavor')
-        self.image = kwargs.get('image')
-        self.name = kwargs.get('name')
+# class CreateVM(object):
+#     def code_checker(self, code):
+#         if not self.session_dict['flavor']:
+#             # Call method which gets flavor list
+#             flavor_list = 'something'  # change this.
+#             return flavor_list
+#
+#
+# class CreateVMSession(Session):
+#     def __init__(self):
+#         super(CreateVMSession, self).__init__()
 
 
 class OpenStackBot(object):
@@ -40,4 +47,7 @@ class OpenStackBot(object):
         return self.chatbot.get_response(question)
 
 app = Flask(__name__)
+SESSION_TYPE = 'null'
+app.config.from_object(__name__)
+Session(app)
 bot = OpenStackBot()
