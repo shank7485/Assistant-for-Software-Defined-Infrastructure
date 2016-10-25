@@ -5,6 +5,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 class CustomLogicAdapter(LogicAdapter):
     def __init__(self, **kwargs):
         super(CustomLogicAdapter, self).__init__(kwargs)
@@ -18,6 +19,7 @@ class CustomLogicAdapter(LogicAdapter):
         response = Statement(text)
         confidence = 0.5
         return confidence, response
+
 
 class Session(object):
     def __init__(self, **kwargs):
