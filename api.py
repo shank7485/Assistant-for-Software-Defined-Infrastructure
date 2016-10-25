@@ -1,12 +1,12 @@
-from flask import request
-from base import OpenStackBot
 from base import app
+from base import bot
+from flask import request
+
 
 @app.route('/')
 def create_VM():
     try:
         question = request.args.get('question')
-        bot = OpenStackBot()
         bot_response = str(bot.get_response(question))
         return bot_response
     except:
