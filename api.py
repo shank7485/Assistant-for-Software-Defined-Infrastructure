@@ -6,7 +6,8 @@ from base import app
 def create_VM():
     try:
         question = request.args.get('question')
-        bot_response = str(OpenStackBot.get_response(question))
+        bot = OpenStackBot()
+        bot_response = str(bot.get_response(question))
         return bot_response
     except:
         print('Please pass parameters')

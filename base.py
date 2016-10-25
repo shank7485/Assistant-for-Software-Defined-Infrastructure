@@ -26,9 +26,15 @@ class Session(object):
         self.name = kwargs.get('name')
 
 
-class OpenStackBot(ChatBot):
+class OpenStackBot(object):
     def __init__(self):
-        trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
-        corpus = 'chatterbot.corpus.openstack'
-        chatbot = super(OpenStackBot, self).__init__(self, trainer)
-        chatbot.train(corpus)
+        self.trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
+        self.corpus = 'chatterbot.corpus.openstack'
+        self.chatbot = ChatBot(
+            'Ron Obvious',
+            trainer=self.trainer
+        )
+        self.chatbot.train(self.corpus)
+
+    def get_response(self, question):
+        return self.chatbot.get_response(question)
