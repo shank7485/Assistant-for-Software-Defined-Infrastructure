@@ -18,7 +18,7 @@ class MyLogicAdapter(LogicAdapter):
         from chatterbot.conversation import Statement
 
         text = "VM"# ... something you return based on your search
-        response = text
+        response = Statement(text)
 
         confidence = 0.5
         return confidence, response
