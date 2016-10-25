@@ -28,21 +28,16 @@
         ],
         [
              "Show my VMs",
-             "11,Here is the list of VMs"
+             "1.11,Here are your virtual instances"
         ],
         [
              "Please list my virtual instances",
-             "11,Sure, please check the list of your instances below"
+             "1.11,Getting your virtual instances"
         ],
         [
              "Can you show me my virtual instances",
-              "11,Why not, here is a list of your virtual instances: "
-        ],
-        [
-             "can you display vms?"
-             "11,Sure, here is the list of VMs you want:"
-
-        ],
+              "1.11,Here are your VMs"
+        ]
 
     ]
 }

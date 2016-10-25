@@ -9,8 +9,8 @@ def create_VM():
         question = request.args.get('question')
         bot_response = str(bot.get_response(question))
         return bot_response
-    except:
-        print('Please pass parameters')
+    except :
+        print('Please pass Parameters')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
