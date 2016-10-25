@@ -27,7 +27,8 @@ class Session(object):
 
 
 class OpenStackBot(ChatBot):
-    def __init__(self, corpus):
+    def __init__(self):
         trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
+        corpus = 'chatterbot.corpus.openstack'
         chatbot = super(OpenStackBot, self).__init__(self, trainer)
         chatbot.train(corpus)
