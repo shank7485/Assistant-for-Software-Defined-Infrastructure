@@ -5,16 +5,17 @@ from flask import request
 from flask import session
 from flask import url_for
 from flask import redirect
-from client import OpenStackClient
+from client import NovaClient,NeutronClient
+
 
 
 def code_checker(code, response):
     if code == '1':
         if is_session_empty('flavor', session):
-            flavor_list = OpenStackClient().novaflavorlist()
+            flavor_list = NovaClient().novaflavorlist()
             return '{} {}'.format(response, flavor_list)
         elif is_session_empty('image', session):
-            image_list = OpenStackClient().novaimagelist()
+            image_list = NovaClient().novaimagelist()
             return '{} {}'.format(response, image_list)
         elif is_session_empty('name', session):
             return response
@@ -26,7 +27,7 @@ def code_checker(code, response):
                 session['image'],
                 session['name'])
         elif 'confirm' in session:
-            OpenStackClient().novaboot()
+            NovaClient().novaboot()
             session.clear()
             return 'Creation done'
 
@@ -42,9 +43,15 @@ def code_checker(code, response):
             return '{} Network: {}'.format(str(bot.get_response(
                 'confirm_network'), session['network_name']))
         elif 'confirm_network' in session:
+            NeutronClient().networkcreate()
             # call create_network()
             session.clear()
             return 'Network Creation Done'
+
+    if code == '2.1':
+        network_list = NeutronClient().netlist()
+        return '{} : {}'.format(str(bot.get_response('Net_List')),
+                                network_list)
     
     if code == '3':
         avail_zone = OpenStackClient().avail_zone_session()
