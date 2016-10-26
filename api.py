@@ -9,26 +9,29 @@ from client import OpenStackClient
 
 
 def code_checker(code, response):
-    if code == '1' and is_session_empty('flavor', session):
-        flavor_list = OpenStackClient().novaflavorlist() # call get_flavor_list() method.
-        return '{} {}'.format(response, flavor_list)
-    elif code == '1' and is_session_empty('image', session):
-        image_list = OpenStackClient().novaimagelist()#['Ubuntu 14.04 Serve']  # call get_image_list() method.
-        return '{} {}'.format(response, image_list)
-    elif code == '1' and is_session_empty('name', session):
-        return response
-    elif code == '1' and 'flavor' in session and 'image' in session and 'name' \
-            in session and is_session_empty('confirm', session):
-        # Update corpus for 'Confirm' and answer = code, response.
-        return '{} Flavor: {} Image: {} Name: {}'.format(str(
-            bot.get_response('Confirm')),
-            session['flavor'],
-            session['image'],
-            session['name'])
-    elif code == '1' and 'confirm' in session:
-        # call create_vm_()
-        session.clear()
-        return 'Creation done'
+    if code == '1':
+        if is_session_empty('flavor', session):
+            flavor_list = OpenStackClient().novaflavorlist()
+            return '{} {}'.format(response, flavor_list)
+        elif is_session_empty('image', session):
+            image_list = OpenStackClient().novaimagelist()
+            return '{} {}'.format(response, image_list)
+        elif is_session_empty('name', session):
+            return response
+        elif 'flavor' in session and 'image' in session and 'name' in session \
+            and is_session_empty('confirm', session):
+            return '{} Flavor: {} Image: {} Name: {}'.format(str(
+                bot.get_response('Confirm')),
+                session['flavor'],
+                session['image'],
+                session['name'])
+        elif 'confirm' in session:
+            session.clear()
+            return 'Creation done'
+        
+    if code == '2':
+        # Do Other Stuff.
+        pass
 
 
 def is_session_empty(value, session):
