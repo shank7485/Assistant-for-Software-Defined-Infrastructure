@@ -53,10 +53,11 @@ def is_session_empty(value, session):
         return False
 
 
-@app.route('/index')
+@app.route('/')
 def index():
     # UI: Initial Landing page
-    return '<h1> Welcome to OpenStack AI! </h1>'
+    return '<h1> Welcome to OpenStack AI! </h1>' \
+           'Please go to /login to see login page.'
 
 @app.route('/login')
 def login():

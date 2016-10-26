@@ -3,7 +3,6 @@
         [
             "Create VM",
             "1,Sure. Creating VM. But, I need to know to know the Flavor. Please select from this list"
-
         ],
         [
             "Can you create a VM for me.",
@@ -39,14 +38,8 @@
         ],
         [
             "flavor",
-            "1,Thank you. I also need to know what image to boot. Please select which image to boot."
-        ],
-        [
-            "flavor",
-            "1,Thanks! Now please specify the image. Please select which image to boot."
-        ],
-        [
-            "flavor",
+            "1,Thank you. I also need to know what image to boot. Please select which image to boot.",
+            "1,Thanks! Now please specify the image. Please select which image to boot.",
             "1,Thanks! Select the image. I can't boot an image without knowing the image."
         ],
         [
@@ -58,18 +51,16 @@
             "1,Your VM is now being created."
         ],
         [
-
-             "Show availability zones",
-             "3, Sure. Give me a moment."
+            "Show availability zones",
+            "3, Sure. Give me a moment."
         ],
         [
-             "Result_Avail",
-             "Here are your availability zones"
+            "Result_Avail",
+            "Here are your availability zones"
         ],
         [
             "stop",
             "1,alright.. I am clearing everything."
-
         ]
     ]
 }
