@@ -20,7 +20,11 @@
         ],
         [
             "Get Network List",
-            "2,Getting the available network list"
+            "2.1,Getting the available network list"
+        ],
+        [
+            "Net_List",
+            "Available Network list is : "
         ],
         [
             "confirm_network",
