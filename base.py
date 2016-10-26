@@ -20,19 +20,6 @@ class CustomLogicAdapter(LogicAdapter):
         return confidence, response
 
 
-# class CreateVM(object):
-#     def code_checker(self, code):
-#         if not self.session_dict['flavor']:
-#             # Call method which gets flavor list
-#             flavor_list = 'something'  # change this.
-#             return flavor_list
-#
-#
-# class CreateVMSession(Session):
-#     def __init__(self):
-#         super(CreateVMSession, self).__init__()
-
-
 class OpenStackBot(object):
     def __init__(self):
         self.trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
