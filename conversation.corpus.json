@@ -2,17 +2,11 @@
     "conversations": [
         [
             "Create VM",
-            "1,Sure. Creating VM."
-
+            "1,Sure. Creating VM. But, I need to know to know the Flavor. Please select from this list"
         ],
         [
-            "Can you please create a virtual instance?",
-            "1,Please specifiy the flavor : **,**,**"
-
-        ],
-        [
-            "I want to use this flavor",
-            "1,Please specify the image"
+            "Can you create a VM for me.",
+            "1,Yes. I am on it. But you need to provide me the Flavor first. Select one form the following list."
         ],
         [
             "Create a Network",
@@ -31,48 +25,42 @@
             "2,Your network is being created"
         ],
         [
-            "Can you search for VM Nish?",
-            "10,Search"
-        ],
-        [
-            "Search for this VM ",
-            "10,Searching"
-        ],
-        [
-            "Please search VM nish",
-            "10,Searched"
+            "Can you please create a virtual instance?",
+            "1,I will create the VM for you. But please specify the flavor."
         ],
         [
             "Show my VMs",
-            "11,Here are your virtual instances"
+            "11,Here are your virtual instances."
         ],
         [
             "Please list my virtual instances",
-            "11,Getting your virtual instances"
+            "11,The following are your virtual instances."
         ],
         [
             "Can you show me my virtual instances",
-            "11,Here are your VMs"
+            "11,Here are your VMs."
         ],
         [
             "flavor",
-            "1,Thanks. Now please choose image"
+            "1,Thank you. I also need to know what image to boot. Please select which image to boot.",
+            "1,Thanks! Now please specify the image. Please select which image to boot.",
+            "1,Thanks! Select the image. I can't boot an image without knowing the image."
         ],
         [
             "image",
-            "1,Thanks. Now please write name"
+            "1,Thanks. Now type the name you want to give to the instance."
         ],
         [
             "confirm",
             "1,Your VM is now being created."
         ],
         [
-             "Show availability zones",
-             "3, Sure. Give me a moment."
+            "Show availability zones",
+            "3, Sure. The following are the availability zones."
         ],
         [
-             "Result_Avail",
-             "Here are your availability zones"
+            "stop",
+            "1,alright.. I am clearing everything."
         ]
     ]
 }

@@ -31,6 +31,10 @@ def code_checker(code, response):
             session.clear()
             return 'Creation done'
 
+    if code == '1.1':
+        nova_list = OpenStackClient().nova_vm_list()
+        return '{}: {}'.format(response, nova_list)
+
     if code == '2':
         if is_session_empty('network_name', session):
             return response
@@ -50,8 +54,8 @@ def code_checker(code, response):
                                 network_list)
     
     if code == '3':
-        avail_zone = NovaClient().avail_zone_session()
-        return '{} : {}'.format(str(bot.get_response('Result_Avail')), avail_zone)
+        avail_zone = OpenStackClient().avail_zone_session()
+        return '{}: {}'.format(response, avail_zone)
 
 def is_session_empty(value, session):
     if value not in session:
@@ -60,10 +64,11 @@ def is_session_empty(value, session):
         return False
 
 
-@app.route('/index')
+@app.route('/')
 def index():
     # UI: Initial Landing page
-    return '<h1> Welcome to OpenStack AI! </h1>'
+    return '<h1> Welcome to OpenStack AI! </h1>' \
+           'Please go to /login to see login page.'
 
 @app.route('/login')
 def login():

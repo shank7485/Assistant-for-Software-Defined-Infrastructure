@@ -74,7 +74,9 @@ class NeutronClient(OpenStackClient):
         except:
             return str("User not logged in")
 
-
-    def list_vm_session(self):
-        # TODO
-        pass
+    def nova_vm_list(self):
+        try:
+            nova = client.Client("2.1", session=self.sess)
+            nova.servers.list()
+        except:
+            return str("User bot loggin in")
