@@ -5,17 +5,28 @@ from flask import request
 from flask import session
 from flask import url_for
 from flask import redirect
+from flask import render_template
 from client import NovaClient,NeutronClient
 
+def createJSONResponse(type,list,msg):
+    response = "{message: \""+msg+"\",\"list\":["
+    l = []
+    for a in list:
+         temp = str(a).split(":")[1].strip()[:-1]
+         temp1 = "{\"value\": \""+type+"\", \"onclick\": \"setvariable("+type+","+temp+")\"},"
+         response = response + temp1
+         #print temp1
+    response = response[:-1] + "]}"
+    return response
 
 def code_checker(code, response):
     if code == '1':
         if is_session_empty('flavor', session):
             flavor_list = NovaClient().novaflavorlist()
-            return '{} {}'.format(response, flavor_list)
+            return createJSONResponse("Flavor list",flavor_list,response)
         elif is_session_empty('image', session):
             image_list = NovaClient().novaimagelist()
-            return '{} {}'.format(response, image_list)
+            return createJSONResponse("Image list",image_list,response)
         elif is_session_empty('name', session):
             return response
         elif 'flavor' in session and 'image' in session and 'name' in session \
@@ -32,7 +43,7 @@ def code_checker(code, response):
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
-        return '{}: {}'.format(response, nova_list)
+        return createJSONResponse("Nova list",nova_list,response)
 
     if code == '2':
         if is_session_empty('network_name', session):
@@ -54,7 +65,7 @@ def code_checker(code, response):
     
     if code == '3':
         avail_zone = NovaClient().avail_zone_session()
-        return '{}: {}'.format(response, avail_zone)
+        return createJSONResponse("AZ",avail_zone,response)
 
 
 def is_session_empty(value, session):
@@ -63,6 +74,10 @@ def is_session_empty(value, session):
     else:
         return False
 
+@app.route('/test')
+def test():
+    # UI: Initial Landing page
+    return render_template('index.html')
 
 @app.route('/')
 def index():
@@ -73,7 +88,7 @@ def index():
 @app.route('/login')
 def login():
     # UI: User clicks and goes to processLogin
-    return '<h1> Welcome to Login Page</h1>'
+    return render_template('index.html')
 
 @app.route('/processLogin')
 def process_login():

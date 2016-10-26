@@ -30,19 +30,19 @@ class NovaClient(OpenStackClient):
 
     def novaflavorlist(self):
         try:
-            return str(self.nova.flavors.list())
+            return self.nova.flavors.list()
         except:
             return str("User not logged in")
 
     def novaimagelist(self):
         try:
-            return str(self.nova.images.list())
+            return self.nova.images.list()
         except:
             return str("User not logged in")
 
     def avail_zone_session(self):
        try:
-           return str(self.nova.availability_zones.list())
+           return self.nova.availability_zones.list()
        except:
            return str("User not logged in")
 
@@ -56,7 +56,7 @@ class NovaClient(OpenStackClient):
 
     def nova_vm_list(self):
         try:
-            return str(self.nova.servers.list())
+            return self.nova.servers.list()
         except:
             return str("User bot loggin in")
 
@@ -75,7 +75,7 @@ class NeutronClient(OpenStackClient):
 
     def netlist(self):
         try:
-            list = self.neutron.list_networks(name = flask.session['network_name'])
+            list = self.neutron.list_networks()
             return str(list)
         except:
             return str("User not logged in")
