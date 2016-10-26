@@ -18,7 +18,7 @@ class OpenStackClient(object):
 
 class NovaClient(OpenStackClient):
     def __init__(self):
-        super(NovaClient).__init__()
+        super(NovaClient, self).__init__()
         self.nova = client.Client("2.1", session=self.sess)
 
     def check_keystone(self):
@@ -56,14 +56,14 @@ class NovaClient(OpenStackClient):
 
     def nova_vm_list(self):
         try:
-            self.nova.servers.list()
+            return str(self.nova.servers.list())
         except:
             return str("User bot loggin in")
 
 
 class NeutronClient(OpenStackClient):
     def __init__(self):
-        super(NeutronClient).__init__()
+        super(NeutronClient, self).__init__()
         self.neutron = neutron_client.Client(session=self.sess)
 
     def networkcreate(self):
