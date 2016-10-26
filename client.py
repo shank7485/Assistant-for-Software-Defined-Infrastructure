@@ -22,7 +22,7 @@ class OpenStackClient(object):
     
     def novaflavorlist(self):
         try:
-            auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
+            auth = v3.Password(auth_url='http://172.99.106.89:8080/v3',
                    username='admin',
                    password='secret',
                    project_name='admin',
@@ -36,7 +36,7 @@ class OpenStackClient(object):
 
     def novaimagelist(self):
         try:          
-            auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
+            auth = v3.Password(auth_url='http://http://172.99.106.89:80/v3',
                    username='admin',
                    password='secret',
                    project_name='admin',
@@ -48,6 +48,17 @@ class OpenStackClient(object):
         except:
             return str("User not logged in")
 
-    def list_vm_session(self):
-        # TODO
-        pass
+    def avail_zone_session(self):
+        try:
+            auth = v3.Password(auth_url='http://http://172.99.106.89:80/v3',
+                   username='admin',
+                   password='secret',
+                   project_name='admin',
+                   user_domain_id='default',
+                   project_domain_id='default')
+            sess = k_session.Session(auth=auth)
+            nova = client.Client("2.1", session=sess)
+            return str(nova.availability_zones.list())
+        except:
+            return str("User not logged in")
+
