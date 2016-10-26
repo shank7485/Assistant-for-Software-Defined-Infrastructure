@@ -26,9 +26,10 @@ def code_checker(code, response):
                 session['image'],
                 session['name'])
         elif 'confirm' in session:
+            OpenStackClient().novaboot()
             session.clear()
             return 'Creation done'
-        
+
     if code == '2':
         # Do Other Stuff.
         pass
@@ -96,4 +97,4 @@ if __name__ == '__main__':
 
     sess.init_app(app)
 
-    app.run(debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=True, port=8080)
