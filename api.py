@@ -8,7 +8,6 @@ from flask import redirect
 from client import NovaClient,NeutronClient
 
 
-
 def code_checker(code, response):
     if code == '1':
         if is_session_empty('flavor', session):
@@ -32,7 +31,7 @@ def code_checker(code, response):
             return 'Creation done'
 
     if code == '1.1':
-        nova_list = OpenStackClient().nova_vm_list()
+        nova_list = NovaClient().nova_vm_list()
         return '{}: {}'.format(response, nova_list)
 
     if code == '2':
@@ -54,8 +53,9 @@ def code_checker(code, response):
                                 network_list)
     
     if code == '3':
-        avail_zone = OpenStackClient().avail_zone_session()
+        avail_zone = NovaClient().avail_zone_session()
         return '{}: {}'.format(response, avail_zone)
+
 
 def is_session_empty(value, session):
     if value not in session:
@@ -82,7 +82,7 @@ def process_login():
     password = request.args.get('password')
     session['username'] = username
     session['password'] = password
-    if OpenStackClient().check_keystone:
+    if NovaClient().check_keystone:
         return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
