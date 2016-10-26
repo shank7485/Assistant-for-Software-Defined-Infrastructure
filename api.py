@@ -4,6 +4,7 @@ from flask import request
 from flask import session
 from flask import url_for
 from flask import redirect
+from flask.ext.session import Session
 from client import OpenStackClient
 
 
@@ -17,7 +18,7 @@ def code_checker(code, response):
     elif code == '1' and is_session_empty('name', session):
         return response
     elif code == '1' and 'flavor' in session and 'image' in session and 'name' \
-            in session:
+            in session and is_session_empty('confirm', session):
         # Update corpus for 'Confirm' and answer = code, response.
         return '{} Flavor: {} Image: {} Name: {}'.format(str(
             bot.get_response('Confirm')),
@@ -26,6 +27,7 @@ def code_checker(code, response):
             session['name'])
     elif code == '1' and 'confirm' in session:
         # call create_vm_()
+        session.clear()
         return 'Creation done'
 
 
@@ -34,6 +36,9 @@ def is_session_empty(value, session):
         return True
     else:
         return False
+
+
+# def session_contains
 
 
 @app.route('/index')
@@ -83,7 +88,12 @@ def set():
     # Update corpus question = key and answer = code, response.
     return code_checker(code, response)
 
+sess = Session()
 
 if __name__ == '__main__':
     app.secret_key = 'test'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
+    sess.init_app(app)
+
     app.run(debug=True, port=8080)
