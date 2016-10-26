@@ -30,6 +30,10 @@ def code_checker(code, response):
             session.clear()
             return 'Creation done'
 
+    if code == '1.1':
+        nova_list = OpenStackClient().nova_vm_list()
+        return '{}: {}'.format(response, nova_list)
+
     if code == '2':
         if is_session_empty('network_name', session):
             return response
@@ -44,7 +48,7 @@ def code_checker(code, response):
     
     if code == '3':
         avail_zone = OpenStackClient().avail_zone_session()
-        return '{} : {}'.format(str(bot.get_response('Result_Avail')), avail_zone)
+        return '{}: {}'.format(response, avail_zone)
 
 def is_session_empty(value, session):
     if value not in session:

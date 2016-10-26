@@ -15,12 +15,8 @@ class OpenStackClient(object):
         self.sess = k_session.Session(auth=auth)
 
     def check_keystone(self):
-        try:
-            nova = client.Client("2.1", session=self.sess)
-            if (nova.flavors.list()):
-                return True
-        except:
-            return False
+        # TODO
+        pass
 
     def novaflavorlist(self):
         try:
@@ -52,6 +48,9 @@ class OpenStackClient(object):
         except:
             return str("User not logged in")
 
-    def list_vm_session(self):
-        # TODO
-        pass
+    def nova_vm_list(self):
+        try:
+            nova = client.Client("2.1", session=self.sess)
+            nova.servers.list()
+        except:
+            return str("User bot loggin in")

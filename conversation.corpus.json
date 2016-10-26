@@ -52,11 +52,7 @@
         ],
         [
             "Show availability zones",
-            "3, Sure. Give me a moment."
-        ],
-        [
-            "Result_Avail",
-            "Here are your availability zones"
+            "3, Sure. The following are the availability zones."
         ],
         [
             "stop",
