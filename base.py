@@ -46,8 +46,8 @@ class OpenStackBot(object):
     def get_response(self, question):
         return self.chatbot.get_response(question)
 
-app = Flask(__name__)
-SESSION_TYPE = 'null'
-app.config.from_object(__name__)
-Session(app)
+
 bot = OpenStackBot()
+
+app = Flask(__name__)
+sess = Session()

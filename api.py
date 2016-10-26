@@ -1,10 +1,10 @@
 from base import app
 from base import bot
+from base import sess
 from flask import request
 from flask import session
 from flask import url_for
 from flask import redirect
-from flask.ext.session import Session
 from client import OpenStackClient
 
 
@@ -38,9 +38,6 @@ def is_session_empty(value, session):
         return False
 
 
-# def session_contains
-
-
 @app.route('/index')
 def index():
     # UI: Initial Landing page
@@ -67,7 +64,6 @@ def process_login():
 def end_point():
     try:
         # To chatterbot
-        # import pdb; pdb.set_trace()
         question = request.args.get('question')
         bot_response = str(bot.get_response(question))
         code = bot_response.split(',')[0]
@@ -76,6 +72,7 @@ def end_point():
         return code_checker(code, response)
     except Exception, e:
         print(e)
+
 
 @app.route('/set')
 def set():
@@ -88,7 +85,7 @@ def set():
     # Update corpus question = key and answer = code, response.
     return code_checker(code, response)
 
-sess = Session()
+
 
 if __name__ == '__main__':
     app.secret_key = 'test'
