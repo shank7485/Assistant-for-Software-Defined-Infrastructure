@@ -19,10 +19,34 @@ class OpenStackClient(object):
                 return True
         except:
             return False
+    
+    def novaflavorlist(self):
+        try:
+            auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
+                   username='admin',
+                   password='secret',
+                   project_name='admin',
+                   user_domain_id='default',
+                   project_domain_id='default')
+            sess = k_session.Session(auth=auth)
+            nova = client.Client("2.1", session=sess)
+            return str(nova.flavors.list())
+        except:
+            return str("User not logged in")
 
-    def create_vm_session(self):
-        # TODO
-        pass
+    def novaimagelist(self):
+        try:          
+            auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
+                   username='admin',
+                   password='secret',
+                   project_name='admin',
+                   user_domain_id='default',
+                   project_domain_id='default')
+            sess = k_session.Session(auth=auth)
+            nova = client.Client("2.1", session=sess)
+            return str(nova.images.list())
+        except:
+            return str("User not logged in")
 
     def list_vm_session(self):
         # TODO

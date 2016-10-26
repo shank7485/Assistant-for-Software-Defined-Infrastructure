@@ -10,10 +10,10 @@ from client import OpenStackClient
 
 def code_checker(code, response):
     if code == '1' and is_session_empty('flavor', session):
-        flavor_list = ['m1.tiny'] # call get_flavor_list() method.
+        flavor_list = OpenStackClient().novaflavorlist() # call get_flavor_list() method.
         return '{} {}'.format(response, flavor_list)
     elif code == '1' and is_session_empty('image', session):
-        image_list = ['Ubuntu 14.04 Serve']  # call get_image_list() method.
+        image_list = OpenStackClient().novaimagelist()#['Ubuntu 14.04 Serve']  # call get_image_list() method.
         return '{} {}'.format(response, image_list)
     elif code == '1' and is_session_empty('name', session):
         return response
