@@ -56,8 +56,7 @@ class NovaClient(OpenStackClient):
 
     def nova_vm_list(self):
         try:
-            nova = client.Client("2.1", session=self.sess)
-            nova.servers.list()
+            self.nova.servers.list()
         except:
             return str("User bot loggin in")
 
