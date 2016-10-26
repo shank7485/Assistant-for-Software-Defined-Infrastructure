@@ -1,7 +1,8 @@
 from chatterbot.adapters.logic import LogicAdapter
 from chatterbot.conversation import Statement
 from chatterbot import ChatBot
-from flask import Flask
+from flask import Flask, session
+from flask.ext.session import Session
 
 
 class CustomLogicAdapter(LogicAdapter):
@@ -46,4 +47,7 @@ class OpenStackBot(object):
         return self.chatbot.get_response(question)
 
 app = Flask(__name__)
+SESSION_TYPE = 'null'
+app.config.from_object(__name__)
+Session(app)
 bot = OpenStackBot()
