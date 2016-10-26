@@ -33,7 +33,10 @@ def code_checker(code, response):
     if code == '2':
         # Do Other Stuff.
         pass
-
+    
+    if code == '3':
+        avail_zone = OpenStackClient().avail_zone_session()
+        return '{} : {}'.format(str(bot.get_response('Result_Avail')), avail_zone)
 
 def is_session_empty(value, session):
     if value not in session:
