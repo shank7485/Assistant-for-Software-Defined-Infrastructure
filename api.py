@@ -31,8 +31,16 @@ def code_checker(code, response):
             return 'Creation done'
 
     if code == '2':
-        # Do Other Stuff.
-        pass
+        if is_session_empty('network_name', session):
+            return response
+        elif 'network_name' in session and is_session_empty(
+                'confirm_network', session):
+            return '{} Network: {}'.format(str(bot.get_response(
+                'confirm_network'), session['network_name']))
+        elif 'confirm_network' in session:
+            # call create_network()
+            session.clear()
+            return 'Network Creation Done'
     
     if code == '3':
         avail_zone = OpenStackClient().avail_zone_session()

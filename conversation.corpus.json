@@ -15,6 +15,18 @@
             "1,Please specify the image"
         ],
         [
+            "Create a Network",
+            "2,Please provide a name"
+        ],
+        [
+            "Get Network List",
+            "2,Getting the available network list"
+        ],
+        [
+            "confirm_network",
+            "2,Your network is being created"
+        ],
+        [
             "Can you search for VM Nish?",
             "10,Search"
         ],
