@@ -8,15 +8,15 @@ from client import OpenStackClient
 
 
 def code_checker(code, response):
-    if code == 1 and 'flavor' not in session:
+    if code == '1' and is_session_empty('flavor', session):
         flavor_list = ['m1.tiny'] # call get_flavor_list() method.
         return '{} {}'.format(response, flavor_list)
-    elif code == 1 and 'image' not in session:
+    elif code == '1' and is_session_empty('image', session):
         image_list = ['Ubuntu 14.04 Serve']  # call get_image_list() method.
         return '{} {}'.format(response, image_list)
-    elif code == 1 and 'name' not in session:
+    elif code == '1' and is_session_empty('name', session):
         return response
-    elif code == 1 and 'flavor' in session and 'image' in session and 'name' \
+    elif code == '1' and 'flavor' in session and 'image' in session and 'name' \
             in session:
         # Update corpus for 'Confirm' and answer = code, response.
         return '{} Flavor: {} Image: {} Name: {}'.format(str(
@@ -24,9 +24,16 @@ def code_checker(code, response):
             session['flavor'],
             session['image'],
             session['name'])
-    elif code == 1 and 'confirm' in session:
+    elif code == '1' and 'confirm' in session:
         # call create_vm_()
         return 'Creation done'
+
+
+def is_session_empty(value, session):
+    if value not in session:
+        return True
+    else:
+        return False
 
 
 @app.route('/index')
@@ -55,7 +62,7 @@ def process_login():
 def end_point():
     try:
         # To chatterbot
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         question = request.args.get('question')
         bot_response = str(bot.get_response(question))
         code = bot_response.split(',')[0]
@@ -78,4 +85,5 @@ def set():
 
 
 if __name__ == '__main__':
+    app.secret_key = 'test'
     app.run(debug=True, port=8080)
