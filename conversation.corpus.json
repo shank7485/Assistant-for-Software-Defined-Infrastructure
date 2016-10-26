@@ -49,6 +49,14 @@
         [
             "confirm",
             "1,Your VM is now being created."
+        ],
+        [
+             "Show availability zones",
+             "3, Sure. Give me a moment."
+        ],
+        [
+             "Result_Avail",
+             "Here are your availability zones"
         ]
     ]
 }
