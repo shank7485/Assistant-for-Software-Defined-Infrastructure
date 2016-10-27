@@ -56,10 +56,19 @@ class NeutronClient(OpenStackClient):
         self.neutron = neutron_client.Client(session=self.sess)
 
     def networkcreate(self):
-            network1 = {'name': flask.session['network_name']}
-            self.neutron.create_network({'network': network1})
-
+        network1 = {'name': flask.session['network_name']}
+        self.neutron.create_network({'network': network1})
 
     def netlist(self):
-            list = self.neutron.list_networks()
-            return str(list)
+        return self.neutron.list_networks()
+
+    def netdelete(self):
+        net_list = self.netlist()
+        for network in net_list:
+            if network.name == flask.session['network_name'] :
+                net_id = network.id
+                self.neutron.delete_network(net_id)
+
+
+
+

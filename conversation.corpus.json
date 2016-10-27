@@ -13,8 +13,26 @@
             "2,Please provide a name"
         ],
         [
+            "confirm_network",
+            "2,Your network is being created"
+        ],
+        [
             "Get Network List",
             "2.1,Getting the available network list"
+        ],
+        [
+            "Delete a Network",
+            "2.2,Please provide a name or select a network from the network list "
+        ],
+        [
+            "Network_Delete_Confirm",
+            "2.2,Please confirm your selection",
+            "2.2,Confirm if this is the network you want to delete"
+        ],
+        [
+            "Network_delete_done",
+            "The Network has been deleted",
+            "Network deletion done.Have a good day :)"
         ],
         [
             "Net_List",

@@ -83,6 +83,19 @@ def code_checker(code, response):
         network_list = NeutronClient().netlist()
         return '{} : {}'.format(str(bot.get_response('Net_List')),
                                 network_list)
+
+    if code == '2.2':
+        if is_session_empty('network_delete', session):
+            network_list = NeutronClient().netlist()
+            return createJSONResponse("Net list", network_list, response)
+        elif 'network_delete' in session and is_session_empty(
+                'network_delete_confirm'):
+            return '{} Name: {}'.format(str(bot.get_response(
+                'Network_Delete_Confirm')))
+        elif 'network_delete_confirm' in session:
+            NeutronClient().netdelete()
+            session.clear()
+            return str(bot.get_response('Network_Delete_done'))
     
     if code == '3':
         avail_zone = NovaClient().avail_zone_session()
