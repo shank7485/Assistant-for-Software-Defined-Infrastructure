@@ -81,8 +81,7 @@ def code_checker(code, response):
 
     if code == '2.1':
         network_list = NeutronClient().netlist()
-        return '{} : {}'.format(str(bot.get_response('Net_List')),
-                                network_list)
+        return createJSONResponse("Network list", network_list, response)
 
     if code == '2.2':
         if is_session_empty('network_delete', session):
