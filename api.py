@@ -8,6 +8,7 @@ from flask import redirect
 from flask import render_template
 from client import NovaClient,NeutronClient
 
+
 def createJSONResponse(*argv):
     try:
        argv[3]
@@ -27,37 +28,40 @@ def createJSONResponse(*argv):
     response = response+ "}"
     return response
 
+
 def code_checker(code, response):
     if code == '1':
         if is_session_empty('flavor', session):
             flavor_list = NovaClient().novaflavorlist()
-            return createJSONResponse("flavor",flavor_list,response,True)
+            return createJSONResponse("flavor", flavor_list,response, True)
         elif is_session_empty('image', session):
             image_list = NovaClient().novaimagelist()
-            return createJSONResponse("image",image_list,response,True)
+            return createJSONResponse("image", image_list,response, True)
         elif is_session_empty('name', session):
             return response
         elif 'flavor' in session and 'image' in session and 'name' in session \
-            and is_session_empty('confirm', session):
+            and is_session_empty('vm_create_confirm', session):
             return '{} Flavor: {} Image: {} Name: {}'.format(str(
-                bot.get_response('Confirm')),
+                bot.get_response('VM_Create_Confirm')),
                 session['flavor'],
                 session['image'],
                 session['name'])
-        elif 'confirm' in session:
+        elif 'vm_create_confirm' in session:
             NovaClient().novaboot()
             session.clear()
-            # Add Creation done response from Bot.
-            return 'Creation done'
+            return str(bot.get_response('VM_Create_Done'))
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
-        return createJSONResponse("Nova list",nova_list,response)
+        return createJSONResponse("Nova list", nova_list, response)
 
     if code == '1.d':
-        if is_session_empty('delete_instance', session):
-            return response
-        else:
+        if is_session_empty('vm_delete', session):
+            nova_list = NovaClient().nova_vm_list()
+            return createJSONResponse("Nova list", nova_list, response)
+        elif 'vm_delete' in session and is_session_empty('vm_delete_confirm'):
+            return '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')))
+        elif 'vm_delete_confirm' in session:
             NovaClient().nova_vm_delete()
             session.clear()
             return str(bot.get_response('Deletion_Done'))

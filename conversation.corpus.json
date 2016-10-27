@@ -56,18 +56,28 @@
         ],
         [
             "Delete instance",
-            "1.d,I will delete your instance, can you please type in the instance name or ID?",
-            "1.d,Yes. I will. But can you please specify the instance name?"
+            "1.d,I will delete your instance, can you please type in the instance name or ID, or Select one form the list below.",
+            "1.d,Yes. I will. But can you please specify the instance name by typing or selecting the name?"
         ],
         [
-            "Deletion_Done",
+            "VM_Delete_Confirm",
+            "1.d,Please confirm if deletion is correct",
+            "1.d,Confirm if this is the VM you need to delete."
+        ],
+        [
+            "VM_Delete_Done",
             "Your Instance has been deleted.",
             "Instance stopped.",
             "Stopped your instance."
         ],
         [
-            "confirm",
-            "1,Your VM is now being created."
+            "VM_Create_Confirm",
+            "1,Please confirm if the parameters are correct.",
+            "1,Confirm again if the following are correct."
+        ],
+        [
+            "VM_Create_Done",
+            "Your VM creation is done!."
         ],
         [
             "Show availability zones",
