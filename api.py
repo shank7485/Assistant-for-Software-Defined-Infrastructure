@@ -47,11 +47,20 @@ def code_checker(code, response):
         elif 'confirm' in session:
             NovaClient().novaboot()
             session.clear()
+            # Add Creation done response from Bot.
             return 'Creation done'
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
         return createJSONResponse("Nova list",nova_list,response)
+
+    if code == '1.d':
+        if is_session_empty('delete_instance', session):
+            return response
+        else:
+            NovaClient().nova_vm_delete()
+            session.clear()
+            return str(bot.get_response('Deletion_Done'))
 
     if code == '2':
         if is_session_empty('network_name', session):

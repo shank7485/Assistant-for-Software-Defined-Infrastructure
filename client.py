@@ -45,6 +45,10 @@ class NovaClient(OpenStackClient):
     def nova_vm_list(self):
             return self.nova.servers.list()
 
+    def nova_vm_delete(self):
+        # Do delete
+        pass
+
 
 class NeutronClient(OpenStackClient):
     def __init__(self):

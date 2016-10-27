@@ -55,6 +55,17 @@
             "1,Thanks. Now type the name you want to give to the instance."
         ],
         [
+            "Delete instance",
+            "1.d,I will delete your instance, can you please type in the instance name or ID?",
+            "1.d,Yes. I will. But can you please specify the instance name?"
+        ],
+        [
+            "Deletion_Done",
+            "Your Instance has been deleted.",
+            "Instance stopped.",
+            "Stopped your instance."
+        ],
+        [
             "confirm",
             "1,Your VM is now being created."
         ],
