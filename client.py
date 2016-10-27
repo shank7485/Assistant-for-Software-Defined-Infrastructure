@@ -67,10 +67,11 @@ class NeutronClient(OpenStackClient):
         temp_list = network_list['networks']
         for i in temp_list:
             for k, v in i.iteritems():
-                k1 = '<'+str(k)+'>'
-                v1 = '<'+str(v)+'>'
-                w = k1+':'+v1
-                netlist.append(w)
+                if str(k)=='name':
+                    k1 = '<'+str(k)+'>'
+                    v1 = '<'+str(v)+'>'
+                    w = k1+':'+v1
+                    netlist.append(w)
         return netlist
 
     def netdelete(self):
