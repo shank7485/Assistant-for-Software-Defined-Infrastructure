@@ -7,13 +7,16 @@ import flask
 
 class OpenStackClient(object):
     def __init__(self):
-        auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
-                           username='admin',
-                           password='secret',
-                           project_name='admin',
-                           user_domain_id='default',
-                           project_domain_id='default')
-        self.sess = k_session.Session(auth=auth)
+        try:
+            auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
+                               username='admin',
+                               password='secret',
+                               project_name='admin',
+                               user_domain_id='default',
+                               project_domain_id='default')
+            self.sess = k_session.Session(auth=auth)
+        except:
+            return str("User not logged in")
 
 
 class NovaClient(OpenStackClient):
@@ -22,43 +25,25 @@ class NovaClient(OpenStackClient):
         self.nova = client.Client("2.1", session=self.sess)
 
     def check_keystone(self):
-        try:
             if (self.nova.flavors.list()):
                 return True
-        except:
-            return False
 
     def novaflavorlist(self):
-        try:
             return self.nova.flavors.list()
-        except:
-            return str("User not logged in")
 
     def novaimagelist(self):
-        try:
             return self.nova.images.list()
-        except:
-            return str("User not logged in")
 
     def avail_zone_session(self):
-       try:
            return self.nova.availability_zones.list()
-       except:
-           return str("User not logged in")
 
     def novaboot(self):
-        try:
             image = self.nova.images.find(name=flask.session['image'])#name="cirros-0.3.4-x86_64-uec")
             fl = self.nova.flavors.find(name=flask.session['flavor'])#name="m1.tiny")
             self.nova.servers.create(flask.session['name'], flavor=fl, image=image)
-        except:
-            return str("User not logged in")
 
     def nova_vm_list(self):
-        try:
             return self.nova.servers.list()
-        except:
-            return str("User bot loggin in")
 
 
 class NeutronClient(OpenStackClient):
@@ -67,15 +52,10 @@ class NeutronClient(OpenStackClient):
         self.neutron = neutron_client.Client(session=self.sess)
 
     def networkcreate(self):
-        try:
             network1 = {'name': flask.session['network_name']}
             self.neutron.create_network({'network': network1})
-        except:
-            return str("User not logged in")
+
 
     def netlist(self):
-        try:
             list = self.neutron.list_networks()
             return str(list)
-        except:
-            return str("User not logged in")
