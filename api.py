@@ -87,16 +87,17 @@ def test():
     # UI: Initial Landing page
     return render_template('index.html')
 
-@app.route('/')
-def index():
+#@app.route('/')
+#def index():
     # UI: Initial Landing page
-    return '<h1> Welcome to OpenStack AI! </h1>' \
-           'Please go to /login to see login page.'
+#    return '<h1> Welcome to OpenStack AI! </h1>' \
+#           'Please go to /login to see login page.'
 
+@app.route('/')
 @app.route('/login')
 def login():
     # UI: User clicks and goes to processLogin
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/processLogin')
 def process_login():
