@@ -96,7 +96,7 @@ def code_checker(code, response):
             session.clear()
             return str(bot.get_response('Network_Delete_done'))
     
-    if code == '3':
+    if code == '1.3':
         avail_zone = NovaClient().avail_zone_session()
         return createJSONResponse("AZ",avail_zone,response)
 
