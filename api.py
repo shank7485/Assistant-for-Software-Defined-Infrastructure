@@ -66,6 +66,10 @@ def code_checker(code, response):
             session.clear()
             return str(bot.get_response('VM_Deletion_Done'))
 
+    if code == '1.3':
+        avail_zone = NovaClient().avail_zone_session()
+        return createJSONResponse("AZ",avail_zone,response)
+
     if code == '2':
         if is_session_empty('network_name', session):
             return response
@@ -95,10 +99,6 @@ def code_checker(code, response):
             NeutronClient().netdelete()
             session.clear()
             return str(bot.get_response('Network_Delete_done'))
-    
-    if code == '1.3':
-        avail_zone = NovaClient().avail_zone_session()
-        return createJSONResponse("AZ",avail_zone,response)
 
 
 def is_session_empty(value, session):
@@ -160,7 +160,6 @@ def set():
     response = bot_response.split(',')[1]
     # Update corpus question = key and answer = code, response.
     return code_checker(code, response)
-
 
 
 if __name__ == '__main__':
