@@ -8,9 +8,9 @@ import flask
 class OpenStackClient(object):
     def __init__(self):
         try:
-            auth = v3.Password(auth_url='http://192.168.0.179:5000/v3',
+            auth = v3.Password(auth_url='http://192.168.0.12:5000/v3',
                                username='admin',
-                               password='secret',
+                               password='1',
                                project_name='admin',
                                user_domain_id='default',
                                project_domain_id='default')
