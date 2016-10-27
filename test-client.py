@@ -5,20 +5,30 @@ from novaclient import client
 from neutronclient.v2_0 import client as neutron_client
 
 
-def createJSONResponse(type,list,msg):
-    response = "{message: \""+msg+"\",\"list\":["
+def createJSONResponse(*argv):
+    try:
+       argv[3]
+    except Exception:
+       button = False
+    else:
+       button = True
+    response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
     l = []
-    for a in list:
-         temp = str(a).split(":")[1].strip()[:-1]
-         temp1 = "{\"value\": \""+type+"\", \"onclick\": \"setvariable("+type+","+temp+")\"},"
-         response = response + temp1
-         #print temp1
-    response = response[:-1] + "]}"
+    if argv[1] is not None:
+         response = response + ",\"list\":["
+         for a in argv[1]:
+                temp = str(a).split(":")[1].strip()[:-1]
+                temp1 = "{\"value\": \""+temp+"\"},"
+                response = response + temp1
+         response = response[:-1] + "]"
+    response = response + ",\"button\":\""+str(button)+"\""
+    response = response+ "}"
     return response
 
-auth = v3.Password(auth_url='http://172.99.106.89:80/v3',
+
+auth = v3.Password(auth_url='http://192.168.0.12:5000/v3',
                    username='admin',
-                   password='secret',
+                   password='1',
                    project_name='admin',
                    user_domain_id='default',
                    project_domain_id='default')
@@ -26,7 +36,20 @@ sess = session.Session(auth=auth)
 nova = client.Client("2.1", session=sess)
 #nova.servers.create("nish",flavor="m1.tiny")
 neutron = neutron_client.Client(session=sess)
-response = createJSONResponse("AZ",nova.availability_zones.list(),"msg")
-print(response)
+#response = createJSONResponse("AZ",nova.availability_zones.list(),"msg")
+#print(response)
 list = nova.servers.list()
-print(neutron.list_networks())
+
+network_list = neutron.list_networks()
+netlist = []
+temp_list = network_list['networks']
+for i in temp_list:
+    for k, v in i.iteritems():
+         if str(k)=='name':
+             k1 = '<'+str(k)
+             v1 = str(v)+'>'
+             w = k1+':'+v1
+             netlist.append(w)
+print netlist
+print nova.availability_zones.list()
+print createJSONResponse("",None,"Plain message")
