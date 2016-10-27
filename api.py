@@ -64,7 +64,7 @@ def code_checker(code, response):
         elif 'vm_delete_confirm' in session:
             NovaClient().nova_vm_delete()
             session.clear()
-            return str(bot.get_response('Deletion_Done'))
+            return str(bot.get_response('VM_Deletion_Done'))
 
     if code == '2':
         if is_session_empty('network_name', session):
