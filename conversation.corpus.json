@@ -86,6 +86,10 @@
 			"1,Confirm again if the following are correct."
 		],
 		[
+			"VM_Create_Not_Confirm",
+			"1,So you don't want to proceed ahead with creation of VM. What else do you want to do?"
+		],
+		[
 			"VM_Create_Done",
 			"Your VM creation is done!."
 		],

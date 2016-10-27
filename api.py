@@ -57,8 +57,10 @@ def code_checker(code, response):
                     res = str(bot.get_response('VM_Create_Done'))
                     return createJSONResponse("", None, res)
                 else:
-                    # TODO Stop things. # Start from flavor.
-                    pass
+                    session.clear()
+                    res = str(bot.get_response('VM_Create_Not_Confirm'))
+                    return createJSONResponse("", None, res)
+
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
