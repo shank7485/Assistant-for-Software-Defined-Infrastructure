@@ -31,26 +31,35 @@ def createJSONResponse(*argv):
 
 
 def code_checker(code, response):
-    if code == '1':
-        if is_session_empty('flavor', session):
-            flavor_list = NovaClient().novaflavorlist()
-            return createJSONResponse("flavor", flavor_list,response, True)
-        elif is_session_empty('image', session):
-            image_list = NovaClient().novaimagelist()
-            return createJSONResponse("image", image_list,response, True)
-        elif is_session_empty('name', session):
-            return createJSONResponse("", None,response)
-        elif 'flavor' in session and 'image' in session and 'name' in session \
-            and is_session_empty('vm_create_confirm', session):
-            return '{} Flavor: {} Image: {} Name: {}'.format(str(
-                bot.get_response('VM_Create_Confirm')),
-                session['flavor'],
-                session['image'],
-                session['name'])
-        elif 'vm_create_confirm' in session:
-            NovaClient().novaboot()
-            session.clear()
-            return str(bot.get_response('VM_Create_Done'))
+    def code_checker(code, response):
+        if code == '1':
+            if is_session_empty('flavor', session):
+                flavor_list = NovaClient().novaflavorlist()
+                return createJSONResponse("flavor", flavor_list, response, True)
+            elif is_session_empty('image', session):
+                image_list = NovaClient().novaimagelist()
+                return createJSONResponse("image", image_list, response, True)
+            elif is_session_empty('name', session):
+                return createJSONResponse("", None, response)
+            elif 'flavor' in session and 'image' in session and 'name' in session:
+                if is_session_empty('vm_create_confirm', session):
+                    res = '{} Flavor: {} Image: {} Name: {}'.format(str(
+                        bot.get_response('VM_Create_Confirm')),
+                        session['flavor'],
+                        session['image'],
+                        session['name'])
+                    list = ['<:Yes>', '<:No>']
+                    return createJSONResponse("vm_create_confirm", list, res,
+                                              True)
+                else:
+                    if session['vm_create_confirm'] is True:
+                        NovaClient().novaboot()
+                        session.clear()
+                        res = str(bot.get_response('VM_Create_Done'))
+                        return createJSONResponse("", None, res)
+                    else:
+                        # TODO Stop things. # Start from flavor.
+                        pass
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
