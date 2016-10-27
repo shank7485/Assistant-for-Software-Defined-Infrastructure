@@ -61,7 +61,6 @@ def code_checker(code, response):
                     res = str(bot.get_response('VM_Create_Not_Confirm'))
                     return createJSONResponse("", None, res)
 
-
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
         return createJSONResponse("Nova list", nova_list, response)
@@ -84,15 +83,24 @@ def code_checker(code, response):
     if code == '2':
         if is_session_empty('network_name', session):
             return response
-        elif 'network_name' in session and is_session_empty(
-                'confirm_network', session):
-            return '{} Network: {}'.format(str(bot.get_response(
-                'confirm_network'), session['network_name']))
-        elif 'confirm_network' in session:
-            NeutronClient().networkcreate()
-            # call create_network()
-            session.clear()
-            return 'Network Creation Done'
+        elif 'network_name' in session :
+            if is_session_empty('network_create_confirm', session):
+                res = '{} Network: {}'.format(str(bot.get_response(
+                    'Network_Create_Confirm')), session['network_name'])
+                list1 = ['<:Yes>', '<:No>']
+                return createJSONResponse("Network_Create_Confirm", list1,
+                                          res, True)
+            else:
+                if 'network_create_confirm' in session:
+                    NeutronClient().networkcreate()
+                    # call create_network()
+                    session.clear()
+                    res = str(bot.get_response('Network_Create_Done'))
+                    return createJSONResponse("", None, res)
+                else:
+                    session.clear()
+                    res = str(bot.get_response('Network_Create_Not_Confirm'))
+                    return createJSONResponse("", None, res)
 
     if code == '2.1':
         network_list = NeutronClient().netlist()

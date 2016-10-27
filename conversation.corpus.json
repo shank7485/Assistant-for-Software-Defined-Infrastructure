@@ -122,12 +122,28 @@
 			"Stopped your instance."
 		],
 		[
+			"network_name",
+			"2, Creating network..have patience!"
+		],
+		[
 			"Network_Create_Confirm",
 			"2,Please confirm the following."
 		],
 		[
 			"Network_Create_Confirm",
-			"2,Confirm the following parameters."
+			"2,Confirm the network creation."
+		],
+		[
+			"Network_Create_Done",
+			"Your Network is created, It's that easy with your OpenStack Assistant :)"
+		],
+		[
+			"Network_Create_Done",
+			"Network Creation is complete, It's that easy with your OpenStack Assistant :)"
+		],
+		[
+			"Network_Create_Not_Confirm",
+			"Okay...I see...What else can I help you with?"
 		],
 		[
 			"Network_Delete_Confirm",
