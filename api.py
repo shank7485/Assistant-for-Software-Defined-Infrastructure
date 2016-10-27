@@ -16,15 +16,16 @@ def createJSONResponse(*argv):
        button = False
     else:
        button = True
-    response = "{message: \""+argv[2]+"\",\"list\":["
+    response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
     l = []
-    for a in argv[1]:
-         temp = str(a).split(":")[1].strip()[:-1]
-         temp1 = "{\"value\": \""+temp+"\", \"type\": \""+argv[0]+"\"},"
-         response = response + temp1
-         #print temp1
-    response = response[:-1] + "]"
-    response = response + ",button:\""+str(button)+"\""
+    if argv[1] is not None:
+         response = response + ",\"list\":["
+         for a in argv[1]:
+                temp = str(a).split(":")[1].strip()[:-1]
+                temp1 = "{\"value\": \""+temp+"\"},"
+                response = response + temp1
+         response = response[:-1] + "]"
+    response = response + ",\"button\":\""+str(button)+"\""
     response = response+ "}"
     return response
 
@@ -38,7 +39,7 @@ def code_checker(code, response):
             image_list = NovaClient().novaimagelist()
             return createJSONResponse("image", image_list,response, True)
         elif is_session_empty('name', session):
-            return response
+            return createJSONResponse("", None,response)
         elif 'flavor' in session and 'image' in session and 'name' in session \
             and is_session_empty('vm_create_confirm', session):
             return '{} Flavor: {} Image: {} Name: {}'.format(str(
