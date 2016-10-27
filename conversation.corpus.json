@@ -53,6 +53,18 @@
 			"1.3,Sure. The following are the availability zones."
 		],
 		[
+			"What can you do?",
+			"0,Right now I can Create List and Delete Instances and Networks!"
+		],
+		[
+			"What all can you do?",
+			"0,Right now I can Create List and Delete Instances and Networks!"
+		],
+		[
+			"Who are you?",
+			"0,I am OpenStack Assistant and I can spin up VMs and Networks. You need not know any OpenStack commands. I will do it for it. Just chat with me and let me know if you want any resources."
+		],
+		[
 			"stop",
 			"0,alright.. I am clearing everything."
 		],
@@ -91,11 +103,11 @@
 		],
 		[
 			"VM_Create_Done",
-			"Your VM creation is done!."
+			"0,Your VM creation is done!."
 		],
 		[
 			"VM_Create_Done",
-			"VM is created."
+			"0,VM is created."
 		],
 		[
 			"VM_Delete_Confirm",
@@ -107,19 +119,19 @@
 		],
 		[
 			"VM_Delete_Done",
-			"Your Instance has been deleted."
+			"0,Your Instance has been deleted."
 		],
 		[
 			"VM_Delete_Done",
-			"Your Instance has been deleted."
+			"0,Your Instance has been deleted."
 		],
 		[
 			"VM_Delete_Done",
-			"Instance stopped."
+			"0,Instance stopped."
 		],
 		[
 			"VM_Delete_Done",
-			"Stopped your instance."
+			"0,Stopped your instance."
 		],
 		[
 			"network_name",
@@ -135,15 +147,15 @@
 		],
 		[
 			"Network_Create_Done",
-			"Your Network is created, It's that easy with your OpenStack Assistant :)"
+			"0,Your Network is created. It's that easy with your OpenStack Assistant :)"
 		],
 		[
 			"Network_Create_Done",
-			"Network Creation is complete, It's that easy with your OpenStack Assistant :)"
+			"0,Network Creation is complete. It's that easy with your OpenStack Assistant :)"
 		],
 		[
 			"Network_Create_Not_Confirm",
-			"Okay...I see...What else can I help you with?"
+			"0,Okay...I see...What else can I help you with?"
 		],
 		[
 			"Network_Delete_Confirm",
@@ -155,15 +167,15 @@
 		],
 		[
 			"Network_Delete_Done",
-			"The Network has been deleted"
+			"0,The Network has been deleted"
 		],
 		[
 			"Network_Delete_Done",
-			"Network deletion done.Have a good day :)"
+			"0,Network deletion done.Have a good day :)"
 		],
 		[
 			"Net_List",
-			"Available Network list is : "
+			"0,Available Network list is: "
 		]
 	]
 }

@@ -31,6 +31,9 @@ def createJSONResponse(*argv):
 
 
 def code_checker(code, response):
+    if code == '0':
+        return createJSONResponse("", None, response)
+
     if code == '1':
         if is_session_empty('flavor', session):
             flavor_list = NovaClient().novaflavorlist()
