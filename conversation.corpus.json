@@ -1,7 +1,7 @@
 {
     "conversations": [
         [
-            "Create VM",
+            "Create a VM",
             "1,Sure. Creating VM. But, I need to know to know the Flavor. Please select from this list"
         ],
         [
@@ -13,34 +13,12 @@
             "2,Please provide a name"
         ],
         [
-            "confirm_network",
-            "2,Your network is being created"
-        ],
-        [
             "Get Network List",
             "2.1,Getting the available network list"
         ],
         [
             "Delete a Network",
             "2.2,Please provide a name or select a network from the network list "
-        ],
-        [
-            "Network_Delete_Confirm",
-            "2.2,Please confirm your selection",
-            "2.2,Confirm if this is the network you want to delete"
-        ],
-        [
-            "Network_delete_done",
-            "The Network has been deleted",
-            "Network deletion done.Have a good day :)"
-        ],
-        [
-            "Net_List",
-            "Available Network list is : "
-        ],
-        [
-            "confirm_network",
-            "2,Your network is being created"
         ],
         [
             "Can you please create a virtual instance?",
@@ -63,39 +41,12 @@
             "1.1,Here are your VMs."
         ],
         [
-            "flavor",
-            "1,Thank you. I also need to know what image to boot. Please select which image to boot.",
-            "1,Thanks! Now please specify the image. Please select which image to boot.",
-            "1,Thanks! Select the image. I can't boot an image without knowing the image."
-        ],
-        [
-            "image",
-            "1,Thanks. Now type the name you want to give to the instance."
+            "Delete instance",
+            "1.d,I will delete your instance, can you please type in the instance name or ID, or Select one form the list below.",
         ],
         [
             "Delete instance",
-            "1.d,I will delete your instance, can you please type in the instance name or ID, or Select one form the list below.",
             "1.d,Yes. I will. But can you please specify the instance name by typing or selecting the name?"
-        ],
-        [
-            "VM_Delete_Confirm",
-            "1.d,Please confirm if deletion is correct",
-            "1.d,Confirm if this is the VM you need to delete."
-        ],
-        [
-            "VM_Delete_Done",
-            "Your Instance has been deleted.",
-            "Instance stopped.",
-            "Stopped your instance."
-        ],
-        [
-            "VM_Create_Confirm",
-            "1,Please confirm if the parameters are correct.",
-            "1,Confirm again if the following are correct."
-        ],
-        [
-            "VM_Create_Done",
-            "Your VM creation is done!."
         ],
         [
             "Show availability zones",
@@ -104,6 +55,95 @@
         [
             "stop",
             "0,alright.. I am clearing everything."
-        ]
+        ],
+        [
+            "#################################################"
+            "ADD HUMAN TEXTS ABOVE. ADD COMMANDS BELOW.
+            "#################################################"
+        ],
+        [
+            "flavor",
+            "1,Thank you. I also need to know what image to boot. Please select which image to boot.",
+        ],
+        [
+            "flavor",
+            "1,Thanks! Now please specify the image. Please select which image to boot.",
+        ],
+        [
+            "flavor",
+            "1,Thanks! Select the image. I can't boot an image without knowing the image."
+        ],
+        [
+            "image",
+            "1,Thanks. Now type the name you want to give to the instance."
+        ],
+        [
+            "VM_Create_Confirm",
+            "1,Please confirm if the parameters are correct.",
+        ],
+        [
+            "VM_Create_Confirm",
+            "1,Confirm again if the following are correct."
+        ],
+        [
+            "VM_Create_Done",
+            "Your VM creation is done!."
+        ],
+        [
+            "VM_Create_Done",
+            "VM is created."
+        ],
+        [
+            "VM_Delete_Confirm",
+            "1.d,Please confirm if deletion is correct",
+        ],
+        [
+            "VM_Delete_Confirm",
+            "1.d,Confirm if this is the VM you need to delete."
+        ],
+        [
+            "VM_Delete_Done",
+            "Your Instance has been deleted.",
+        ],
+        [
+            "VM_Delete_Done",
+            "Your Instance has been deleted.",
+        ],
+        [
+            "VM_Delete_Done",
+            "Instance stopped.",
+        ],
+        [
+            "VM_Delete_Done",
+            "Stopped your instance."
+        ],
+        [
+            "Network_Create_Confirm",
+            "2,Please confirm the following."
+        ],
+        [
+            "Network_Create_Confirm",
+            "2,Confirm the following parameters."
+        ],
+        [
+            "Network_Delete_Confirm",
+            "2.2,Please confirm your selection",
+        ],
+        [
+            "Network_Delete_Confirm",
+            "2.2,Confirm if this is the network you want to delete"
+        ],
+        [
+            "Network_Delete_Done",
+            "The Network has been deleted"
+        ],
+        [
+            "Network_Delete_Done",
+            "Network deletion done.Have a good day :)"
+        ],
+        [
+            "Net_List",
+            "Available Network list is : "
+        ],
     ]
 }
