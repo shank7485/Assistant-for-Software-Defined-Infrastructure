@@ -46,8 +46,10 @@ class NovaClient(OpenStackClient):
             return self.nova.servers.list()
 
     def nova_vm_delete(self):
-        # Do delete
-        pass
+        instance_list = self.nova.servers.list()
+        for ins in instance_list:
+                if ins.name == flask.session['vm_delete']:
+                    self.nova.servers.delete(ins.id)
 
 
 class NeutronClient(OpenStackClient):
