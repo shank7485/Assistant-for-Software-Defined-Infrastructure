@@ -8,25 +8,33 @@ from flask import redirect
 from flask import render_template
 from client import NovaClient,NeutronClient
 
-def createJSONResponse(type,list,msg):
-    response = "{message: \""+msg+"\",\"list\":["
+def createJSONResponse(*argv):
+    try:
+       argv[3]
+    except Exception:
+       button = False
+    else:
+       button = True
+    response = "{message: \""+argv[2]+"\",\"list\":["
     l = []
-    for a in list:
+    for a in argv[1]:
          temp = str(a).split(":")[1].strip()[:-1]
-         temp1 = "{\"value\": \""+type+"\", \"onclick\": \"setvariable("+type+","+temp+")\"},"
+         temp1 = "{\"value\": \""+temp+"\", \"type\": \""+argv[0]+"\"},"
          response = response + temp1
          #print temp1
-    response = response[:-1] + "]}"
+    response = response[:-1] + "]"
+    response = response + ",button:\""+str(button)+"\""
+    response = response+ "}"
     return response
 
 def code_checker(code, response):
     if code == '1':
         if is_session_empty('flavor', session):
             flavor_list = NovaClient().novaflavorlist()
-            return createJSONResponse("Flavor list",flavor_list,response)
+            return createJSONResponse("flavor",flavor_list,response,True)
         elif is_session_empty('image', session):
             image_list = NovaClient().novaimagelist()
-            return createJSONResponse("Image list",image_list,response)
+            return createJSONResponse("image",image_list,response,True)
         elif is_session_empty('name', session):
             return response
         elif 'flavor' in session and 'image' in session and 'name' in session \
