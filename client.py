@@ -79,7 +79,10 @@ class NeutronClient(OpenStackClient):
 
     def netdelete(self):
         net_list = self.netlist()
-        for network in net_list:
-            if network.name == flask.session['network_name'] :
-                net_id = network.id
-                self.neutron.delete_network(net_id)
+        for network in net_list['networks']:
+            for k,v in network.iteritems():
+                if str(k)=='name':
+                    if str(v) == flask.session['network_name']:
+                        break;
+            net_id = network['id']
+            self.neutron.delete_network(net_id)
