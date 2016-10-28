@@ -145,6 +145,10 @@
 			"1,Thanks. Now type the name you want to give to the instance."
 		],
 		[
+			"vm_delete",
+			"1.d,Deleting VM. Please wait."
+		],
+		[
 			"VM_Create_Confirm",
 			"1,Please confirm if the parameters are correct."
 		],
