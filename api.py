@@ -94,7 +94,7 @@ def code_checker(code, response):
                     NovaClient().nova_vm_delete()
                     #NovaClient().nova_vm_delete()
                     SESSION.clear()
-                    res = str(bot.get_response('VM_Delete_Done'))
+                    res = str(bot.get_response('VM_Delete_Done').split(',')[1])
                     return createJSONResponse("", None, res)
                 elif SESSION['vm_delete_confirm'] == 'no':
                     SESSION.clear()
