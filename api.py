@@ -82,10 +82,10 @@ def code_checker(code, response):
         if is_session_empty('vm_delete', SESSION):
             nova_list = NovaClient().nova_vm_list()
             #nova_list = ['<:test>']
-            return createJSONResponse("vm_delete", nova_list, response)
+            return createJSONResponse("vm_delete", nova_list, response, True)
         elif 'vm_delete' in SESSION:
             if is_session_empty('vm_delete_confirm', SESSION):
-                res = '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')))
+                res = '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')).split(',')[1])
                 lst = ['<:yes>', '<:no>']
                 return createJSONResponse("vm_delete_confirm", lst, res,
                                           True)
@@ -98,7 +98,7 @@ def code_checker(code, response):
                     return createJSONResponse("", None, res)
                 elif SESSION['vm_delete_confirm'] == 'no':
                     SESSION.clear()
-                    res = str(bot.get_response('VM_Delete_Not_Confirm'))
+                    res = str(bot.get_response('VM_Delete_Not_Confirm').split(',')[1])
                     return createJSONResponse("", None, res)
 
     if code == '1.3':
@@ -112,7 +112,7 @@ def code_checker(code, response):
         elif 'network_name' in SESSION :
             if is_session_empty('network_create_confirm', SESSION):
                 res = '{} Network: {}'.format(str(bot.get_response(
-                    'Network_Create_Confirm')), SESSION['network_name'])
+                    'Network_Create_Confirm')).split(',')[1], SESSION['network_name'])
                 list1 = ['<:yes>', '<:no>']
                 return createJSONResponse("Network_Create_Confirm", list1,
                                           res, True)
@@ -121,11 +121,11 @@ def code_checker(code, response):
                     NeutronClient().networkcreate()
                     #NeutronClient().networkcreate()
                     SESSION.clear()
-                    res = str(bot.get_response('Network_Create_Done'))
+                    res = str(bot.get_response('Network_Create_Done').split(',')[1])
                     return createJSONResponse("", None, res)
                 elif SESSION['network_create_confirm'] == 'no':
                     SESSION.clear()
-                    res = str(bot.get_response('Network_Create_Not_Confirm'))
+                    res = str(bot.get_response('Network_Create_Not_Confirm').split(',')[1])
                     return createJSONResponse("", None, res)
 
     if code == '2.1':
@@ -149,11 +149,11 @@ def code_checker(code, response):
                     NeutronClient().netdelete()
                     #NeutronClient().netdelete()
                     SESSION.clear()
-                    res = str(bot.get_response('Network_Delete_Done'))
+                    res = str(bot.get_response('Network_Delete_Done').split(',')[1])
                     return createJSONResponse("", None, res)
                 elif SESSION['network_delete_confirm'] == 'no':
                     SESSION.clear()
-                    res = str(bot.get_response('Network_Delete_Not_Confirm'))
+                    res = str(bot.get_response('Network_Delete_Not_Confirm').split(',')[1])
                     return createJSONResponse("", None, res)
 
 
