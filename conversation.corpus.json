@@ -2,7 +2,7 @@
 	"conversations": [
 		[
 			"Create a VM",
-			"1,Sure. Creating VM. But, I need to know to know the Flavor. Please select from this list"
+			"1,Sure. Creating VM. But I need to know to know the Flavor. Please select from this list"
 		],
 		[
 			"Can you create a VM for me.",
