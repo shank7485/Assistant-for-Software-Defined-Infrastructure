@@ -2,27 +2,55 @@
 	"conversations": [
 		[
 			"Create a VM",
-			"1,Sure. Creating VM. But I need to know to know the Flavor. Please select from this list"
+			"1,Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
 		],
 		[
 			"Can you create a VM for me.",
 			"1,Yes. I am on it. But you need to provide me the Flavor first. Select one form the following list."
 		],
 		[
+			"Please create a virtual machine.",
+			"1,Yes. But first I need to know the flavor list."
+		],
+		[
 			"Create a Network",
 			"2,Please provide a name"
 		],
 		[
+			"Can you create a network?",
+			"2,Provide me a name and I can do that for you."
+		],
+		[
+			"Is it possible to create a new network?",
+			"2,I can create a new network. But I need to first know what name you want to give it."
+		],
+		[
 			"Get Network List",
-			"2.1,Getting the available network list"
+			"2.1,Here you go. The list of networks available."
+		],
+		[
+			"Show all the networks available",
+			"2.1,These are the networks available."
 		],
 		[
 			"Delete a Network",
-			"2.2,Please provide a name or select a network from the network list "
+			"2.2,Please provide a name or select a network from the network list"
+		],
+		[
+			"I need to delete a network.",
+			"2.2,I can do that for you. All I need is to know is which one to delete."
 		],
 		[
 			"Can you please create a virtual instance?",
 			"1,I will create the VM for you. But please specify the flavor."
+		],
+		[
+			"What are the OpenStack Services available in this cloud?",
+			"The following are the services which are running on this cloud."
+		],
+		[
+			"What is OpenStack?",
+			"OpenStack is an open source cloud OS. This means if you have a rack of spare servers you can run the software on the servers and start your own hosting company."
 		],
 		[
 			"Show all VMs",
@@ -53,8 +81,16 @@
 			"1.3,Sure. The following are the availability zones."
 		],
 		[
+			"May I know what all availability zones are present?",
+			"1.3,Here are the availability zones."
+		],
+		[
 			"What can you do?",
 			"0,Right now I can Create List and Delete Instances and Networks!"
+		],
+		[
+			"Who created you?",
+			"I am a brain child of OSIC."
 		],
 		[
 			"What all can you do?",
@@ -134,8 +170,12 @@
 			"0,Stopped your instance."
 		],
 		[
+			"vm_name",
+			"1,Creating VM. Please wait."
+		],
+		[
 			"network_name",
-			"2, Creating network..have patience!"
+			"2,Creating network..have patience!"
 		],
 		[
 			"Network_Create_Confirm",
