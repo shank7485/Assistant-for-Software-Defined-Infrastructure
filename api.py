@@ -7,8 +7,7 @@ from flask import render_template
 from client import NovaClient,NeutronClient
 from flask import jsonify
 import json
-
-SESSION = {}
+from base import SESSION
 
 def createJSONResponse(*argv):
     try:
@@ -220,4 +219,5 @@ def set():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(host='0.0.0.0',debug=True, port=8080)
+                                                     
