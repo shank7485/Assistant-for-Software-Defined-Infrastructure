@@ -81,6 +81,10 @@
 			"1.1,Here are your VMs."
 		],
 		[
+			"Delete VM",
+			"1.d,Yes. Kindly specify the name."
+		],
+		[
 			"Delete instance",
 			"1.d,I will delete your instance can you please type in the instance name or ID or Select one form the list below."
 		],
