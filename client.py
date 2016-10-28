@@ -2,7 +2,7 @@ from keystoneauth1.identity import v3
 from keystoneauth1 import session as k_session
 from novaclient import client
 from neutronclient.v2_0 import client as neutron_client
-from cinderclient.v1 import cinder_client
+from cinderclient.v1 import client as cinder_client
 import flask
 from base import SESSION
 
@@ -92,7 +92,7 @@ class NeutronClient(OpenStackClient):
 class CinderClient(OpenStackClient):
     def __init__(self):
         super(CinderClient, self).__init__()
-        self.cinder = cinder_client.Client()
+        self.cinder = cinder_client.Client(session=self.sess)
 
     def volumelist(self):
         vol_list = self.cinder.volumes.list()
