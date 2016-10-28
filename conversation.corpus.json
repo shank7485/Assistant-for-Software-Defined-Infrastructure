@@ -46,11 +46,11 @@
 		],
 		[
 			"What are the OpenStack Services available in this cloud?",
-			"The following are the services which are running on this cloud."
+			"0,The following are the services which are running on this cloud."
 		],
 		[
 			"What is OpenStack?",
-			"OpenStack is an open source cloud OS. This means if you have a rack of spare servers you can run the software on the servers and start your own hosting company."
+			"0,OpenStack is an open source cloud OS. This means if you have a rack of spare servers you can run the software on the servers and start your own hosting company."
 		],
 		[
 			"Show all VMs",
