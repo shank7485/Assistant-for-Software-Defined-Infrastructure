@@ -1,10 +1,10 @@
-from base import app
+m base import app
 from base import bot
 from flask import request
 from flask import url_for
 from flask import redirect
 from flask import render_template
-from client import NovaClient,NeutronClient,CinderClient
+from client import NovaClient,NeutronClient
 from flask import jsonify
 import json
 from base import SESSION
@@ -33,7 +33,7 @@ def createJSONResponse(*argv):
          response = response[:-1] + "]"
     response = response + ",\"button\":\""+str(button)+"\""+ ",\"callSet\":\""+str(callSet)+"\""
     response = response+ "}"
-    return "angular.callbacks._0("+response+")"
+    return jsonify(json.loads(response))
 
 
 def code_checker(code, response):
@@ -50,7 +50,7 @@ def code_checker(code, response):
             image_list = NovaClient().novaimagelist()
             return createJSONResponse("image", image_list, response, True)
         elif is_session_empty('vm_name', SESSION):
-            return createJSONResponse("vm_name", None, response)
+            return createJSONResponse("vm_name", None, response,False,True)
         elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name' in SESSION:
             if is_session_empty('vm_create_confirm', SESSION):
                 res = '{} Flavor: {} Image: {} Name: {}'.format(str(
@@ -156,10 +156,6 @@ def code_checker(code, response):
                     res = str(bot.get_response('Network_Delete_Not_Confirm'))
                     return createJSONResponse("", None, res)
 
-    if code == '3':
-        volume_list = CinderClient.volumelist()
-        return createJSONResponse("", volume_list, response)
-
 
 def is_session_empty(value, session):
     if value not in session:
@@ -224,4 +220,4 @@ def set():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True, port=8080)
-                                                     
+                                                                   
