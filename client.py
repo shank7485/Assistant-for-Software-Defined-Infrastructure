@@ -3,7 +3,7 @@ from keystoneauth1 import session as k_session
 from novaclient import client
 from neutronclient.v2_0 import client as neutron_client
 import flask
-
+from base import SESSION
 
 class OpenStackClient(object):
     def __init__(self):
@@ -41,9 +41,9 @@ class NovaClient(OpenStackClient):
            return self.nova.availability_zones.list()
 
     def novaboot(self):
-            image = self.nova.images.find(name=flask.session['image'])#name="cirros-0.3.4-x86_64-uec")
-            fl = self.nova.flavors.find(name=flask.session['flavor'])#name="m1.tiny")
-            self.nova.servers.create(flask.session['name'], flavor=fl, image=image)
+            image = self.nova.images.find(name=SESSION['image'])#name="cirros-0.3.4-x86_64-uec")
+            fl = self.nova.flavors.find(name=SESSION['flavor'])#name="m1.tiny")
+            self.nova.servers.create(SESSION['vm_name'], flavor=fl, image=image)
 
     def nova_vm_list(self):
             return self.nova.servers.list()
