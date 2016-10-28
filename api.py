@@ -54,7 +54,7 @@ def code_checker(code, response):
         elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name' in SESSION:
             if is_session_empty('vm_create_confirm', SESSION):
                 res = '{} Flavor: {} Image: {} Name: {}'.format(str(
-                    bot.get_response('VM_Create_Confirm')),
+                    bot.get_response('VM_Create_Confirm')).split(',')[1],
                     SESSION['flavor'],
                     SESSION['image'],
                     SESSION['vm_name'])
@@ -66,12 +66,12 @@ def code_checker(code, response):
                     NovaClient().novaboot()
                     #NovaClient().novaboot()
                     SESSION.clear()
-                    res = str(bot.get_response('VM_Create_Done'))
+                    res = str(bot.get_response('VM_Create_Done')).split(',')[1]
                     return createJSONResponse("", None, res)
                 elif SESSION['vm_create_confirm'] == 'no':
                     SESSION.clear()
-                    res = str(bot.get_response('VM_Create_Not_Confirm'))
-                    return createJSONResponse("", None, res.split(',')[1])
+                    res = str(bot.get_response('VM_Create_Not_Confirm')).split(',')[1]
+                    return createJSONResponse("", None, res)
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
