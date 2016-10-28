@@ -4,7 +4,7 @@ from flask import request
 from flask import url_for
 from flask import redirect
 from flask import render_template
-from client import NovaClient,NeutronClient
+from client import NovaClient,NeutronClient,CinderClient
 from flask import jsonify
 import json
 
@@ -156,6 +156,10 @@ def code_checker(code, response):
                     SESSION.clear()
                     res = str(bot.get_response('Network_Delete_Not_Confirm'))
                     return createJSONResponse("", None, res)
+
+    if code == '3':
+        volume_list = CinderClient.volumelist()
+        return createJSONResponse("", volume_list, response)
 
 
 def is_session_empty(value, session):

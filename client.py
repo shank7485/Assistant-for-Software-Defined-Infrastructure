@@ -2,6 +2,7 @@ from keystoneauth1.identity import v3
 from keystoneauth1 import session as k_session
 from novaclient import client
 from neutronclient.v2_0 import client as neutron_client
+from cinderclient.v1 import cinder_client
 import flask
 
 
@@ -86,3 +87,14 @@ class NeutronClient(OpenStackClient):
                         break;
             net_id = network['id']
             self.neutron.delete_network(net_id)
+
+
+class CinderClient(OpenStackClient):
+    def __init__(self):
+        super(CinderClient, self).__init__()
+        self.cinder = cinder_client.Client()
+
+    def volumelist(self):
+        vol_list = self.cinder.volumes.list()
+        return vol_list
+

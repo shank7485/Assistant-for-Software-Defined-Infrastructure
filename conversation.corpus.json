@@ -45,6 +45,14 @@
 			"1,I will create the VM for you. But please specify the flavor."
 		],
 		[
+			"List Volumes",
+			"3, Here is the list of available volumes"
+		],
+		[
+			"Can you list the available volumes",
+			"3, Sure Here is Volume List.Thank the python-cinderclient...not me ;)"
+		],
+		[
 			"What are the OpenStack Services available in this cloud?",
 			"0,The following are the services which are running on this cloud."
 		],
