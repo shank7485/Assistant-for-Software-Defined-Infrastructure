@@ -41,15 +41,15 @@ def code_checker(code, response):
         elif is_session_empty('image', session):
             image_list = NovaClient().novaimagelist()
             return createJSONResponse("image", image_list, response, True)
-        elif is_session_empty('name', session):
+        elif is_session_empty('vm_name', session):
             return createJSONResponse("", None, response)
-        elif 'flavor' in session and 'image' in session and 'name' in session:
+        elif 'flavor' in session and 'image' in session and 'vm_name' in session:
             if is_session_empty('vm_create_confirm', session):
                 res = '{} Flavor: {} Image: {} Name: {}'.format(str(
                     bot.get_response('VM_Create_Confirm')),
                     session['flavor'],
                     session['image'],
-                    session['name'])
+                    session['vm_name'])
                 lst = ['<:Yes>', '<:No>']
                 return createJSONResponse("vm_create_confirm", lst, res,
                                           True)
