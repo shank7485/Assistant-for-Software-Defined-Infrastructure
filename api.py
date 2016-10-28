@@ -16,7 +16,13 @@ def createJSONResponse(*argv):
     except Exception:
        button = False
     else:
-       button = True
+       button = argv[3]
+    try:
+       argv[4]
+    except Exception:
+       callSet = False
+    else:
+       callSet = argv[4]
     response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
     l = []
     if argv[1] is not None:
@@ -26,9 +32,9 @@ def createJSONResponse(*argv):
                 temp1 = "{\"value\": \""+temp+"\"},"
                 response = response + temp1
          response = response[:-1] + "]"
-    response = response + ",\"button\":\""+str(button)+"\""
+    response = response + ",\"button\":\""+str(button)+"\""+ ",\"callSet\":\""+str(callSet)+"\""
     response = response+ "}"
-    return jsonify(json.loads(response))
+    return "angular.callbacks._0("+response+")"
 
 
 def code_checker(code, response):
@@ -38,12 +44,12 @@ def code_checker(code, response):
     if code == '1':
         if is_session_empty('flavor', session):
             flavor_list = NovaClient().novaflavorlist()
-            return createJSONResponse("flavor", flavor_list, response, True)
+            return createJSONResponse("flavor", flavor_list, response, True,False)
         elif is_session_empty('image', session):
             image_list = NovaClient().novaimagelist()
-            return createJSONResponse("image", image_list, response, True)
+            return createJSONResponse("image", image_list, response, True,False)
         elif is_session_empty('vm_name', session):
-            return createJSONResponse("", None, response)
+            return createJSONResponse("", None, response,False,True)
         elif 'flavor' in session and 'image' in session and 'vm_name' in session:
             if is_session_empty('vm_create_confirm', session):
                 res = '{} Flavor: {} Image: {} Name: {}'.format(str(
@@ -53,21 +59,21 @@ def code_checker(code, response):
                     session['vm_name'])
                 lst = ['<:Yes>', '<:No>']
                 return createJSONResponse("vm_create_confirm", lst, res,
-                                          True)
+                                          True,False)
             else:
                 if session['vm_create_confirm'] is True:
                     NovaClient().novaboot()
                     session.clear()
                     res = str(bot.get_response('VM_Create_Done'))
-                    return createJSONResponse("", None, res)
+                    return createJSONResponse("", None, res,False,False)
                 else:
                     session.clear()
                     res = str(bot.get_response('VM_Create_Not_Confirm'))
-                    return createJSONResponse("", None, res)
+                    return createJSONResponse("", None, res,False,False)
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
-        return createJSONResponse("", nova_list, response)
+        return createJSONResponse("", nova_list, response,False,False)
 
     if code == '1.d':
         if is_session_empty('vm_delete', session):
