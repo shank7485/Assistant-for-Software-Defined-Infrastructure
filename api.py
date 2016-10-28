@@ -202,7 +202,7 @@ def end_point():
         # Call code checker.
         return code_checker(code, response)
     except Exception, e:
-        print(e)
+        return code_checker('0',bot_response)
 
 
 @app.route('/set')
