@@ -3,6 +3,7 @@ from chatterbot.conversation import Statement
 from chatterbot import ChatBot
 from flask import Flask
 
+SESSION = {}
 
 class CustomLogicAdapter(LogicAdapter):
     def __init__(self, **kwargs):
