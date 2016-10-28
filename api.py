@@ -85,7 +85,7 @@ def code_checker(code, response):
             return createJSONResponse("vm_delete", nova_list, response, True)
         elif 'vm_delete' in SESSION:
             if is_session_empty('vm_delete_confirm', SESSION):
-                res = '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')).split(',')[1])
+                res = str(bot.get_response('VM_Delete_Confirm')).split(',')[1]
                 lst = ['<:yes>', '<:no>']
                 return createJSONResponse("vm_delete_confirm", lst, res,
                                           True)
@@ -94,7 +94,7 @@ def code_checker(code, response):
                     NovaClient().nova_vm_delete()
                     #NovaClient().nova_vm_delete()
                     SESSION.clear()
-                    res = str(bot.get_response('VM_Delete_Done').split(',')[1])
+                    res = str(bot.get_response('VM_Delete_Done')).split(',')[1]
                     return createJSONResponse("", None, res)
                 elif SESSION['vm_delete_confirm'] == 'no':
                     SESSION.clear()
@@ -205,7 +205,7 @@ def end_point():
         # Call code checker.
         return code_checker(code, response)
     except Exception, e:
-        print(e)
+        return code_checker('0',bot_response)
 
 
 @app.route('/set')
