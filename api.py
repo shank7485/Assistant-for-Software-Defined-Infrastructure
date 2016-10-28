@@ -50,8 +50,8 @@ def code_checker(code, response):
                     session['flavor'],
                     session['image'],
                     session['name'])
-                list = ['<:Yes>', '<:No>']
-                return createJSONResponse("vm_create_confirm", list, res,
+                lst = ['<:Yes>', '<:No>']
+                return createJSONResponse("vm_create_confirm", lst, res,
                                           True)
             else:
                 if session['vm_create_confirm'] is True:
@@ -66,26 +66,36 @@ def code_checker(code, response):
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
-        return createJSONResponse("Nova list", nova_list, response)
+        return createJSONResponse("", nova_list, response)
 
     if code == '1.d':
         if is_session_empty('vm_delete', session):
             nova_list = NovaClient().nova_vm_list()
-            return createJSONResponse("Nova list", nova_list, response)
-        elif 'vm_delete' in session and is_session_empty('vm_delete_confirm'):
-            return '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')))
-        elif 'vm_delete_confirm' in session:
-            NovaClient().nova_vm_delete()
-            session.clear()
-            return str(bot.get_response('VM_Deletion_Done'))
+            return createJSONResponse("vm_delete", nova_list, response)
+        elif 'vm_delete' in session:
+            if is_session_empty('vm_delete_confirm', session):
+                res = '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')))
+                lst = ['<:Yes>', '<:No>']
+                return createJSONResponse("vm_delete_confirm", lst, res,
+                                          True)
+            else:
+                if session['vm_delete_confirm'] is True:
+                    NovaClient().nova_vm_delete()
+                    session.clear()
+                    res = str(bot.get_response('VM_Delete_Done'))
+                    return createJSONResponse("", None, res)
+                else:
+                    session.clear()
+                    res = str(bot.get_response('VM_Delete_Not_Confirm'))
+                    return createJSONResponse("", None, res)
 
     if code == '1.3':
         avail_zone = NovaClient().avail_zone_session()
-        return createJSONResponse("AZ",avail_zone,response)
+        return createJSONResponse("", avail_zone, response)
 
     if code == '2':
         if is_session_empty('network_name', session):
-            return response
+            return createJSONResponse("network_name", None, response)
         elif 'network_name' in session :
             if is_session_empty('network_create_confirm', session):
                 res = '{} Network: {}'.format(str(bot.get_response(
@@ -94,9 +104,8 @@ def code_checker(code, response):
                 return createJSONResponse("Network_Create_Confirm", list1,
                                           res, True)
             else:
-                if 'network_create_confirm' in session:
+                if session['network_create_confirm'] in True:
                     NeutronClient().networkcreate()
-                    # call create_network()
                     session.clear()
                     res = str(bot.get_response('Network_Create_Done'))
                     return createJSONResponse("", None, res)
@@ -107,20 +116,28 @@ def code_checker(code, response):
 
     if code == '2.1':
         network_list = NeutronClient().netlist()
-        return createJSONResponse("Network list", network_list, response)
+        return createJSONResponse("", network_list, response)
 
     if code == '2.2':
         if is_session_empty('network_delete', session):
             network_list = NeutronClient().netlist()
-            return createJSONResponse("Net list", network_list, response)
-        elif 'network_delete' in session and is_session_empty(
-                'network_delete_confirm'):
-            return '{} Name: {}'.format(str(bot.get_response(
-                'Network_Delete_Confirm')))
-        elif 'network_delete_confirm' in session:
-            NeutronClient().netdelete()
-            session.clear()
-            return str(bot.get_response('Network_Delete_done'))
+            return createJSONResponse("network_delete", network_list, response)
+        elif 'network_delete' in session:
+            if is_session_empty('network_delete_confirm'):
+                res = '{} Name: {}'.format(str(bot.get_response('Network_Delete_Confirm')))
+                lst = ['<:Yes>', '<:No>']
+                return createJSONResponse("network_delete_confirm", lst, res,
+                          True)
+            else:
+                if session['network_delete_confirm'] is True:
+                    NeutronClient().netdelete()
+                    session.clear()
+                    res = str(bot.get_response('Network_Delete_Done'))
+                    return createJSONResponse("", None, res)
+                else:
+                    session.clear()
+                    res = str(bot.get_response('Network_Delete_Not_Confirm'))
+                    return createJSONResponse("", None, res)
 
 
 def is_session_empty(value, session):
@@ -129,22 +146,19 @@ def is_session_empty(value, session):
     else:
         return False
 
+
 @app.route('/test')
 def test():
     # UI: Initial Landing page
     return render_template('index.html')
 
-#@app.route('/')
-#def index():
-    # UI: Initial Landing page
-#    return '<h1> Welcome to OpenStack AI! </h1>' \
-#           'Please go to /login to see login page.'
 
 @app.route('/')
 @app.route('/login')
 def login():
     # UI: User clicks and goes to processLogin
     return render_template('login.html')
+
 
 @app.route('/processLogin')
 def process_login():
