@@ -52,7 +52,7 @@ class NovaClient(OpenStackClient):
     def nova_vm_delete(self):
         instance_list = self.nova.servers.list()
         for ins in instance_list:
-                if ins.name == flask.session['vm_delete']:
+                if ins.name == SESSION['vm_delete']:
                     self.nova.servers.delete(ins.id)
 
 
@@ -62,7 +62,7 @@ class NeutronClient(OpenStackClient):
         self.neutron = neutron_client.Client(session=self.sess)
 
     def networkcreate(self):
-        network1 = {'name': flask.session['network_name']}
+        network1 = {'name': SESSION['network_name']}
         self.neutron.create_network({'network': network1})
 
     def netlist(self):
@@ -83,7 +83,7 @@ class NeutronClient(OpenStackClient):
         for network in net_list['networks']:
             for k,v in network.iteritems():
                 if str(k)=='name':
-                    if str(v) == flask.session['network_name']:
+                    if str(v) == SESSION['network_name']:
                         break;
             net_id = network['id']
             self.neutron.delete_network(net_id)
