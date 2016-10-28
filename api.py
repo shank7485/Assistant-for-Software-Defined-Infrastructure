@@ -7,7 +7,8 @@ from flask import url_for
 from flask import redirect
 from flask import render_template
 from client import NovaClient,NeutronClient
-
+from flask import jsonify
+import json
 
 def createJSONResponse(*argv):
     try:
@@ -27,7 +28,7 @@ def createJSONResponse(*argv):
          response = response[:-1] + "]"
     response = response + ",\"button\":\""+str(button)+"\""
     response = response+ "}"
-    return response
+    return jsonify(json.loads(response))
 
 
 def code_checker(code, response):
