@@ -28,7 +28,7 @@ class OpenStackBot(object):
             'OpenStack Bot',
             trainer=self.trainer
         )
-        self.chatbot.train(self.corpus)
+        self.chatbot.train("chatterbot.corpus.english.greetings", self.corpus)
 
     def get_response(self, question):
         return self.chatbot.get_response(question)
