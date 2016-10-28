@@ -1,4 +1,4 @@
-m base import app
+from base import app
 from base import bot
 from flask import request
 from flask import url_for
@@ -71,7 +71,7 @@ def code_checker(code, response):
                 elif SESSION['vm_create_confirm'] == 'no':
                     SESSION.clear()
                     res = str(bot.get_response('VM_Create_Not_Confirm'))
-                    return createJSONResponse("", None, res)
+                    return createJSONResponse("", None, res.split(',')[1])
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
