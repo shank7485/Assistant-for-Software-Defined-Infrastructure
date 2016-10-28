@@ -1,7 +1,6 @@
 from base import app
 from base import bot
 from flask import request
-#from flask import session
 from flask import url_for
 from flask import redirect
 from flask import render_template
@@ -60,52 +59,52 @@ def code_checker(code, response):
                     SESSION['flavor'],
                     SESSION['image'],
                     SESSION['vm_name'])
-                lst = ['<:Yes>', '<:No>']
+                lst = ['<:yes>', '<:no>']
                 return createJSONResponse("vm_create_confirm", lst, res,
                                           True)
             else:
-                if SESSION['vm_create_confirm'] is 'Yes':
-                    # NovaClient().novaboot()
+                if SESSION['vm_create_confirm'] == 'yes':
                     NovaClient().novaboot()
+                    #NovaClient().novaboot()
                     SESSION.clear()
                     res = str(bot.get_response('VM_Create_Done'))
                     return createJSONResponse("", None, res)
-                elif SESSION['vm_create_confirm'] is 'No':
+                elif SESSION['vm_create_confirm'] == 'no':
                     SESSION.clear()
                     res = str(bot.get_response('VM_Create_Not_Confirm'))
                     return createJSONResponse("", None, res)
 
     if code == '1.1':
         nova_list = NovaClient().nova_vm_list()
-        # nova_list = ['<:test>']
+        #nova_list = ['<:test>']
         return createJSONResponse("", nova_list, response)
 
     if code == '1.d':
         if is_session_empty('vm_delete', SESSION):
             nova_list = NovaClient().nova_vm_list()
-            # nova_list = ['<:test>']
+            #nova_list = ['<:test>']
             return createJSONResponse("vm_delete", nova_list, response)
         elif 'vm_delete' in SESSION:
             if is_session_empty('vm_delete_confirm', SESSION):
                 res = '{} Name: {}'.format(str(bot.get_response('VM_Delete_Confirm')))
-                lst = ['<:Yes>', '<:No>']
+                lst = ['<:yes>', '<:no>']
                 return createJSONResponse("vm_delete_confirm", lst, res,
                                           True)
             else:
-                if SESSION['vm_delete_confirm'] is 'Yes':
-                    # NovaClient().nova_vm_delete()
+                if SESSION['vm_delete_confirm'] == 'yes':
                     NovaClient().nova_vm_delete()
+                    #NovaClient().nova_vm_delete()
                     SESSION.clear()
                     res = str(bot.get_response('VM_Delete_Done'))
                     return createJSONResponse("", None, res)
-                elif SESSION['vm_delete_confirm'] is 'No':
+                elif SESSION['vm_delete_confirm'] == 'no':
                     SESSION.clear()
                     res = str(bot.get_response('VM_Delete_Not_Confirm'))
                     return createJSONResponse("", None, res)
 
     if code == '1.3':
         avail_zone = NovaClient().avail_zone_session()
-        # avail_zone = ['<:az>']
+        #avail_zone = ['<:az>']
         return createJSONResponse("", avail_zone, response)
 
     if code == '2':
@@ -115,45 +114,45 @@ def code_checker(code, response):
             if is_session_empty('network_create_confirm', SESSION):
                 res = '{} Network: {}'.format(str(bot.get_response(
                     'Network_Create_Confirm')), SESSION['network_name'])
-                list1 = ['<:Yes>', '<:No>']
+                list1 = ['<:yes>', '<:no>']
                 return createJSONResponse("Network_Create_Confirm", list1,
                                           res, True)
             else:
-                if SESSION['network_create_confirm'] is 'Yes':
-                    # NeutronClient().networkcreate()
+                if SESSION['network_create_confirm'] == 'yes':
                     NeutronClient().networkcreate()
+                    #NeutronClient().networkcreate()
                     SESSION.clear()
                     res = str(bot.get_response('Network_Create_Done'))
                     return createJSONResponse("", None, res)
-                elif SESSION['network_create_confirm'] is 'No':
+                elif SESSION['network_create_confirm'] == 'no':
                     SESSION.clear()
                     res = str(bot.get_response('Network_Create_Not_Confirm'))
                     return createJSONResponse("", None, res)
 
     if code == '2.1':
         network_list = NeutronClient().netlist()
-        # network_list = ['<:network>']
+        #network_list = ['<:network>']
         return createJSONResponse("", network_list, response)
 
     if code == '2.2':
         if is_session_empty('network_delete', SESSION):
             network_list = NeutronClient().netlist()
-            # network_list = ['<:network>']
+            #network_list = ['<:network>']
             return createJSONResponse("network_delete", network_list, response)
         elif 'network_delete' in SESSION:
             if is_session_empty('network_delete_confirm'):
                 res = '{} Name: {}'.format(str(bot.get_response('Network_Delete_Confirm')))
-                lst = ['<:Yes>', '<:No>']
+                lst = ['<:yes>', '<:no>']
                 return createJSONResponse("network_delete_confirm", lst, res,
                           True)
             else:
-                if SESSION['network_delete_confirm'] is 'Yes':
-                    # NeutronClient().netdelete()
+                if SESSION['network_delete_confirm'] == 'yes':
                     NeutronClient().netdelete()
+                    #NeutronClient().netdelete()
                     SESSION.clear()
                     res = str(bot.get_response('Network_Delete_Done'))
                     return createJSONResponse("", None, res)
-                elif SESSION['network_delete_confirm'] is 'No':
+                elif SESSION['network_delete_confirm'] == 'no':
                     SESSION.clear()
                     res = str(bot.get_response('Network_Delete_Not_Confirm'))
                     return createJSONResponse("", None, res)
@@ -209,6 +208,7 @@ def end_point():
 
 @app.route('/set')
 def set():
+    #import pdb; pdb.set_trace()
     key = request.args.get('key')
     value = request.args.get('value')
     SESSION[key] = value
@@ -220,4 +220,4 @@ def set():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=8080)
+    app.run(debug=True, port=8080)
