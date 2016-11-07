@@ -5,4 +5,4 @@ This chatbot can be used in an OpenStack cloud to create, delete, list cloud res
 The main idea here to reduce the complexity in using an OpenStack cloud for novices and experts alike. No need to remember all those pesky command line words and the confusing Horizon dashboard. Just chat away your cloud needs to this bot. It will do it for you.
 
 ## System Diagram:
-![Diagram](https://raw.githubusercontent.com/shank7485/)
+![Diagram](https://raw.githubusercontent.com/shank7485/OpenStack-Hackathon-OSIC/master/Diagram.png)
