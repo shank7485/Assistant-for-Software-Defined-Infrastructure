@@ -1,171 +1,16 @@
 from base import app
 from base import bot
 from flask import request
-from flask import url_for
 from flask import redirect
 from flask import render_template
 from client import NovaClient,NeutronClient,CinderClient
-from flask import jsonify
-import json
 from base import SESSION
+from base import Decider
 
-def createJSONResponse(*argv):
-    try:
-       argv[3]
-    except Exception:
-       button = False
-    else:
-       button = argv[3]
-    try:
-       argv[4]
-    except Exception:
-       callSet = False
-    else:
-       callSet = argv[4]
-    response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
-    l = []
-    if argv[1] is not None:
-         response = response + ",\"list\":["
-         for a in argv[1]:
-                temp = str(a).split(":")[1].strip()[:-1]
-                temp1 = "{\"value\": \""+temp+"\"},"
-                response = response + temp1
-         response = response[:-1] + "]"
-    response = response + ",\"button\":\""+str(button)+"\""+ ",\"callSet\":\""+str(callSet)+"\""
-    response = response+ "}"
-    return jsonify(json.loads(response))
-
-
-def code_checker(code, response):
-    if code == '0':
-        return createJSONResponse("", None, response)
-
-    if code == '1':
-        if is_session_empty('flavor', SESSION):
-            # flavor_list = ['<:m1.tiny>']
-            flavor_list = NovaClient().novaflavorlist()
-            return createJSONResponse("flavor", flavor_list, response, True)
-        elif is_session_empty('image', SESSION):
-            # image_list = ['<:ubuntu>']
-            image_list = NovaClient().novaimagelist()
-            return createJSONResponse("image", image_list, response, True)
-        elif is_session_empty('vm_name', SESSION):
-            return createJSONResponse("vm_name", None, response,False,True)
-        elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name' in SESSION:
-            if is_session_empty('vm_create_confirm', SESSION):
-                res = '{} Flavor: {} Image: {} Name: {}'.format(str(
-                    bot.get_response('VM_Create_Confirm')).split(',')[1],
-                    SESSION['flavor'],
-                    SESSION['image'],
-                    SESSION['vm_name'])
-                lst = ['<:yes>', '<:no>']
-                return createJSONResponse("vm_create_confirm", lst, res,
-                                          True)
-            else:
-                if SESSION['vm_create_confirm'] == 'yes':
-                    NovaClient().novaboot()
-                    #NovaClient().novaboot()
-                    SESSION.clear()
-                    res = str(bot.get_response('VM_Create_Done')).split(',')[1]
-                    return createJSONResponse("", None, res)
-                elif SESSION['vm_create_confirm'] == 'no':
-                    SESSION.clear()
-                    res = str(bot.get_response('VM_Create_Not_Confirm')).split(',')[1]
-                    return createJSONResponse("", None, res)
-
-    if code == '1.1':
-        nova_list = NovaClient().nova_vm_list()
-        #nova_list = ['<:test>']
-        return createJSONResponse("", nova_list, response)
-
-    if code == '1.d':
-        if is_session_empty('vm_delete', SESSION):
-            nova_list = NovaClient().nova_vm_list()
-            #nova_list = ['<:test>']
-            return createJSONResponse("vm_delete", nova_list, response, True)
-        elif 'vm_delete' in SESSION:
-            if is_session_empty('vm_delete_confirm', SESSION):
-                res = str(bot.get_response('VM_Delete_Confirm')).split(',')[1]
-                lst = ['<:yes>', '<:no>']
-                return createJSONResponse("vm_delete_confirm", lst, res,
-                                          True)
-            else:
-                if SESSION['vm_delete_confirm'] == 'yes':
-                    NovaClient().nova_vm_delete()
-                    #NovaClient().nova_vm_delete()
-                    SESSION.clear()
-                    res = str(bot.get_response('VM_Delete_Done')).split(',')[1]
-                    return createJSONResponse("", None, res)
-                elif SESSION['vm_delete_confirm'] == 'no':
-                    SESSION.clear()
-                    res = str(bot.get_response('VM_Delete_Not_Confirm').split(',')[1])
-                    return createJSONResponse("", None, res)
-
-    if code == '1.3':
-        avail_zone = NovaClient().avail_zone_session()
-        #avail_zone = ['<:az>']
-        return createJSONResponse("", avail_zone, response)
-
-    if code == '2':
-        if is_session_empty('network_name', SESSION):
-            return createJSONResponse("network_name", None, response)
-        elif 'network_name' in SESSION :
-            if is_session_empty('network_create_confirm', SESSION):
-                res = '{} Network: {}'.format(str(bot.get_response(
-                    'Network_Create_Confirm')).split(',')[1], SESSION['network_name'])
-                list1 = ['<:yes>', '<:no>']
-                return createJSONResponse("Network_Create_Confirm", list1,
-                                          res, True)
-            else:
-                if SESSION['network_create_confirm'] == 'yes':
-                    NeutronClient().networkcreate()
-                    #NeutronClient().networkcreate()
-                    SESSION.clear()
-                    res = str(bot.get_response('Network_Create_Done').split(',')[1])
-                    return createJSONResponse("", None, res)
-                elif SESSION['network_create_confirm'] == 'no':
-                    SESSION.clear()
-                    res = str(bot.get_response('Network_Create_Not_Confirm').split(',')[1])
-                    return createJSONResponse("", None, res)
-
-    if code == '2.1':
-        network_list = NeutronClient().netlist()
-        #network_list = ['<:network>']
-        return createJSONResponse("", network_list, response)
-
-    if code == '2.2':
-        if is_session_empty('network_delete', SESSION):
-            network_list = NeutronClient().netlist()
-            #network_list = ['<:network>']
-            return createJSONResponse("network_delete", network_list, response)
-        elif 'network_delete' in SESSION:
-            if is_session_empty('network_delete_confirm'):
-                res = '{} Name: {}'.format(str(bot.get_response('Network_Delete_Confirm')))
-                lst = ['<:yes>', '<:no>']
-                return createJSONResponse("network_delete_confirm", lst, res,
-                          True)
-            else:
-                if SESSION['network_delete_confirm'] == 'yes':
-                    NeutronClient().netdelete()
-                    #NeutronClient().netdelete()
-                    SESSION.clear()
-                    res = str(bot.get_response('Network_Delete_Done').split(',')[1])
-                    return createJSONResponse("", None, res)
-                elif SESSION['network_delete_confirm'] == 'no':
-                    SESSION.clear()
-                    res = str(bot.get_response('Network_Delete_Not_Confirm').split(',')[1])
-                    return createJSONResponse("", None, res)
-    if code == '3':
-        volume_list = CinderClient().volumelist()
-        return createJSONResponse("", volume_list, response)
-
-
-def is_session_empty(value, session):
-    if value not in session:
-        return True
-    else:
-        return False
-
+@app.route('/chatScreen')
+def chatScreen():
+    # UI: User clicks and goes to processLogin
+    return render_template('test.html')
 
 @app.route('/test')
 def test():
@@ -203,9 +48,9 @@ def end_point():
         code = bot_response.split(',')[0]
         response = bot_response.split(',')[1]
         # Call code checker.
-        return code_checker(code, response)
+        return Decider(code, response).get_response()
     except Exception, e:
-        return code_checker('0',bot_response)
+        return Decider('0.0', bot_response).get_response()
 
 
 @app.route('/set')
@@ -218,9 +63,8 @@ def set():
     code = bot_response.split(',')[0]
     response = bot_response.split(',')[1]
     # Update corpus question = key and answer = code, response.
-    return code_checker(code, response)
+    return Decider(code, response).get_response()
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True, port=8080)
-                                                                   
