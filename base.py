@@ -30,23 +30,23 @@ class Code(object):
 
     def createJSONResponse(*argv):
         try:
-            argv[3]
+            argv[4]
         except Exception:
             button = False
         else:
-            button = argv[3]
+            button = argv[4]
         try:
-            argv[4]
+            argv[5]
         except Exception:
             callSet = False
         else:
-            callSet = argv[4]
-        response = "{\"message\": \"" + argv[2] + "\",\"type\": \"" + argv[
-            0] + "\""
+            callSet = argv[5]
+        response = "{\"message\": \"" + argv[3] + "\",\"type\": \"" + argv[
+            1] + "\""
         l = []
-        if argv[1] is not None:
+        if argv[2] is not None:
             response = response + ",\"list\":["
-            for a in argv[1]:
+            for a in argv[2]:
                 temp = str(a).split(":")[1].strip()[:-1]
                 temp1 = "{\"value\": \"" + temp + "\"},"
                 response = response + temp1
@@ -124,7 +124,7 @@ class CodeNova(Code):
 
         if self.code == '1': # if 1.1
             # nova_list = NovaClient().nova_vm_list()
-            nova_list = ['<:test>']
+            nova_list = ['<:VM1>', '<:VM2>']
             return self.createJSONResponse("", nova_list,  self.response)
 
         if self.code == 'd': # if 1.d
@@ -252,15 +252,19 @@ class CodeCinder(Code):
 
 class Decider(object):
     def __init__(self, code, response):
+        self.response_value = None
         if code[0] == '0': # 0.*
-            CodeText(code[-1], response).code_checker()
+            self.response_value = CodeText(code[-1], response).code_checker()
         elif code[0] == '1': # 1.*
-            CodeNova(code[-1], response).code_checker()
+            self.response_value = CodeNova(code[-1], response).code_checker()
         elif code[0] == '2': # 2.*
-            CodeNeutron(code[-1], response).code_checker()
+            self.response_value = CodeNeutron(code[-1], response).code_checker()
         elif code[0] == '3': # 3.*
-            CodeCinder(code[-1], response).code_checker()
+            self.response_value = CodeCinder(code[-1], response).code_checker()
         # extend this elif condition for other classes.
+
+    def get_response(self):
+        return self.response_value
 
 bot = OpenStackBot()
 app = Flask(__name__)

@@ -5,7 +5,7 @@ from flask import redirect
 from flask import render_template
 from client import NovaClient,NeutronClient,CinderClient
 from base import SESSION
-from base import Decider as code_checker
+from base import Decider
 
 @app.route('/test')
 def test():
@@ -43,9 +43,9 @@ def end_point():
         code = bot_response.split(',')[0]
         response = bot_response.split(',')[1]
         # Call code checker.
-        return code_checker(code, response)
+        return Decider(code, response).get_response()
     except Exception, e:
-        return code_checker('0',bot_response)
+        return Decider('0.0', bot_response).get_response()
 
 
 @app.route('/set')
@@ -58,7 +58,7 @@ def set():
     code = bot_response.split(',')[0]
     response = bot_response.split(',')[1]
     # Update corpus question = key and answer = code, response.
-    return code_checker(code, response)
+    return Decider(code, response).get_response()
 
 
 if __name__ == '__main__':

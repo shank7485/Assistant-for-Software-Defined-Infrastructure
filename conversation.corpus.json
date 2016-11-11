@@ -2,27 +2,27 @@
 	"conversations": [
 		[
 			"Create a VM",
-			"1,Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
+			"1.0,Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
 		],
 		[
 			"Can you create a VM for me.",
-			"1,Yes. I am on it. But you need to provide me the Flavor first. Select one form the following list."
+			"1.0,Yes. I am on it. But you need to provide me the Flavor first. Select one form the following list."
 		],
 		[
 			"Please create a virtual machine.",
-			"1,Yes. But first I need to know the flavor list."
+			"1.0,Yes. But first I need to know the flavor list."
 		],
 		[
 			"Create a Network",
-			"2,Please provide a name"
+			"2.0,Please provide a name"
 		],
 		[
 			"Can you create a network?",
-			"2,Provide me a name and I can do that for you."
+			"2.0,Provide me a name and I can do that for you."
 		],
 		[
 			"Is it possible to create a new network?",
-			"2,I can create a new network. But I need to first know what name you want to give it."
+			"2.0,I can create a new network. But I need to first know what name you want to give it."
 		],
 		[
 			"Get Network List",
@@ -42,15 +42,15 @@
 		],
 		[
 			"Can you please create a virtual instance?",
-			"1,I will create the VM for you. But please specify the flavor."
+			"1.0,I will create the VM for you. But please specify the flavor."
 		],
 		[
 			"List Volumes",
-			"3, Here is the list of available volumes"
+			"3.0, Here is the list of available volumes"
 		],
 		[
 			"Can you list the available volumes",
-			"3, Sure Here is Volume List.Thank the python-cinderclient...not me ;)"
+			"3.0, Sure Here is Volume List.Thank the python-cinderclient...not me ;)"
 		],
 		[
 			"What are the OpenStack Services available in this cloud?",
@@ -130,19 +130,19 @@
 		],
 		[
 			"flavor",
-			"1,Thank you. I also need to know what image to boot. Please select which image to boot."
+			"1.0,Thank you. I also need to know what image to boot. Please select which image to boot."
 		],
 		[
 			"flavor",
-			"1,Thanks! Now please specify the image. Please select which image to boot."
+			"1.0,Thanks! Now please specify the image. Please select which image to boot."
 		],
 		[
 			"flavor",
-			"1,Thanks! Select the image. I can't boot an image without knowing the image."
+			"1.0,Thanks! Select the image. I can't boot an image without knowing the image."
 		],
 		[
 			"image",
-			"1,Thanks. Now type the name you want to give to the instance."
+			"1.0,Thanks. Now type the name you want to give to the instance."
 		],
 		[
 			"vm_delete",
@@ -150,15 +150,15 @@
 		],
 		[
 			"VM_Create_Confirm",
-			"1,Please confirm if the parameters are correct."
+			"1.0,Please confirm if the parameters are correct."
 		],
 		[
 			"VM_Create_Confirm",
-			"1,Confirm again if the following are correct."
+			"1.0,Confirm again if the following are correct."
 		],
 		[
 			"VM_Create_Not_Confirm",
-			"1,So you don't want to proceed ahead with creation of VM. What else do you want to do?"
+			"1.0,So you don't want to proceed ahead with creation of VM. What else do you want to do?"
 		],
 		[
 			"VM_Create_Done",
