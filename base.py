@@ -56,7 +56,7 @@ class Code(object):
         response = response + "}"
         return jsonify(json.loads(response))
 
-    def is_session_empty(value, session):
+    def is_session_empty(self, value, session):
         if value not in session:
             return True
         else:

@@ -454,28 +454,28 @@ body {
 <body>
   <div class="container clearfix">
     <div class="chat row" id="chatdiv" style="margin-left:1.5%;width:97%;height:100%">
-      <div class="chat-header clearfix row" style="height:15%">
+      <div class="chat-header clearfix row" style="height:15%;width:100%">
          <div class="col-md-4"> <img style="text-align: center" src="static/openstack.png" height="100px" width="200px"/></div>
         <div class="col-md-8" style="margin-top:50px color:94C2ED  font-family: Papyrus, fantasy;
 	font-size: 24px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
-	line-height: 26.4px;"><font style="text-align: center" size="10" color="#94C2ED">Your Personal Asssitant</font></div>
+	line-height: 26.4px;"><font style="text-align: center" size="10" color="#94C2ED">Your Personal Asssitant</font></div><a href="/logout">Log Out</a>
       </div> <!-- end chat-header -->
       
-      <div class="chat-history" id ="chathist" style="height:65%">
-        <ul id="chatul">
+      <div class="chat-history" id ="chathist" style="height:65%;width:100%">
+        <ul id="chatul"><!--
             <i class="fa fa-circle online"></i>
             <i class="fa fa-circle online" style="color: #AED2A6"></i>
             <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-          </li>
+         --> </li>
           
         </ul>
         
       </div> <!-- end chat-history -->
       
-      <div class="chat-message clearfix" style="height:20%">
+      <div class="chat-message clearfix" style="height:20%;width:100%">
         <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
         
         <button onclick="send()">Send</button>

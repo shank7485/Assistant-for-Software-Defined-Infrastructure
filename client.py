@@ -25,9 +25,17 @@ class NovaClient(OpenStackClient):
         super(NovaClient, self).__init__()
         self.nova = client.Client("2.1", session=self.sess)
 
-    def check_keystone(self):
+    def check_keystone(self,username1,password1):
         try:
-           self.nova.flavors.list()
+           auth = v3.Password(auth_url='http://192.168.0.12:5000/v3',
+                               username=username1,#flask.session['username'],
+                               password=password1,#flask.session['password'],
+                               project_name='admin',
+                               user_domain_id='default',
+                               project_domain_id='default')
+           sess1 = k_session.Session(auth=auth)
+           nova = client.Client("2.1", session=sess1)
+           print nova.flavors.list()
            return True
         except:
            return False
