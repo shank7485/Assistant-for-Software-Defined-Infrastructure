@@ -139,8 +139,8 @@ class CodeNova(Code):
                         return self.createJSONResponse("", None, res)
 
         if self.code == '1': # if 1.1
-            # nova_list = NovaClient().nova_vm_list()
-            nova_list = ['<:VM1>', '<:VM2>']
+            nova_list = NovaClient().nova_vm_list()
+            #nova_list = ['<:VM1>', '<:VM2>']
             return self.createJSONResponse("", nova_list,  self.response)
 
         if self.code == 'd': # if 1.d
