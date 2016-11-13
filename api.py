@@ -3,8 +3,8 @@ from base import bot
 from flask import request
 from flask import redirect
 from flask import render_template,send_from_directory
-from client import NovaClient,NeutronClient,CinderClient
-from base import SESSION
+from client import NovaClient
+from sessions_file import SESSION
 from base import Decider
 from flask import Flask, Response, redirect, url_for, request, session, abort
 from flask.ext.login import LoginManager, UserMixin, \
@@ -85,10 +85,6 @@ def load_user(userid):
     return User(userid)
 
 
-#if __name__ == "__main__":
-#    app.run(host='0.0.0.0',debug=True, port=8080)
-
-
 def add_header(r):
     """
     Add headers to both force latest IE rendering engine or Chrome Frame,
@@ -149,8 +145,8 @@ def end_point():
         # To chatterbot
         question = request.args.get('question')
         bot_response = str(bot.get_response(question))
-        code = bot_response.split(',')[0]
-        response = bot_response.split(',')[1]
+        code = bot_response.split(':')[0]
+        response = bot_response.split(':')[1]
         # Call code checker.
         return Decider(code, response).get_response()
     except Exception, e:
@@ -164,11 +160,12 @@ def set():
     value = request.args.get('value')
     SESSION[key] = value
     bot_response = str(bot.get_response(key))
-    code = bot_response.split(',')[0]
-    response = bot_response.split(',')[1]
+    code = bot_response.split(':')[0]
+    response = bot_response.split(':')[1]
     # Update corpus question = key and answer = code, response.
     return Decider(code, response).get_response()
 
 
 if __name__ == '__main__':
+    bot.copy()
     app.run(host='0.0.0.0',debug=True, port=8080)
