@@ -59,23 +59,23 @@ def login():
             login_user(user)
             return render_template('test.html')
         else:
-            return render_template('login.html')
+            return render_template('login.html',message='Invalid Username/Password',color='red')
     else:
-        return render_template('login.html')
+        return render_template('login.html',message='If you are not sure which authentication method to use, contact your administrator.',color='#31708f')
 
 # somewhere to logout
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return render_template('login.html')
+    return render_template('login.html',message='If you are not sure which authentication method to use, contact your administrator.',color='#31708f')
     #return Response('<p>Logged out</p>')
 
 
 # handle login failed
 @app.errorhandler(401)
 def page_not_found(e):
-    return render_template('login.html')
+    return render_template('login.html',message='If you are not sure which authentication method to use, contact your administrator.',color='#31708f')
     return Response('<p>Login failed</p>')
 
 
@@ -98,13 +98,15 @@ def add_header(r):
 
 @app.route('/getConsoleLog')
 def getConsoleLog():
-    return send_from_directory('static', 'log1.txt')
+    ip = request.args.get('ip')
+    return send_from_directory('static', 'log_'+str(ip)+'.txt')
     # UI: User clicks and goes to processLogin
 
 @app.route('/consoleScreen')
 def console():
+    ip = request.args.get('ip')
     # UI: User clicks and goes to processLogin
-    return render_template('console.html')
+    return render_template('console.html',ip=ip)
 
 @app.route('/chatScreen')
 @login_required

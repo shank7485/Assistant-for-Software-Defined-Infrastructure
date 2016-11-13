@@ -16,7 +16,7 @@
 <script>
 window.setInterval(function(){
 
-$.get("http://172.99.106.89:8080/getConsoleLog?_=" + new Date().getTime()).done(function (data) {
+$.get("http://172.99.106.89:8080/getConsoleLog?ip="+'{{ ip }}'+"&_=" + new Date().getTime()).done(function (data) {
    console.log(data);
     $("#myIframe").text(data);
 })
