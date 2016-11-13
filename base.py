@@ -1,16 +1,17 @@
-from chatterbot import ChatBot
+import chatterbot
 from flask import Flask, jsonify
 import json
 from client import DeployOpenStackCloud, NovaClient, NeutronClient, CinderClient
-
-SESSION = {}
+import os
+from shutil import copyfile
+from sessions_file import SESSION
 
 
 class OpenStackBot(object):
     def __init__(self):
         self.trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
         self.corpus = 'chatterbot.corpus.openstack'
-        self.chatbot = ChatBot(
+        self.chatbot = chatterbot.ChatBot(
             'OpenStack Bot',
             trainer=self.trainer
         )
@@ -18,6 +19,20 @@ class OpenStackBot(object):
 
     def get_response(self, question):
         return self.chatbot.get_response(question)
+
+
+    @staticmethod
+    def copy():
+        directory = os.path.dirname(chatterbot.__file__)
+        # subdirectory_win = '{}{}'.format(directory, '\\corpus\\data\\openstack')
+        subdirectory_nix = '{}{}'.format(directory, '/corpus/data/openstack/')
+
+        src = 'conversation.corpus.json'
+        dst = subdirectory_nix
+        if os.path.isdir(dst):
+            dst = os.path.join(dst, os.path.basename(src))
+        copyfile(src, dst)
+        print('Loaded OpenStack conversation.corpus.json')
 
 
 class Code(object):
@@ -85,12 +100,12 @@ class CodeNova(Code):
     def code_checker(self):
         if self.code == '0': # if 1.0
             if self.is_session_empty('flavor', SESSION):
-                flavor_list = ['<:m1.tiny>']
-                # flavor_list = NovaClient().novaflavorlist()
+                # flavor_list = ['<:m1.tiny>']
+                flavor_list = NovaClient().novaflavorlist()
                 return self.createJSONResponse("flavor", flavor_list, self.response, True)
             elif self.is_session_empty('image', SESSION):
-                image_list = ['<:ubuntu>']
-            # image_list = NovaClient().novaimagelist()
+                # image_list = ['<:ubuntu>']
+                image_list = NovaClient().novaimagelist()
                 return self.createJSONResponse("image", image_list, self.response, True)
             elif self.is_session_empty('vm_name', SESSION):
                 return self.createJSONResponse("vm_name", None, self.response, False,
@@ -98,7 +113,7 @@ class CodeNova(Code):
             elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name' in SESSION:
                 if self.is_session_empty('vm_create_confirm', SESSION):
                     res = '{} Flavor: {} Image: {} Name: {}'.format(str(
-                        bot.get_response('VM_Create_Confirm')).split(',')[1],
+                        bot.get_response('VM_Create_Confirm')).split(':')[1],
                                                                     SESSION[
                                                                         'flavor'],
                                                                     SESSION[
@@ -110,17 +125,17 @@ class CodeNova(Code):
                                               True)
                 else:
                     if SESSION['vm_create_confirm'] == 'yes':
+                        NovaClient().novaboot()
                         #NovaClient().novaboot()
-                        # NovaClient().novaboot()
                         SESSION.clear()
                         res = \
-                        str(bot.get_response('VM_Create_Done')).split(',')[1]
+                        str(bot.get_response('VM_Create_Done')).split(':')[1]
                         return self.createJSONResponse("", None, res)
                     elif SESSION['vm_create_confirm'] == 'no':
                         SESSION.clear()
                         res = \
                         str(bot.get_response('VM_Create_Not_Confirm')).split(
-                            ',')[1]
+                            ':')[1]
                         return self.createJSONResponse("", None, res)
 
         if self.code == '1': # if 1.1
@@ -130,35 +145,35 @@ class CodeNova(Code):
 
         if self.code == 'd': # if 1.d
             if self.is_session_empty('vm_delete', SESSION):
-                #nova_list = NovaClient().nova_vm_list()
-                nova_list = ['<:test>']
+                nova_list = NovaClient().nova_vm_list()
+                #nova_list = ['<:test>']
                 return self.createJSONResponse("vm_delete", nova_list, self.response,
                                           True)
             elif 'vm_delete' in SESSION:
                 if self.is_session_empty('vm_delete_confirm', SESSION):
-                    res = str(bot.get_response('VM_Delete_Confirm')).split(',')[
+                    res = str(bot.get_response('VM_Delete_Confirm')).split(':')[
                         1]
                     lst = ['<:yes>', '<:no>']
                     return self.createJSONResponse("vm_delete_confirm", lst, res,
                                               True)
                 else:
                     if SESSION['vm_delete_confirm'] == 'yes':
-                        #NovaClient().nova_vm_delete()
+                        NovaClient().nova_vm_delete()
                         # NovaClient().nova_vm_delete()
                         SESSION.clear()
                         res = \
-                        str(bot.get_response('VM_Delete_Done')).split(',')[1]
+                        str(bot.get_response('VM_Delete_Done')).split(':')[1]
                         return self.createJSONResponse("", None, res)
                     elif SESSION['vm_delete_confirm'] == 'no':
                         SESSION.clear()
                         res = str(
                             bot.get_response('VM_Delete_Not_Confirm').split(
-                                ',')[1])
+                                ':')[1])
                         return self.createJSONResponse("", None, res)
 
         if self.code == '3':
-            #avail_zone = NovaClient().avail_zone_session()
-            avail_zone = ['<:az>']
+            avail_zone = NovaClient().avail_zone_session()
+            #avail_zone = ['<:az>']
             return self.createJSONResponse("", avail_zone, self.response)
 
         "Add other 1.* related stuff."
@@ -167,7 +182,7 @@ class CodeNova(Code):
 class CodeNeutron(Code):
     "Code: 2.*"
     def __init__(self, code, response):
-        super(CodeNova, self).__init__()
+        super(CodeNeutron, self).__init__()
         self.code = code
         self.response = response
 
@@ -178,35 +193,35 @@ class CodeNeutron(Code):
             elif 'network_name' in SESSION:
                 if self.is_session_empty('network_create_confirm', SESSION):
                     res = '{} Network: {}'.format(str(bot.get_response(
-                        'Network_Create_Confirm')).split(',')[1],
+                        'Network_Create_Confirm')).split(':')[1],
                                                   SESSION['network_name'])
                     list1 = ['<:yes>', '<:no>']
                     return self.createJSONResponse("Network_Create_Confirm", list1,
                                               res, True)
                 else:
                     if SESSION['network_create_confirm'] == 'yes':
-                        # NeutronClient().networkcreate()
+                        NeutronClient().networkcreate()
                         # NeutronClient().networkcreate()
                         SESSION.clear()
                         res = str(
-                            bot.get_response('Network_Create_Done').split(',')[
+                            bot.get_response('Network_Create_Done').split(':')[
                                 1])
                         return self.createJSONResponse("", None, res)
                     elif SESSION['network_create_confirm'] == 'no':
                         SESSION.clear()
                         res = str(bot.get_response(
-                            'Network_Create_Not_Confirm').split(',')[1])
+                            'Network_Create_Not_Confirm').split(':')[1])
                         return self.createJSONResponse("", None, res)
 
         if self.code == '1': # if 2.1
-            #network_list = NeutronClient().netlist()
-            network_list = ['<:network>']
+            network_list = NeutronClient().netlist()
+            #network_list = ['<:network>']
             return self.createJSONResponse("", network_list, self.response)
 
         if self.code == 'd': # if 2.2
             if self.is_session_empty('network_delete', SESSION):
-                #network_list = NeutronClient().netlist()
-                network_list = ['<:network>']
+                network_list = NeutronClient().netlist()
+                #network_list = ['<:network>']
                 return self.createJSONResponse("network_delete", network_list,
                                                self.response)
             elif 'network_delete' in SESSION:
@@ -220,16 +235,16 @@ class CodeNeutron(Code):
                 else:
                     if SESSION['network_delete_confirm'] == 'yes':
                         #NeutronClient().netdelete()
-                        # NeutronClient().netdelete()
+                        NeutronClient().netdelete()
                         SESSION.clear()
                         res = str(
-                            bot.get_response('Network_Delete_Done').split(',')[
+                            bot.get_response('Network_Delete_Done').split(':')[
                                 1])
                         return self.createJSONResponse("", None, res)
                     elif SESSION['network_delete_confirm'] == 'no':
                         SESSION.clear()
                         res = str(bot.get_response(
-                            'Network_Delete_Not_Confirm').split(',')[1])
+                            'Network_Delete_Not_Confirm').split(':')[1])
                         return self.createJSONResponse("", None, res)
 
         "Add other 2.* related stuff."
@@ -244,8 +259,8 @@ class CodeCinder(Code):
 
     def code_checker(self):
         if self.code == '0': # if 3.0
-            # volume_list = CinderClient().volumelist()
-            volume_list = ['<:vaolume_list>']
+            volume_list = CinderClient().volumelist()
+            #volume_list = ['<:vaolume_list>']
             return self.createJSONResponse("", volume_list, self.response)
 
         "Add other 3.* related stuff."
@@ -274,7 +289,7 @@ class CodeDeploy(Code):
                 else:
                     SESSION.clear()
                     res = str(bot.get_response('deploy_not_confirm')).split(
-                            ',')[1]
+                            ':')[1]
                     return self.createJSONResponse("", None, res)
 
 
