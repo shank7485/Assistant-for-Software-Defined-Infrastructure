@@ -124,6 +124,13 @@
 			"0,alright.. I am clearing everything."
 		],
 		[
+			"Deploy OpenStack cloud",
+			"4.0,Cool. As they say, a walk of thousand miles starts with a single step. So can I know if you want all in one deployment or multi node deployment."
+		],
+		[
+
+		],
+		[
 			"#################################################",
 			"ADD HUMAN TEXTS ABOVE. ADD COMMANDS BELOW.",
 			"#################################################"
@@ -239,6 +246,22 @@
 		[
 			"Net_List",
 			"0,Available Network list is: "
+		],
+		[
+			"deploy",
+			"4.0, Select all-in-one or multi-node: "
+		],
+		[
+			"deploy_ip",
+			"4.0, Please select an IP address/Server to deploy your all-in-one OpenStack cloud"
+		],
+		[
+			"deploy_confirm",
+			"4.0, Are you sure you want to deploy an all-in-one OpenStack cloud?"
+		],
+		[
+			"deploy_not_confirm",
+			"0, Are you sure you want to cancel the OpenStack cloud deployment?"
 		]
 	]
 }

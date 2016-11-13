@@ -1,6 +1,7 @@
 from chatterbot import ChatBot
 from flask import Flask, jsonify
 import json
+from client import DeployOpenStackCloud, NovaClient, NeutronClient, CinderClient
 
 SESSION = {}
 
@@ -249,10 +250,38 @@ class CodeCinder(Code):
 
         "Add other 3.* related stuff."
 
+class CodeDeploy(Code):
+    "Code: 4.*"
+    def __init__(self, code, response):
+        super(CodeDeploy, self).__init__()
+        self.code = code
+        self.response = response
+
+    def code_checker(self):
+        if self.code == '0':
+            if self.is_session_empty('deploy', SESSION):
+                deploy_list = ['<:all_in_one>', '<:multi_node>']
+                return self.createJSONResponse("deploy", deploy_list, self.response, True)
+            elif self.is_session_empty('deploy_ip', SESSION):
+                ip_list = ['<:192.168.0.223>']
+                return self.createJSONResponse("deploy_ip", ip_list, self.response, True)
+            elif self.is_session_empty("deploy_confirm", SESSION):
+                choice_list = ['<:yes>', '<:no>']
+                return self.createJSONResponse("deploy_confirm", choice_list, self.response, True)
+            else:
+                if SESSION['deploy_confirm'] == 'yes':
+                    DeployOpenStackCloud().deploy()
+                else:
+                    SESSION.clear()
+                    res = str(bot.get_response('deploy_not_confirm')).split(
+                            ',')[1]
+                    return self.createJSONResponse("", None, res)
+
 
 class Decider(object):
     def __init__(self, code, response):
         self.response_value = None
+        # code = code.split('.')  I think this should be there
         if code[0] == '0': # 0.*
             self.response_value = CodeText(code[-1], response).code_checker()
         elif code[0] == '1': # 1.*
@@ -261,6 +290,8 @@ class Decider(object):
             self.response_value = CodeNeutron(code[-1], response).code_checker()
         elif code[0] == '3': # 3.*
             self.response_value = CodeCinder(code[-1], response).code_checker()
+        elif code[0] == '4':
+            self.response_value = CodeDeploy(code[-1], response).code_checker()
         # extend this elif condition for other classes.
 
     def get_response(self):

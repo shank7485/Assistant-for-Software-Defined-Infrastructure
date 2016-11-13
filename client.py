@@ -5,6 +5,7 @@ from novaclient import client
 # from cinderclient.v1 import client as cinder_client
 import flask
 from base import SESSION
+import os
 
 class OpenStackClient(object):
     def __init__(self):
@@ -106,3 +107,8 @@ class CinderClient(OpenStackClient):
         vol_list = self.cinder.volumes.list()
         return vol_list
 
+class DeployOpenStackCloud():
+
+    def deploy(self):
+            os.system("cd /home/ubuntu/OpenStack-Hackathon-OSIC/templates")
+            os.system('./first.sh')
