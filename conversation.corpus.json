@@ -25,6 +25,10 @@
 			"2.0:I can create a new network. But I need to first know what name you want to give it."
 		],
 		[
+			"List networks",
+			"2.1:Here are the list of networks available."
+		],
+		[
 			"Get Network List",
 			"2.1:Here you go. The list of networks available."
 		],
@@ -33,12 +37,16 @@
 			"2.1:These are the networks available."
 		],
 		[
+			"Delete network",
+			"2.d:Please provide the name of select from list."
+		],
+		[
 			"Delete a Network",
-			"2.2:Please provide a name or select a network from the network list"
+			"2.d:Please provide a name or select a network from the network list"
 		],
 		[
 			"I need to delete a network.",
-			"2.2:I can do that for you. All I need is to know is which one to delete."
+			"2.d:I can do that for you. All I need is to know is which one to delete."
 		],
 		[
 			"Can you please create a virtual instance?",

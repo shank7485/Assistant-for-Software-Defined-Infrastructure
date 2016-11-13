@@ -196,7 +196,7 @@ class CodeNeutron(Code):
                         'Network_Create_Confirm')).split(':')[1],
                                                   SESSION['network_name'])
                     list1 = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("Network_Create_Confirm", list1,
+                    return self.createJSONResponse("network_create_confirm", list1,
                                               res, True)
                 else:
                     if SESSION['network_create_confirm'] == 'yes':
@@ -204,13 +204,13 @@ class CodeNeutron(Code):
                         # NeutronClient().networkcreate()
                         SESSION.clear()
                         res = str(
-                            bot.get_response('Network_Create_Done').split(':')[
-                                1])
+                            bot.get_response('Network_Create_Done')).split(':')[
+                                1]
                         return self.createJSONResponse("", None, res)
                     elif SESSION['network_create_confirm'] == 'no':
                         SESSION.clear()
                         res = str(bot.get_response(
-                            'Network_Create_Not_Confirm').split(':')[1])
+                            'Network_Create_Not_Confirm')).split(':')[1]
                         return self.createJSONResponse("", None, res)
 
         if self.code == '1': # if 2.1
@@ -225,7 +225,7 @@ class CodeNeutron(Code):
                 return self.createJSONResponse("network_delete", network_list,
                                                self.response)
             elif 'network_delete' in SESSION:
-                if self.is_session_empty('network_delete_confirm'):
+                if self.is_session_empty('network_delete_confirm', SESSION):
                     res = '{} Name: {}'.format(
                         str(bot.get_response('Network_Delete_Confirm')))
                     lst = ['<:yes>', '<:no>']
@@ -238,13 +238,13 @@ class CodeNeutron(Code):
                         NeutronClient().netdelete()
                         SESSION.clear()
                         res = str(
-                            bot.get_response('Network_Delete_Done').split(':')[
-                                1])
+                            bot.get_response('Network_Delete_Done')).split(':')[
+                                1]
                         return self.createJSONResponse("", None, res)
                     elif SESSION['network_delete_confirm'] == 'no':
                         SESSION.clear()
                         res = str(bot.get_response(
-                            'Network_Delete_Not_Confirm').split(':')[1])
+                            'Network_Delete_Not_Confirm')).split(':')[1]
                         return self.createJSONResponse("", None, res)
 
         "Add other 2.* related stuff."
