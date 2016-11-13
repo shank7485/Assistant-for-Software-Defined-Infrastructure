@@ -51,7 +51,7 @@ if(setFlag == true){
     message = $('#message-to-send').val();
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-$("#chatul").append('<li><div class="message-data"><span class="message-data-name"> You</span><span class="message-data-time">'+time
+$("#chatul").append('<div class="message-data"><span class="message-data-name"> You</span><span class="message-data-time">'+time
 +'</span></div><div class="message my-message">'+message+'</div></div>');
 var elem = document.getElementById('chathist');
   elem.scrollTop = elem.scrollHeight;
@@ -457,7 +457,7 @@ body {
 
 </script>
 <body>
-<a href="/logout">Log Out</a>
+<a href="/logout" style="position:fixed;right:10px;top:5px;">Log Out</a>
   
 <div class="container clearfix">
   
@@ -473,11 +473,11 @@ body {
       </div> 
     --> 
       <div class="chat-history" id ="chathist" style="height:80%;width:100%">
-        <ul id="chatul"><!--
+        <ul id="chatul" style="list-style:none"><!--
             <i class="fa fa-circle online"></i>
             <i class="fa fa-circle online" style="color: #AED2A6"></i>
             <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-         --> </li>
+         --> 
           
         </ul>
         
@@ -495,7 +495,7 @@ body {
   </div> <!-- end container -->
 
 <script id="message-template" type="text/x-handlebars-template">
-  <li class="clearfix">
+  <li class="clearfix"  style="list-style: none;">
     <div class="message-data align-right">
       <span class="message-data-time" >{{time}}, Today</span> &nbsp; &nbsp;
       <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>

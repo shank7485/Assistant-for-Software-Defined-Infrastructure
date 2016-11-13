@@ -154,6 +154,7 @@ def end_point():
         # Call code checker.
         return Decider(code, response).get_response()
     except Exception, e:
+        print e
         return Decider('0.0', bot_response).get_response()
 
 
