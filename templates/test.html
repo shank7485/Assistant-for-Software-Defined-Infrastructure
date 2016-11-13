@@ -42,7 +42,7 @@ $.get("http://172.99.106.89:8080/set?key="+key+"&value="+value).done(function (d
 }
 
 function send(){
-if (!$("#message-to-send").val()) {
+if (!$("#message-to-send").val().trim()) {
     // textarea is empty
     $('#message-to-send').focus()
    return

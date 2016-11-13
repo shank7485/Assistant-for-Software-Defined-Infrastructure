@@ -189,7 +189,7 @@ class CodeNeutron(Code):
     def code_checker(self):
         if self.code == '0': # if 2.0
             if self.is_session_empty('network_name', SESSION):
-                return self.createJSONResponse("network_name", None, self.response)
+                return self.createJSONResponse("network_name", None, self.response,False,True)
             elif 'network_name' in SESSION:
                 if self.is_session_empty('network_create_confirm', SESSION):
                     res = '{} Network: {}'.format(str(bot.get_response(
@@ -223,7 +223,7 @@ class CodeNeutron(Code):
                 network_list = NeutronClient().netlist()
                 #network_list = ['<:network>']
                 return self.createJSONResponse("network_delete", network_list,
-                                               self.response)
+                                               self.response,True)
             elif 'network_delete' in SESSION:
                 if self.is_session_empty('network_delete_confirm', SESSION):
                     res = '{} Name: {}'.format(
