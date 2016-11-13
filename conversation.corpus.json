@@ -109,8 +109,12 @@
 			"1.3:Sure. The following are the availability zones."
 		],
 		[
+			"List az",
+			"1.3:Here are the list of AZs."
+		],	
+		[
 			"May I know what all availability zones are present?",
-			"1.3vHere are the availability zones."
+			"1.3:Here are the availability zones."
 		],
 		[
 			"What can you do?",
