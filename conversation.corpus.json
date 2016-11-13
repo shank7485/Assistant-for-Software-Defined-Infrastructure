@@ -2,130 +2,131 @@
 	"conversations": [
 		[
 			"Create a VM",
-			"1.0,Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
+			"1.0:Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
 		],
 		[
 			"Can you create a VM for me.",
-			"1.0,Yes. I am on it. But you need to provide me the Flavor first. Select one form the following list."
+			"1.0:Yes. I am on it. But you need to provide me the Flavor first. Select one form the following list."
 		],
 		[
 			"Please create a virtual machine.",
-			"1.0,Yes. But first I need to know the flavor list."
+			"1.0:Yes. But first I need to know the flavor list."
 		],
 		[
 			"Create a Network",
-			"2.0,Please provide a name"
+			"2.0:Please provide a name"
 		],
 		[
 			"Can you create a network?",
-			"2.0,Provide me a name and I can do that for you."
+			"2.0:Provide me a name and I can do that for you."
 		],
 		[
 			"Is it possible to create a new network?",
-			"2.0,I can create a new network. But I need to first know what name you want to give it."
+			"2.0:I can create a new network. But I need to first know what name you want to give it."
 		],
 		[
 			"Get Network List",
-			"2.1,Here you go. The list of networks available."
+			"2.1:Here you go. The list of networks available."
 		],
 		[
 			"Show all the networks available",
-			"2.1,These are the networks available."
+			"2.1:These are the networks available."
 		],
 		[
 			"Delete a Network",
-			"2.2,Please provide a name or select a network from the network list"
+			"2.2:Please provide a name or select a network from the network list"
 		],
 		[
 			"I need to delete a network.",
-			"2.2,I can do that for you. All I need is to know is which one to delete."
+			"2.2:I can do that for you. All I need is to know is which one to delete."
 		],
 		[
 			"Can you please create a virtual instance?",
-			"1.0,I will create the VM for you. But please specify the flavor."
+			"1.0:I will create the VM for you. But please specify the flavor."
 		],
 		[
 			"List Volumes",
-			"3.0, Here is the list of available volumes"
+			"3.0:Here is the list of available volumes"
 		],
 		[
 			"Can you list the available volumes",
-			"3.0, Sure Here is Volume List.Thank the python-cinderclient...not me ;)"
+			"3.0:Sure Here is Volume List.Thank the python-cinderclient...not me ;)"
 		],
 		[
 			"What are the OpenStack Services available in this cloud?",
-			"0,The following are the services which are running on this cloud."
+			"0.0:The following are the services which are running on this cloud."
 		],
 		[
 			"What is OpenStack?",
-			"0,OpenStack is an open source cloud OS. This means if you have a rack of spare servers you can run the software on the servers and start your own hosting company."
+			"0.0:OpenStack is an open source cloud OS. This means if you have a rack of spare servers you can run the software on the servers and start your own hosting company."
 		],
 		[
 			"Show all VMs",
-			"1.1,There are your VMs!"
+			"1.1:There are your VMs!"
 		],
 		[
 			"Show my VMs",
-			"1.1,Here are your virtual instances."
+			"1.1:Here are your virtual instances."
 		],
 		[
 			"Please list my virtual instances",
-			"1.1,The following are your virtual instances."
+			"1.1:The following are your virtual instances."
 		],
 		[
-			"List VMs"
-		],	"1.1, Here are the VMs.",
+			"List VMs",
+			"1.1:Here are the VMs."
+		],
 		[
 			"List Instances",
-			"1.1,Here are your instances."
+			"1.1:Here are your instances."
 		],
 		[
 			"Can you show me my virtual instances",
-			"1.1,Here are your VMs."
+			"1.1:Here are your VMs."
 		],
 		[
 			"Delete VM",
-			"1.d,Yes. Kindly specify the name."
+			"1.d:Yes. Kindly specify the name."
 		],
 		[
 			"Delete instance",
-			"1.d,I will delete your instance can you please type in the instance name or ID or Select one form the list below."
+			"1.d:I will delete your instance can you please type in the instance name or ID or Select one form the list below."
 		],
 		[
 			"Delete instance",
-			"1.d,Yes. I will. But can you please specify the instance name by typing or selecting the name?"
+			"1.d:Yes. I will. But can you please specify the instance name by typing or selecting the name?"
 		],
 		[
 			"Show availability zones",
-			"1.3,Sure. The following are the availability zones."
+			"1.3:Sure. The following are the availability zones."
 		],
 		[
 			"May I know what all availability zones are present?",
-			"1.3,Here are the availability zones."
+			"1.3vHere are the availability zones."
 		],
 		[
 			"What can you do?",
-			"0,Right now I can Create List and Delete Instances and Networks!"
+			"0.0:Right now I can Create List and Delete Instances and Networks!"
 		],
 		[
 			"Who created you?",
-			"0,I am a brain child of OSIC."
+			"0.0:I am a brain child of OSIC."
 		],
 		[
 			"What all can you do?",
-			"0,Right now I can Create List and Delete Instances and Networks!"
+			"0.0:Right now I can Create List and Delete Instances and Networks!"
 		],
 		[
 			"Who are you?",
-			"0,I am OpenStack Assistant and I can spin up VMs and Networks. You need not know any OpenStack commands. I will do it for it. Just chat with me and let me know if you want any resources."
+			"0.0:I am OpenStack Assistant and I can spin up VMs and Networks. You need not know any OpenStack commands. I will do it for it. Just chat with me and let me know if you want any resources."
 		],
 		[
 			"stop",
-			"0,alright.. I am clearing everything."
+			"0.0:alright.. I am clearing everything."
 		],
 		[
 			"Deploy OpenStack cloud",
-			"4.0,Cool. As they say, a walk of thousand miles starts with a single step. So can I know if you want all in one deployment or multi node deployment."
+			"4.0:Cool. As they say, a walk of thousand miles starts with a single step. So can I know if you want all in one deployment or multi node deployment."
 		],
 		[
 
@@ -137,131 +138,131 @@
 		],
 		[
 			"flavor",
-			"1.0,Thank you. I also need to know what image to boot. Please select which image to boot."
+			"1.0:Thank you. I also need to know what image to boot. Please select which image to boot."
 		],
 		[
 			"flavor",
-			"1.0,Thanks! Now please specify the image. Please select which image to boot."
+			"1.0:Thanks! Now please specify the image. Please select which image to boot."
 		],
 		[
 			"flavor",
-			"1.0,Thanks! Select the image. I can't boot an image without knowing the image."
+			"1.0:Thanks! Select the image. I can't boot an image without knowing the image."
 		],
 		[
 			"image",
-			"1.0,Thanks. Now type the name you want to give to the instance."
+			"1.0:Thanks. Now type the name you want to give to the instance."
 		],
 		[
 			"vm_delete",
-			"1.d,Deleting VM. Please wait."
+			"1.d:Deleting VM. Please wait."
 		],
 		[
 			"VM_Create_Confirm",
-			"1.0,Please confirm if the parameters are correct."
+			"1.0:Please confirm if the parameters are correct."
 		],
 		[
 			"VM_Create_Confirm",
-			"1.0,Confirm again if the following are correct."
+			"1.0:Confirm again if the following are correct."
 		],
 		[
 			"VM_Create_Not_Confirm",
-			"1.0,So you don't want to proceed ahead with creation of VM. What else do you want to do?"
+			"1.0:So you don't want to proceed ahead with creation of VM. What else do you want to do?"
 		],
 		[
 			"VM_Create_Done",
-			"0,Your VM creation is done!."
+			"0.0:Your VM creation is done!."
 		],
 		[
 			"VM_Create_Done",
-			"0,VM is created."
+			"0.0:VM is created."
 		],
 		[
 			"VM_Delete_Confirm",
-			"1.d,Please confirm if deletion is correct"
+			"1.d:Please confirm if deletion is correct"
 		],
 		[
 			"VM_Delete_Confirm",
-			"1.d,Confirm if this is the VM you need to delete."
+			"1.d:Confirm if this is the VM you need to delete."
 		],
 		[
 			"VM_Delete_Done",
-			"0,Your Instance has been deleted."
+			"0.0:Your Instance has been deleted."
 		],
 		[
 			"VM_Delete_Done",
-			"0,Your Instance has been deleted."
+			"0.0:Your Instance has been deleted."
 		],
 		[
 			"VM_Delete_Done",
-			"0,Instance stopped."
+			"0.0:Instance stopped."
 		],
 		[
 			"VM_Delete_Done",
-			"0,Stopped your instance."
+			"0.0:Stopped your instance."
 		],
 		[
 			"vm_name",
-			"1,Creating VM. Please wait."
+			"1.0:Creating VM. Please wait."
 		],
 		[
 			"network_name",
-			"2,Creating network..have patience!"
+			"2.0:Creating network..have patience!"
 		],
 		[
 			"Network_Create_Confirm",
-			"2,Please confirm the following."
+			"2.0:Please confirm the following."
 		],
 		[
 			"Network_Create_Confirm",
-			"2,Confirm the network creation."
+			"2.0:Confirm the network creation."
 		],
 		[
 			"Network_Create_Done",
-			"0,Your Network is created. It's that easy with your OpenStack Assistant :)"
+			"0.0:Your Network is created. It's that easy with your OpenStack Assistant :)"
 		],
 		[
 			"Network_Create_Done",
-			"0,Network Creation is complete. It's that easy with your OpenStack Assistant :)"
+			"0.0:Network Creation is complete. It's that easy with your OpenStack Assistant :)"
 		],
 		[
 			"Network_Create_Not_Confirm",
-			"0,Okay...I see...What else can I help you with?"
+			"0.0:Okay...I see...What else can I help you with?"
 		],
 		[
 			"Network_Delete_Confirm",
-			"2.2,Please confirm your selection"
+			"2.2:Please confirm your selection"
 		],
 		[
 			"Network_Delete_Confirm",
-			"2.2,Confirm if this is the network you want to delete"
+			"2.2:Confirm if this is the network you want to delete"
 		],
 		[
 			"Network_Delete_Done",
-			"0,The Network has been deleted"
+			"0.0:The Network has been deleted"
 		],
 		[
 			"Network_Delete_Done",
-			"0,Network deletion done.Have a good day :)"
+			"0.0:Network deletion done.Have a good day :)"
 		],
 		[
 			"Net_List",
-			"0,Available Network list is: "
+			"0.0:Available Network list is: "
 		],
 		[
 			"deploy",
-			"4.0, Select all-in-one or multi-node: "
+			"4.0:Select all-in-one or multi-node: "
 		],
 		[
 			"deploy_ip",
-			"4.0, Please select an IP address/Server to deploy your all-in-one OpenStack cloud"
+			"4.0:Please select an IP address/Server to deploy your all-in-one OpenStack cloud"
 		],
 		[
 			"deploy_confirm",
-			"4.0, Are you sure you want to deploy an all-in-one OpenStack cloud?"
+			"4.0:Are you sure you want to deploy an all-in-one OpenStack cloud?"
 		],
 		[
 			"deploy_not_confirm",
-			"0, Are you sure you want to cancel the OpenStack cloud deployment?"
+			"0.0:Are you sure you want to cancel the OpenStack cloud deployment?"
 		]
 	]
 }
