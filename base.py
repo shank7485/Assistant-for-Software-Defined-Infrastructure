@@ -278,14 +278,16 @@ class CodeDeploy(Code):
                 deploy_list = ['<:all_in_one>', '<:multi_node>']
                 return self.createJSONResponse("deploy", deploy_list, self.response, True)
             elif self.is_session_empty('deploy_ip', SESSION):
-                ip_list = ['<:192.168.0.223>']
+                ip_list = ['<:192.168.0.225>']
                 return self.createJSONResponse("deploy_ip", ip_list, self.response, True)
             elif self.is_session_empty("deploy_confirm", SESSION):
                 choice_list = ['<:yes>', '<:no>']
                 return self.createJSONResponse("deploy_confirm", choice_list, self.response, True)
             else:
                 if SESSION['deploy_confirm'] == 'yes':
-                    DeployOpenStackCloud().deploy()
+                    print SESSION['deploy_ip']
+                    DeployOpenStackCloud().deploy(SESSION['deploy_ip'])
+                    return self.createJSONResponse("", None, "We are deploying openstack for you please check status here <a target='_blank' href='/consoleScreen?ip="+SESSION['deploy_ip']+"'>Here </a>")
                 else:
                     SESSION.clear()
                     res = str(bot.get_response('deploy_not_confirm')).split(

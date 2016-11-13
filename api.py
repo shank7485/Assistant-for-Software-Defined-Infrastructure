@@ -9,7 +9,7 @@ from base import Decider
 from flask import Flask, Response, redirect, url_for, request, session, abort
 from flask.ext.login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user
-
+import os
 app = Flask(__name__)
 
 # config
@@ -99,6 +99,7 @@ def add_header(r):
 @app.route('/getConsoleLog')
 def getConsoleLog():
     ip = request.args.get('ip')
+    os.system("scp -i /home/ubuntu/nish_key-2.pem  ubuntu@"+str(ip)+":/home/ubuntu/log_"+str(ip)+".txt static/")
     return send_from_directory('static', 'log_'+str(ip)+'.txt')
     # UI: User clicks and goes to processLogin
 

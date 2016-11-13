@@ -109,6 +109,6 @@ class CinderClient(OpenStackClient):
 
 class DeployOpenStackCloud():
 
-    def deploy(self):
-            os.system("cd /home/ubuntu/OpenStack-Hackathon-OSIC/templates")
-            os.system('./first.sh')
+    def deploy(self,ip):
+            os.system("cd /home/ubuntu/OpenStack-Hackathon-OSIC/static; ./first.sh %s" % ip)
+          #  os.system('./first.sh')
