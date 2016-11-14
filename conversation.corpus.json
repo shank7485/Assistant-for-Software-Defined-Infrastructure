@@ -274,10 +274,10 @@
 		],
                 [
                         "network_delete",
-                        "2.d::Okay...I see...What else can I help you with?"
+                        "2.d:Please confirm!"
                 ],
 		[
-			"metwork_Delete_Confirm",
+			"network_Delete_Confirm",
 			"2.d:Please confirm your selection"
 		],
 		[

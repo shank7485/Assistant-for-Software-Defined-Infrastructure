@@ -226,8 +226,7 @@ class CodeNeutron(Code):
                                                self.response,True)
             elif 'network_delete' in SESSION:
                 if self.is_session_empty('network_delete_confirm', SESSION):
-                    res = '{} Name: {}'.format(
-                        str(bot.get_response('network_Delete_Confirm')))
+                    res = str(bot.get_response('network_Delete_Confirm'))
                     lst = ['<:yes>', '<:no>']
                     return self.createJSONResponse("network_delete_confirm", lst,
                                               res,
@@ -287,8 +286,8 @@ class CodeDeploy(Code):
                 if SESSION['deploy_confirm'] == 'yes':
                     print SESSION['ipaddress_confirm']
                     DeployOpenStackCloud().deploy(SESSION['ipaddress_confirm'])
-                    SESSION.clear()
                     return self.createJSONResponse("", None, "We are deploying openstack for you please check status here <a target='_blank' href='/consoleScreen?ip="+SESSION['ipaddress_confirm']+"'>Here </a>")
+                    SESSION.clear()
                 else:
                     SESSION.clear()
                     res = str(bot.get_response('deploy_not_confirm')).split(
