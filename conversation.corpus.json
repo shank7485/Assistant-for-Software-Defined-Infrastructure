@@ -1,6 +1,18 @@
 {
 	"conversations": [
-		[
+                [
+                        "Spin up an instance",
+                        "1.0:Sure. I am on my way to spin an instance for you. But I need to know to know the Flavor. Please select from this list"
+                ],
+                [
+                        "launch an instance",
+                        "1.0:Sure. I am on my way to launch an instance for you. But I need to know to know the Flavor. Please select from this list"
+                ],
+                [
+                        "Launch Virtual Machine",
+                        "1.0:Sure. I am on my way to launch a VM for you. But I need to know to know the Flavor. Please select from this list"
+                ],	
+                [
 			"Create a VM",
 			"1.0:Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
 		],
@@ -56,6 +68,14 @@
 			"List Volumes",
 			"3.0:Here is the list of available volumes"
 		],
+                [
+                        "List cinder Volumes",
+                        "3.0:Here is the list of available volumes"
+                ],
+                [
+                        "Show cinder Volumes",
+                        "3.0:Here is the list of available volumes"
+                ],
 		[
 			"Can you list the available volumes",
 			"3.0:Sure Here is Volume List.Thank the python-cinderclient...not me ;)"
@@ -68,6 +88,14 @@
 			"What is OpenStack?",
 			"0.0:OpenStack is an open source cloud OS. This means if you have a rack of spare servers you can run the software on the servers and start your own hosting company."
 		],
+                [
+                        "Show all Virtual Machines",
+                        "1.1:There are your Virtual Machines!"
+                ],
+                [
+                        "VM List",
+                        "1.1:There are your list of VMs!"
+                ],
 		[
 			"Show all VMs",
 			"1.1:There are your VMs!"
@@ -140,6 +168,10 @@
 			"Deploy OpenStack cloud",
 			"4.0:Cool. As they say, a walk of thousand miles starts with a single step. So can I know if you want all in one deployment or multi node deployment."
 		],
+                [
+                        "Deploy",
+                        "4.0:Sure, I will deploy an Openstack cloud for you. So can I know if you want all in one deployment or multi node deployment."
+                ],
 		[
 
 		],
@@ -261,12 +293,12 @@
 			"0.0:Available Network list is: "
 		],
 		[
-			"deploy",
-			"4.0:Select all-in-one or multi-node: "
+			"type_of_deployment",
+			"4.0:Please select an IP address/Server to deploy your all-in-one OpenStack cloud "
 		],
 		[
-			"deploy_ip",
-			"4.0:Please select an IP address/Server to deploy your all-in-one OpenStack cloud"
+			"ipaddress_confirm",
+			"4.0:Are you sure you want to deploy an all-in-one OpenStack cloud?"
 		],
 		[
 			"deploy_confirm",
@@ -274,7 +306,7 @@
 		],
 		[
 			"deploy_not_confirm",
-			"0.0:Are you sure you want to cancel the OpenStack cloud deployment?"
+			"0.0:Not a problem. Try me again!!"
 		]
 	]
 }

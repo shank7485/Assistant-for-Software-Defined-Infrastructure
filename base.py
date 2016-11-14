@@ -274,20 +274,21 @@ class CodeDeploy(Code):
 
     def code_checker(self):
         if self.code == '0':
-            if self.is_session_empty('deploy', SESSION):
+            if self.is_session_empty('type_of_deployment', SESSION):
                 deploy_list = ['<:all_in_one>', '<:multi_node>']
-                return self.createJSONResponse("deploy", deploy_list, self.response, True)
-            elif self.is_session_empty('deploy_ip', SESSION):
+                return self.createJSONResponse("type_of_deployment", deploy_list, self.response, True)
+            elif self.is_session_empty('ipaddress_confirm', SESSION):
                 ip_list = ['<:192.168.0.225>']
-                return self.createJSONResponse("deploy_ip", ip_list, self.response, True)
+                return self.createJSONResponse("ipaddress_confirm", ip_list, self.response, True)
             elif self.is_session_empty("deploy_confirm", SESSION):
                 choice_list = ['<:yes>', '<:no>']
                 return self.createJSONResponse("deploy_confirm", choice_list, self.response, True)
             else:
                 if SESSION['deploy_confirm'] == 'yes':
-                    print SESSION['deploy_ip']
-                    DeployOpenStackCloud().deploy(SESSION['deploy_ip'])
-                    return self.createJSONResponse("", None, "We are deploying openstack for you please check status here <a target='_blank' href='/consoleScreen?ip="+SESSION['deploy_ip']+"'>Here </a>")
+                    print SESSION['ipaddress_confirm']
+                    DeployOpenStackCloud().deploy(SESSION['ipaddress_confirm'])
+                    SESSION.clear()
+                    return self.createJSONResponse("", None, "We are deploying openstack for you please check status here <a target='_blank' href='/consoleScreen?ip="+SESSION['ipaddress_confirm']+"'>Here </a>")
                 else:
                     SESSION.clear()
                     res = str(bot.get_response('deploy_not_confirm')).split(
