@@ -166,6 +166,7 @@ def set():
     value = request.args.get('value')
     SESSION[key] = value
     bot_response = str(bot.get_response(key))
+    print "Bot Response " + bot_response
     code = bot_response.split(':')[0]
     response = bot_response.split(':')[1]
     # Update corpus question = key and answer = code, response.

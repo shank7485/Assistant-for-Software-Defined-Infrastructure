@@ -272,20 +272,24 @@
 			"Network_Create_Not_Confirm",
 			"0.0:Okay...I see...What else can I help you with?"
 		],
+                [
+                        "network_delete",
+                        "2.d::Okay...I see...What else can I help you with?"
+                ],
 		[
-			"Network_Delete_Confirm",
-			"2.2:Please confirm your selection"
+			"metwork_Delete_Confirm",
+			"2.d:Please confirm your selection"
 		],
 		[
-			"Network_Delete_Confirm",
-			"2.2:Confirm if this is the network you want to delete"
+			"network_Delete_Confirm",
+			"2.d:Confirm if this is the network you want to delete"
 		],
 		[
-			"Network_Delete_Done",
+			"network_Delete_Done",
 			"0.0:The Network has been deleted"
 		],
 		[
-			"Network_Delete_Done",
+			"network_Delete_Done",
 			"0.0:Network deletion done.Have a good day :)"
 		],
 		[

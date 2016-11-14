@@ -227,7 +227,7 @@ class CodeNeutron(Code):
             elif 'network_delete' in SESSION:
                 if self.is_session_empty('network_delete_confirm', SESSION):
                     res = '{} Name: {}'.format(
-                        str(bot.get_response('Network_Delete_Confirm')))
+                        str(bot.get_response('network_Delete_Confirm')))
                     lst = ['<:yes>', '<:no>']
                     return self.createJSONResponse("network_delete_confirm", lst,
                                               res,
