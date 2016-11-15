@@ -88,14 +88,11 @@ class NeutronClient(OpenStackClient):
         return netlist
 
     def netdelete(self):
-        net_list = self.netlist()
+        net_list = self.neutron.list_networks()
         for network in net_list['networks']:
-            for k,v in network.iteritems():
-                if str(k)=='name':
-                    if str(v) == SESSION['network_name']:
-                        break;
-            net_id = network['id']
-            self.neutron.delete_network(net_id)
+            if network['name'] == SESSION['network_delete']:
+                net_id = network['id']
+                self.neutron.delete_network(net_id)
 
 
 class CinderClient(OpenStackClient):
