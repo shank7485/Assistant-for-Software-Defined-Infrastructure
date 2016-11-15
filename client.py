@@ -92,7 +92,7 @@ class NeutronClient(OpenStackClient):
         for network in net_list['networks']:
             for k,v in network.iteritems():
                 if str(k)=='name':
-                    if str(v) == SESSION['network_name']:
+                    if str(v) == SESSION['network_delete']:
                         break;
             net_id = network['id']
             self.neutron.delete_network(net_id)
