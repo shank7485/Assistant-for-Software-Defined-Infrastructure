@@ -94,7 +94,6 @@ class NeutronClient(OpenStackClient):
                 net_id = network['id']
                 self.neutron.delete_network(net_id)
 
-
 class CinderClient(OpenStackClient):
     def __init__(self):
         super(CinderClient, self).__init__()
