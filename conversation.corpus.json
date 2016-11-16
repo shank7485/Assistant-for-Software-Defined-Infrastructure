@@ -64,6 +64,10 @@
 			"Can you please create a virtual instance?",
 			"1.0:I will create the VM for you. But please specify the flavor."
 		],
+                [
+                        "ciner volumes",
+                        "3.0:Here is the list of available cinder volumes"
+                ],
 		[
 			"List Volumes",
 			"3.0:Here is the list of available volumes"
@@ -94,11 +98,11 @@
                 ],
                 [
                         "VM List",
-                        "1.1:There are your list of VMs!"
+                        "1.1:There are your list of VM!"
                 ],
 		[
 			"Show all VMs",
-			"1.1:There are your VMs!"
+			"1.1:There are your VM!"
 		],
 		[
 			"Show my VMs",
@@ -110,7 +114,7 @@
 		],
 		[
 			"List VMs",
-			"1.1:Here are the VMs."
+			"1.1:Here are the Virtual Machines."
 		],
 		[
 			"List Instances",
