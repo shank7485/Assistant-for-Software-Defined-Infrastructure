@@ -1,4 +1,5 @@
 import chatterbot
+from chatterbot.conversation.response_selection import get_random_response
 from flask import Flask, jsonify
 import json
 from client import DeployOpenStackCloud, NovaClient, NeutronClient, CinderClient
@@ -9,11 +10,21 @@ from sessions_file import SESSION
 
 class OpenStackBot(object):
     def __init__(self):
-        self.trainer = 'chatterbot.trainers.ChatterBotCorpusTrainer'
         self.corpus = 'chatterbot.corpus.openstack'
         self.chatbot = chatterbot.ChatBot(
             'OpenStack Bot',
-            trainer=self.trainer
+            logic_adapters=[
+                {
+                   'import_path': 'chatterbot.adapters.logic.ClosestMatchAdapter'
+                },
+                {
+                   'import_path': 'chatterbot.adapters.logic.LowConfidenceAdapter',
+                   'threshold': 0.65,
+                   'default_response': 'I am sorry, but I do not understand.'
+                }
+            ],
+            trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
+            response_selection_method=get_random_response
         )
         self.chatbot.train("chatterbot.corpus.english.greetings", self.corpus)
 

@@ -137,9 +137,9 @@ def process_login():
     SESSION['password'] = password
     print(SESSION['username'])
     if NovaClient().check_keystone() == True:
-        return redirect("http://172.99.106.89/index.html", code=302)
+        return redirect("/index.html", code=302)
     else:
-        return redirect("http://172.99.106.89/login.html", code=302)
+        return redirect("/login.html", code=302)
 
 
 @app.route('/chat')

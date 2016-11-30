@@ -35,7 +35,7 @@ var set_type = ''
 //}, 200);
 
 function setAPI(key,value){
-$.get("http://172.99.106.89:8080/set?key="+key+"&value="+value).done(function (data) {
+$.get("/set?key="+key+"&value="+value).done(function (data) {
    console.log(data);
    renderResponse(data)
 })
@@ -65,7 +65,7 @@ var elem = document.getElementById('chathist');
 
 setFlag = false
 
-$.get("http://172.99.106.89:8080/set?key="+set_type+"&value="+message).done(function (data) {
+$.get("/set?key="+set_type+"&value="+message).done(function (data) {
   renderResponse(data)
 }).fail(function() {
      showMessage();
@@ -83,7 +83,7 @@ $("#chatul").append('<li><div class="message-data"><span class="message-data-nam
 +'</span></div><div class="message my-message">'+message+'</div></li>');
 var elem = document.getElementById('chathist');
   elem.scrollTop = elem.scrollHeight;
-$.get("http://172.99.106.89:8080/chat?question="+message).done(function (data) {
+$.get("/chat?question="+message).done(function (data) {
   renderResponse(data)
 }).fail(function() {
      showMessage();

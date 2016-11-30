@@ -2,7 +2,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 function setAPI(key,value){
-$.get("http://172.99.106.89:8080/set?key="+key+"&value="+value).done(function (data) {
+$.get("/set?key="+key+"&value="+value).done(function (data) {
    console.log(data);
    renderResponse(data)
 });
@@ -16,7 +16,7 @@ time = new Date($.now());
 $("#chatul").append('<li><div class="message-data"><span class="message-data-name"> You</span><span class="message-data-time">'+time
 +'</span></div><div class="message my-message">'+message+'</div></li>');
 
-$.get("http://172.99.106.89:8080/chat?question="+message).done(function (data) {
+$.get("/chat?question="+message).done(function (data) {
   renderResponse(data)
 });
 
