@@ -1,100 +1,26 @@
-import pdb
-from keystoneauth1.identity import v3
-from keystoneauth1 import session
-from novaclient import client
-from neutronclient.v2_0 import client as neutron_client
-
-def createJSONResponse(*argv):
-    try:
-       argv[3]
-    except Exception:
-       button = False
-    else:
-       button = True
-    try:
-       argv[4]
-    except Exception:
-       callSet = False
-    else:
-       callSet = True
-    response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
-    l = []
-    if argv[1] is not None:
-         response = response + ",\"list\":["
-         for a in argv[1]:
-                temp = str(a).split(":")[1].strip()[:-1]
-                temp1 = "{\"value\": \""+temp+"\"},"
-                response = response + temp1
-         response = response[:-1] + "]"
-    response = response + ",\"button\":\""+str(button)+"\""+ ",\"callSet\":\""+str(callSet)+"\""
-    response = response+ "}"
-    return "angular.callbacks._0("+response+")"
-
-def cre22ateJSONResponse(*argv):
-    try:
-       argv[3]
-    except Exception:
-       button = False
-    else:
-       button = True
-    response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
-    l = []
-    if argv[1] is not None:
-         response = response + ",\"list\":["
-         for a in argv[1]:
-                temp = str(a).split(":")[1].strip()[:-1]
-                temp1 = "{\"value\": \""+temp+"\"},"
-                response = response + temp1
-         response = response[:-1] + "]"
-    response = response + ",\"button\":\""+str(button)+"\""
-    response = response+ "}"
-    return "angular.callbacks._0("+response+")"
-
-def createJSONResponse1(*argv):
-    try:
-       argv[3]
-    except Exception:
-       button = False
-    else:
-       button = True
-    response = "{\"message\": \""+argv[2]+"\",\"type\": \""+argv[0]+"\""
-    l = []
-    if argv[1] is not None:
-         response = response + ",\"list\":["
-         for a in argv[1]:
-                temp = str(a).split(":")[1].strip()[:-1]
-                temp1 = "{\"value\": \""+temp+"\"},"
-                response = response + temp1
-         response = response[:-1] + "]"
-    response = response + ",\"button\":\""+str(button)+"\""
-    response = response+ "}"
-    return response
+from oslo_config import cfg
 
 
-auth = v3.Password(auth_url='http://192.168.0.12:5000/v3',
-                   username='admin',
-                   password='1',
-                   project_name='admin',
-                   user_domain_id='default',
-                   project_domain_id='default')
-sess = session.Session(auth=auth)
-nova = client.Client("2.1", session=sess)
-#nova.servers.create("nish",flavor="m1.tiny")
-neutron = neutron_client.Client(session=sess)
-#response = createJSONResponse("AZ",nova.availability_zones.list(),"msg")
-#print(response)
-list = nova.flavors.list()
+class ReadConfig(object):
+    def __init__(self, conf_path):
+        self.conf_path = conf_path
 
-network_list = neutron.list_networks()
-netlist = []
-temp_list = network_list['networks']
-for i in temp_list:
-    for k, v in i.iteritems():
-         if str(k)=='name':
-             k1 = '<'+str(k)
-             v1 = str(v)+'>'
-             w = k1+':'+v1
-             netlist.append(w)
-print netlist
-print nova.availability_zones.list()
-print createJSONResponse("",list,"Plain message")
+        self.opt_group = cfg.OptGroup(name='endpoint',
+                                 title='Get the endpoints for keystone')
+
+        self.endpoint_opts = [cfg.StrOpt('endpoint', default='None',
+            help=('URL or IP address where OpenStack keystone runs.'))
+        ]
+
+        CONF = cfg.CONF
+        CONF.register_group(self.opt_group)
+        CONF.register_opts(self.endpoint_opts, self.opt_group)
+
+        CONF(default_config_files=[self.conf_path])
+        self.AUTH_ENDPOINT = CONF.endpoint.endpoint
+
+    def get_endpoint(self):
+        return self.AUTH_ENDPOINT
+
+
+print ReadConfig('app.conf').get_endpoint()

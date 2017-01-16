@@ -8,24 +8,24 @@ from sessions_file import SESSION
 import os
 from oslo_config import cfg
 
+
 class ReadConfig(object):
     def __init__(self, conf_path):
+        self.conf_path = conf_path
 
-        opt_group = cfg.OptGroup(name='endpoint',
+        self.opt_group = cfg.OptGroup(name='endpoint',
                                  title='Get the endpoints for keystone')
 
-        endpoint_opts = [cfg.StrOpt('endpoint', default='None',
+        self.endpoint_opts = [cfg.StrOpt('endpoint', default='None',
             help=('URL or IP address where OpenStack keystone runs.'))
         ]
 
-    CONF = cfg.CONF
-    CONF.register_group(opt_group)
-    CONF.register_opts(endpoint_opts, opt_group)
+        CONF = cfg.CONF
+        CONF.register_group(self.opt_group)
+        CONF.register_opts(self.endpoint_opts, self.opt_group)
 
-
-
-    CONF(default_config_files=[conf_path])
-    self.AUTH_ENDPOINT = CONF.endpoint.endpoint
+        CONF(default_config_files=[self.conf_path])
+        self.AUTH_ENDPOINT = CONF.endpoint.endpoint
 
     def get_endpoint(self):
         return self.AUTH_ENDPOINT
@@ -35,10 +35,11 @@ class OpenStackClient(object):
     def __init__(self):
         try:
             endpoint_IP = ReadConfig('app.conf').get_endpoint()
-            endpoint = 'http://' + endpoint_IP + '5000/v3'
+            endpoint = 'http://' + endpoint_IP + ':5000/v3'
+            # Figure out a way to save username and admin in memory
             auth = v3.Password(auth_url=endpoint,
-                               username="admin",#flask.session['username'],
-                               password="1",#flask.session['password'],
+                               username="admin",
+                               password="1",
                                project_name='admin',
                                user_domain_id='default',
                                project_domain_id='default')
@@ -52,17 +53,18 @@ class NovaClient(OpenStackClient):
         super(NovaClient, self).__init__()
         self.nova = client.Client("2.1", session=self.sess)
 
-    def check_keystone(self,username1,password1):
+    def check_keystone(self, username1, password1):
         try:
-           auth = v3.Password(auth_url='http://192.168.0.12:5000/v3',
-                               username=username1,#flask.session['username'],
-                               password=password1,#flask.session['password'],
+           endpoint_IP = ReadConfig('app.conf').get_endpoint()
+           endpoint = 'http://' + endpoint_IP + ':5000/v3'
+           auth = v3.Password(auth_url=endpoint,
+                               username=username1,
+                               password=password1,
                                project_name='admin',
                                user_domain_id='default',
                                project_domain_id='default')
            sess1 = k_session.Session(auth=auth)
            nova = client.Client("2.1", session=sess1)
-           print nova.flavors.list()
            return True
         except:
            return False
@@ -77,8 +79,8 @@ class NovaClient(OpenStackClient):
            return self.nova.availability_zones.list()
 
     def novaboot(self):
-            image = self.nova.images.find(name=SESSION['image'])#name="cirros-0.3.4-x86_64-uec")
-            fl = self.nova.flavors.find(name=SESSION['flavor'])#name="m1.tiny")
+            image = self.nova.images.find(name=SESSION['image'])
+            fl = self.nova.flavors.find(name=SESSION['flavor'])
             self.nova.servers.create(SESSION['vm_name'], flavor=fl, image=image)
 
     def nova_vm_list(self):
