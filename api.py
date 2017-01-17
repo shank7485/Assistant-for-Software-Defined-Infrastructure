@@ -3,7 +3,7 @@ from base import bot
 from flask import request
 from flask import redirect
 from flask import render_template,send_from_directory
-from client import NovaClient
+from client import OpenStackClient
 from sessions_file import SESSION
 from base import Decider
 from flask import Flask, Response, redirect, url_for, request, session, abort
@@ -53,7 +53,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if NovaClient().check_keystone(username,password) == True:
+        if OpenStackClient().keystone_auth(username, password):
             print "login window"
             user = User("1")
             login_user(user)

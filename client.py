@@ -3,10 +3,11 @@ from keystoneauth1 import session as k_session
 from novaclient import client
 from neutronclient.v2_0 import client as neutron_client
 from cinderclient.v1 import client as cinder_client
-import flask
 from sessions_file import SESSION
 import os
 from oslo_config import cfg
+
+CREDENTIALS = {}
 
 
 class ReadConfig(object):
@@ -33,41 +34,35 @@ class ReadConfig(object):
 
 class OpenStackClient(object):
     def __init__(self):
+        self.endpoint_IP = ReadConfig('app.conf').get_endpoint()
+        self.endpoint = 'http://' + self.endpoint_IP + ':5000/v3'
+
+    def keystone_auth(self, username, password):
         try:
-            endpoint_IP = ReadConfig('app.conf').get_endpoint()
-            endpoint = 'http://' + endpoint_IP + ':5000/v3'
-            # Figure out a way to save username and admin in memory
-            auth = v3.Password(auth_url=endpoint,
-                               username="admin",
-                               password="1",
+           auth = v3.Password(auth_url=self.endpoint,
+                               username=username,
+                               password=password,
                                project_name='admin',
                                user_domain_id='default',
                                project_domain_id='default')
-            self.sess = k_session.Session(auth=auth)
+           self.sess = k_session.Session(auth=auth)
+           CREDENTIALS[username] = password
+           return True
         except:
-            return str("User not logged in")
+           return False
 
 
 class NovaClient(OpenStackClient):
     def __init__(self):
         super(NovaClient, self).__init__()
+        auth = v3.Password(auth_url=self.endpoint,
+                           username=CREDENTIALS.keys()[0],
+                           password=CREDENTIALS[CREDENTIALS.keys()[0]],
+                           project_name='admin',
+                           user_domain_id='default',
+                           project_domain_id='default')
+        self.sess = k_session.Session(auth=auth)
         self.nova = client.Client("2.1", session=self.sess)
-
-    def check_keystone(self, username1, password1):
-        try:
-           endpoint_IP = ReadConfig('app.conf').get_endpoint()
-           endpoint = 'http://' + endpoint_IP + ':5000/v3'
-           auth = v3.Password(auth_url=endpoint,
-                               username=username1,
-                               password=password1,
-                               project_name='admin',
-                               user_domain_id='default',
-                               project_domain_id='default')
-           sess1 = k_session.Session(auth=auth)
-           nova = client.Client("2.1", session=sess1)
-           return True
-        except:
-           return False
 
     def novaflavorlist(self):
             return self.nova.flavors.list()
@@ -96,6 +91,13 @@ class NovaClient(OpenStackClient):
 class NeutronClient(OpenStackClient):
     def __init__(self):
         super(NeutronClient, self).__init__()
+        auth = v3.Password(auth_url=self.endpoint,
+                           username=CREDENTIALS.keys()[0],
+                           password=CREDENTIALS[CREDENTIALS.keys()[0]],
+                           project_name='admin',
+                           user_domain_id='default',
+                           project_domain_id='default')
+        self.sess = k_session.Session(auth=auth)
         self.neutron = neutron_client.Client(session=self.sess)
 
     def networkcreate(self):
@@ -125,6 +127,13 @@ class NeutronClient(OpenStackClient):
 class CinderClient(OpenStackClient):
     def __init__(self):
         super(CinderClient, self).__init__()
+        auth = v3.Password(auth_url=self.endpoint,
+                           username=CREDENTIALS.keys()[0],
+                           password=CREDENTIALS[CREDENTIALS.keys()[0]],
+                           project_name='admin',
+                           user_domain_id='default',
+                           project_domain_id='default')
+        self.sess = k_session.Session(auth=auth)
         self.cinder = cinder_client.Client(session=self.sess)
 
     def volumelist(self):

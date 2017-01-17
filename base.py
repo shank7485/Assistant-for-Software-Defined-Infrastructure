@@ -7,7 +7,7 @@ import os
 from shutil import copyfile
 from sessions_file import SESSION
 
-
+# TEST
 class OpenStackBot(object):
     def __init__(self):
         self.corpus = 'chatterbot.corpus.openstack'
