@@ -136,7 +136,7 @@ def process_login():
     SESSION['username'] = username
     SESSION['password'] = password
     print(SESSION['username'])
-    if NovaClient().check_keystone() == True:
+    if OpenStackClient().keystone_auth(username, password):
         return redirect("/index.html", code=302)
     else:
         return redirect("/login.html", code=302)
