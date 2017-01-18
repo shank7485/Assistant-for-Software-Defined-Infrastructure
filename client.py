@@ -63,6 +63,7 @@ class NovaClient(OpenStackClient):
                            project_domain_id='default')
         self.sess = k_session.Session(auth=auth)
         self.nova = client.Client("2.1", session=self.sess)
+        #self.neutron = neutron_client.Client(session=self.sess)
 
     def novaflavorlist(self):
             return self.nova.flavors.list()
@@ -76,7 +77,14 @@ class NovaClient(OpenStackClient):
     def novaboot(self):
             image = self.nova.images.find(name=SESSION['image'])
             fl = self.nova.flavors.find(name=SESSION['flavor'])
-            self.nova.servers.create(SESSION['vm_name'], flavor=fl, image=image)
+            #net_name = self.nova.networks.find(label=SESSION['net_name'])
+            #import pdb; pdb.set_trace()
+            net_list = self.nova.networks.list()
+            for network in net_list:
+                if network.label == SESSION['net_name']:
+                    net_id = network.id
+            self.nova.servers.create(SESSION['vm_name'], flavor=fl,
+                                     image=image, nics=[{'net-id': net_id}])
 
     def nova_vm_list(self):
             return self.nova.servers.list()
@@ -102,7 +110,11 @@ class NeutronClient(OpenStackClient):
 
     def networkcreate(self):
         network1 = {'name': SESSION['network_name']}
-        self.neutron.create_network({'network': network1})
+        net = self.neutron.create_network({'network': network1})
+        net_id = net['network']['id']
+        subnet1 = {'name': SESSION['subnet_name'], "ip_version": 4,
+                   'network_id': net_id, 'cidr': SESSION['cidr']}
+        self.neutron.create_subnet({'subnet': subnet1})
 
     def netlist(self):
         network_list = self.neutron.list_networks()

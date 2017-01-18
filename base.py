@@ -121,16 +121,18 @@ class CodeNova(Code):
             elif self.is_session_empty('vm_name', SESSION):
                 return self.createJSONResponse("vm_name", None, self.response, False,
                                           True)
-            elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name' in SESSION:
+            elif self.is_session_empty('net_name', SESSION):
+                network_list = NeutronClient().netlist()
+                return self.createJSONResponse('net_name', network_list,
+                                               self.response, True)
+            elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name'\
+                in SESSION and 'net_name' in SESSION:
                 if self.is_session_empty('vm_create_confirm', SESSION):
-                    res = '{} Flavor: {} Image: {} Name: {}'.format(str(
-                        bot.get_response('VM_Create_Confirm')).split(':')[1],
-                                                                    SESSION[
-                                                                        'flavor'],
-                                                                    SESSION[
-                                                                        'image'],
-                                                                    SESSION[
-                                                                        'vm_name'])
+                    res = '{} Flavor: {} Image: {} Name: {} Network_Name: {}'\
+                        .format(str(bot.get_response('VM_Create_Confirm')).
+                                split(':')[1],SESSION['flavor'],
+                                SESSION['image'],SESSION['vm_name'],
+                                SESSION['net_name'])
                     lst = ['<:yes>', '<:no>']
                     return self.createJSONResponse("vm_create_confirm", lst, res,
                                               True)
@@ -201,14 +203,23 @@ class CodeNeutron(Code):
         if self.code == '0': # if 2.0
             if self.is_session_empty('network_name', SESSION):
                 return self.createJSONResponse("network_name", None, self.response,False,True)
-            elif 'network_name' in SESSION:
+            if self.is_session_empty('subnet_name', SESSION):
+                return self.createJSONResponse("subnet_name", None,
+                                               self.response, False, True)
+            elif self.is_session_empty('cidr', SESSION):
+                return self.createJSONResponse("cidr", None,
+                                                   self.response, False, True)
+            elif 'network_name' in SESSION and 'cidr' in SESSION and \
+                            'subnet_name' in SESSION:
                 if self.is_session_empty('network_create_confirm', SESSION):
-                    res = '{} Network: {}'.format(str(bot.get_response(
-                        'Network_Create_Confirm')).split(':')[1],
-                                                  SESSION['network_name'])
-                    list1 = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("network_create_confirm", list1,
-                                              res, True)
+                    res = '{} Network_Name: {} Subnet_Name: {} CIDR: {}' \
+                        .format(
+                        str(bot.get_response('Network_Create_Confirm')).
+                        split(':')[1], SESSION['network_name'],
+                        SESSION['subnet_name'], SESSION['cidr'])
+                    lst = ['<:yes>', '<:no>']
+                    return self.createJSONResponse("network_create_confirm",
+                                                   lst, res, True) 
                 else:
                     if SESSION['network_create_confirm'] == 'yes':
                         NeutronClient().networkcreate()
