@@ -63,7 +63,6 @@ class NovaClient(OpenStackClient):
                            project_domain_id='default')
         self.sess = k_session.Session(auth=auth)
         self.nova = client.Client("2.1", session=self.sess)
-        #self.neutron = neutron_client.Client(session=self.sess)
 
     def novaflavorlist(self):
             return self.nova.flavors.list()
@@ -77,8 +76,6 @@ class NovaClient(OpenStackClient):
     def novaboot(self):
             image = self.nova.images.find(name=SESSION['image'])
             fl = self.nova.flavors.find(name=SESSION['flavor'])
-            #net_name = self.nova.networks.find(label=SESSION['net_name'])
-            #import pdb; pdb.set_trace()
             net_list = self.nova.networks.list()
             for network in net_list:
                 if network.label == SESSION['net_name']:
@@ -156,4 +153,3 @@ class DeployOpenStackCloud():
 
     def deploy(self,ip):
             os.system("cd /home/ubuntu/OpenStack-Hackathon-OSIC/static; ./first.sh %s" % ip)
-          #  os.system('./first.sh')

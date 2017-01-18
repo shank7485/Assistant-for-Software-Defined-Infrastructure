@@ -122,11 +122,8 @@ def test():
 
 
 @app.route('/')
-#@app.route('/logini')
-#def login():
  #   # UI: User clicks and goes to processLogin
  #   return render_template('login.html')
-#
 
 @app.route('/processLogin')
 def process_login():
@@ -161,7 +158,6 @@ def end_point():
 
 @app.route('/set')
 def set():
-    #import pdb; pdb.set_trace()
     key = request.args.get('key')
     value = request.args.get('value')
     SESSION[key] = value

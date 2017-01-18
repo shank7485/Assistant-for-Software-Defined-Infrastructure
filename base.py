@@ -7,7 +7,6 @@ import os
 from shutil import copyfile
 from sessions_file import SESSION
 
-# TEST
 class OpenStackBot(object):
     def __init__(self):
         self.corpus = 'chatterbot.corpus.openstack'
@@ -172,7 +171,6 @@ class CodeNova(Code):
                 else:
                     if SESSION['vm_delete_confirm'] == 'yes':
                         NovaClient().nova_vm_delete()
-                        # NovaClient().nova_vm_delete()
                         SESSION.clear()
                         res = \
                         str(bot.get_response('VM_Delete_Done')).split(':')[1]
@@ -223,7 +221,6 @@ class CodeNeutron(Code):
                 else:
                     if SESSION['network_create_confirm'] == 'yes':
                         NeutronClient().networkcreate()
-                        # NeutronClient().networkcreate()
                         SESSION.clear()
                         res = str(
                             bot.get_response('Network_Create_Done')).split(':')[
@@ -255,7 +252,6 @@ class CodeNeutron(Code):
                                               True)
                 else:
                     if SESSION['network_delete_confirm'] == 'yes':
-                        #NeutronClient().netdelete()
                         NeutronClient().netdelete()
                         SESSION.clear()
                         res = str(
