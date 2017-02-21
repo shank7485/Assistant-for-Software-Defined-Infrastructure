@@ -107,48 +107,52 @@ class CodeNova(Code):
         self.code = code
         self.response = response
 
+
     def code_checker(self):
-        if self.code == '0': # if 1.0
-            if self.is_session_empty('flavor', SESSION):
-                # flavor_list = ['<:m1.tiny>']
-                flavor_list = NovaClient().novaflavorlist()
-                return self.createJSONResponse("flavor", flavor_list, self.response, True)
-            elif self.is_session_empty('image', SESSION):
-                # image_list = ['<:ubuntu>']
-                image_list = NovaClient().novaimagelist()
-                return self.createJSONResponse("image", image_list, self.response, True)
-            elif self.is_session_empty('vm_name', SESSION):
-                return self.createJSONResponse("vm_name", None, self.response, False,
-                                          True)
-            elif self.is_session_empty('net_name', SESSION):
-                network_list = NeutronClient().netlist()
-                return self.createJSONResponse('net_name', network_list,
-                                               self.response, True)
-            elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name'\
-                in SESSION and 'net_name' in SESSION:
-                if self.is_session_empty('vm_create_confirm', SESSION):
-                    res = '{} Flavor: {} Image: {} Name: {} Network_Name: {}'\
-                        .format(str(bot.get_response('VM_Create_Confirm')).
-                                split(':')[1],SESSION['flavor'],
-                                SESSION['image'],SESSION['vm_name'],
-                                SESSION['net_name'])
-                    lst = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("vm_create_confirm", lst, res,
+        try:
+            if self.code == '0': # if 1.0
+                if self.is_session_empty('flavor', SESSION):
+                    # flavor_list = ['<:m1.tiny>']
+                    flavor_list = NovaClient().novaflavorlist()
+                    return self.createJSONResponse("flavor", flavor_list, self.response, True)
+                elif self.is_session_empty('image', SESSION):
+                    # image_list = ['<:ubuntu>']
+                    image_list = NovaClient().novaimagelist()
+                    return self.createJSONResponse("image", image_list, self.response, True)
+                elif self.is_session_empty('vm_name', SESSION):
+                    return self.createJSONResponse("vm_name", None, self.response, False,
                                               True)
-                else:
-                    if SESSION['vm_create_confirm'] == 'yes':
-                        NovaClient().novaboot()
-                        #NovaClient().novaboot()
-                        SESSION.clear()
-                        res = \
-                        str(bot.get_response('VM_Create_Done')).split(':')[1]
-                        return self.createJSONResponse("", None, res)
-                    elif SESSION['vm_create_confirm'] == 'no':
-                        SESSION.clear()
-                        res = \
-                        str(bot.get_response('VM_Create_Not_Confirm')).split(
-                            ':')[1]
-                        return self.createJSONResponse("", None, res)
+                elif self.is_session_empty('net_name', SESSION):
+                    network_list = NeutronClient().netlist()
+                    return self.createJSONResponse('net_name', network_list,
+                                                   self.response, True)
+                elif 'flavor' in SESSION and 'image' in SESSION and 'vm_name'\
+                    in SESSION and 'net_name' in SESSION:
+                    if self.is_session_empty('vm_create_confirm', SESSION):
+                        res = '{} Flavor: {} Image: {} Name: {} Network_Name: {}'\
+                            .format(str(bot.get_response('VM_Create_Confirm')).
+                                    split(':')[1],SESSION['flavor'],
+                                    SESSION['image'],SESSION['vm_name'],
+                                    SESSION['net_name'])
+                        lst = ['<:yes>', '<:no>']
+                        return self.createJSONResponse("vm_create_confirm", lst, res,
+                                                  True)
+                    else:
+                        if SESSION['vm_create_confirm'] == 'yes':
+                            NovaClient().novaboot()
+                            #NovaClient().novaboot()
+                            SESSION.clear()
+                            res = \
+                            str(bot.get_response('VM_Create_Done')).split(':')[1]
+                            return self.createJSONResponse("", None, res)
+                        elif SESSION['vm_create_confirm'] == 'no':
+                            SESSION.clear()
+                            res = \
+                            str(bot.get_response('VM_Create_Not_Confirm')).split(
+                                ':')[1]
+                            return self.createJSONResponse("", None, res)
+        except Exception as e:
+            return self.createJSONResponse("", None, e)
 
         if self.code == '1': # if 1.1
             nova_list = NovaClient().nova_vm_list()
@@ -198,39 +202,45 @@ class CodeNeutron(Code):
         self.response = response
 
     def code_checker(self):
-        if self.code == '0': # if 2.0
-            if self.is_session_empty('network_name', SESSION):
-                return self.createJSONResponse("network_name", None, self.response,False,True)
-            if self.is_session_empty('subnet_name', SESSION):
-                return self.createJSONResponse("subnet_name", None,
-                                               self.response, False, True)
-            elif self.is_session_empty('cidr', SESSION):
-                return self.createJSONResponse("cidr", None,
+        try:
+            if self.code == '0': # if 2.0
+                if self.is_session_empty('network_name', SESSION):
+                    return self.createJSONResponse("network_name", None, self.response,False,True)
+                if self.is_session_empty('subnet_name', SESSION):
+                    return self.createJSONResponse("subnet_name", None,
                                                    self.response, False, True)
-            elif 'network_name' in SESSION and 'cidr' in SESSION and \
-                            'subnet_name' in SESSION:
-                if self.is_session_empty('network_create_confirm', SESSION):
-                    res = '{} Network_Name: {} Subnet_Name: {} CIDR: {}' \
-                        .format(
-                        str(bot.get_response('Network_Create_Confirm')).
-                        split(':')[1], SESSION['network_name'],
-                        SESSION['subnet_name'], SESSION['cidr'])
-                    lst = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("network_create_confirm",
-                                                   lst, res, True) 
-                else:
-                    if SESSION['network_create_confirm'] == 'yes':
-                        NeutronClient().networkcreate()
-                        SESSION.clear()
-                        res = str(
-                            bot.get_response('Network_Create_Done')).split(':')[
-                                1]
-                        return self.createJSONResponse("", None, res)
-                    elif SESSION['network_create_confirm'] == 'no':
-                        SESSION.clear()
-                        res = str(bot.get_response(
-                            'Network_Create_Not_Confirm')).split(':')[1]
-                        return self.createJSONResponse("", None, res)
+                elif self.is_session_empty('cidr', SESSION):
+                    return self.createJSONResponse("cidr", None,
+                                                       self.response, False, True)
+                elif 'network_name' in SESSION and 'cidr' in SESSION and \
+                                'subnet_name' in SESSION:
+                    if self.is_session_empty('network_create_confirm', SESSION):
+                        res = '{} Network_Name: {} Subnet_Name: {} CIDR: {}' \
+                            .format(
+                            str(bot.get_response('Network_Create_Confirm')).
+                            split(':')[1], SESSION['network_name'],
+                            SESSION['subnet_name'], SESSION['cidr'])
+                        lst = ['<:yes>', '<:no>']
+                        return self.createJSONResponse("network_create_confirm",
+                                                       lst, res, True)
+                    else:
+                        if SESSION['network_create_confirm'] == 'yes':
+                            NeutronClient().networkcreate()
+                            SESSION.clear()
+                            res = str(
+                                bot.get_response('Network_Create_Done')).split(':')[
+                                    1]
+                            return self.createJSONResponse("", None, res)
+                        elif SESSION['network_create_confirm'] == 'no':
+                            SESSION.clear()
+                            res = str(bot.get_response(
+                                'Network_Create_Not_Confirm')).split(':')[1]
+                            return self.createJSONResponse("", None, res)
+        except Exception as e:
+            import pdb; pdb.set_trace()
+            response = "Oops! It failed with - " + e.message
+            res = response.replace("\n", "")
+            return self.createJSONResponse("", None, res)
 
         if self.code == '1': # if 2.1
             network_list = NeutronClient().netlist()
@@ -334,3 +344,4 @@ class Decider(object):
 
 bot = OpenStackBot()
 app = Flask(__name__)
+

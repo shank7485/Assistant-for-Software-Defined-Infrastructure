@@ -274,11 +274,11 @@
                 ],
                 [
                         "subnet_name",
-                        "2.0:Please provide a cidr. Eg: 10.0.1.0/24"
+                        "2.0:Please provide a cidr. Example - 10.0.1.0/24"
                 ],
                 [
                         "subnet_name",
-                        "2.0:Type in the cidr of your subnet. Eg. 10.0.1.0/24"
+                        "2.0:Type in the cidr of your subnet. Example - 10.0.1.0/24"
                 ],
                 [
                         "cidr",
