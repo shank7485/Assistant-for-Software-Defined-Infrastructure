@@ -256,7 +256,6 @@ class CodeNeutron(Code):
                                 'Network_Create_Not_Confirm')).split(':')[1]
                             return self.createJSONResponse("", None, res)
         except Exception as e:
-            import pdb; pdb.set_trace()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
