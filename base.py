@@ -107,7 +107,6 @@ class CodeNova(Code):
         self.code = code
         self.response = response
 
-
     def code_checker(self):
         try:
             if self.code == '0': # if 1.0
@@ -140,7 +139,6 @@ class CodeNova(Code):
                     else:
                         if SESSION['vm_create_confirm'] == 'yes':
                             NovaClient().novaboot()
-                            #NovaClient().novaboot()
                             SESSION.clear()
                             res = \
                             str(bot.get_response('VM_Create_Done')).split(':')[1]
@@ -152,44 +150,65 @@ class CodeNova(Code):
                                 ':')[1]
                             return self.createJSONResponse("", None, res)
         except Exception as e:
-            return self.createJSONResponse("", None, e)
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
-        if self.code == '1': # if 1.1
-            nova_list = NovaClient().nova_vm_list()
-            #nova_list = ['<:VM1>', '<:VM2>']
-            return self.createJSONResponse("", nova_list,  self.response)
-
-        if self.code == 'd': # if 1.d
-            if self.is_session_empty('vm_delete', SESSION):
+        try:
+            if self.code == '1': # if 1.1
                 nova_list = NovaClient().nova_vm_list()
-                #nova_list = ['<:test>']
-                return self.createJSONResponse("vm_delete", nova_list, self.response,
-                                          True)
-            elif 'vm_delete' in SESSION:
-                if self.is_session_empty('vm_delete_confirm', SESSION):
-                    res = str(bot.get_response('VM_Delete_Confirm')).split(':')[
-                        1]
-                    lst = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("vm_delete_confirm", lst, res,
-                                              True)
-                else:
-                    if SESSION['vm_delete_confirm'] == 'yes':
-                        NovaClient().nova_vm_delete()
-                        SESSION.clear()
-                        res = \
-                        str(bot.get_response('VM_Delete_Done')).split(':')[1]
-                        return self.createJSONResponse("", None, res)
-                    elif SESSION['vm_delete_confirm'] == 'no':
-                        SESSION.clear()
-                        res = str(
-                            bot.get_response('VM_Delete_Not_Confirm').split(
-                                ':')[1])
-                        return self.createJSONResponse("", None, res)
+                if len(nova_list) == 0:
+                    return self.createJSONResponse("", None, "No VMs")
+                return self.createJSONResponse("", nova_list,  self.response)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
-        if self.code == '3':
-            avail_zone = NovaClient().avail_zone_session()
-            #avail_zone = ['<:az>']
-            return self.createJSONResponse("", avail_zone, self.response)
+        try:
+            if self.code == 'd': # if 1.d
+                if self.is_session_empty('vm_delete', SESSION):
+                    nova_list = NovaClient().nova_vm_list()
+                    return self.createJSONResponse("vm_delete", nova_list, self.response,
+                                              True)
+                elif 'vm_delete' in SESSION:
+                    if self.is_session_empty('vm_delete_confirm', SESSION):
+                        res = str(bot.get_response('VM_Delete_Confirm')).split(':')[
+                            1]
+                        lst = ['<:yes>', '<:no>']
+                        return self.createJSONResponse("vm_delete_confirm", lst, res,
+                                                  True)
+                    else:
+                        if SESSION['vm_delete_confirm'] == 'yes':
+                            NovaClient().nova_vm_delete()
+                            SESSION.clear()
+                            res = \
+                            str(bot.get_response('VM_Delete_Done')).split(':')[1]
+                            return self.createJSONResponse("", None, res)
+                        elif SESSION['vm_delete_confirm'] == 'no':
+                            SESSION.clear()
+                            res = str(
+                                bot.get_response('VM_Delete_Not_Confirm').split(
+                                    ':')[1])
+                            return self.createJSONResponse("", None, res)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
+
+        try:
+            if self.code == '3':
+                avail_zone = NovaClient().avail_zone_session()
+                #avail_zone = ['<:az>']
+                return self.createJSONResponse("", avail_zone, self.response)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
         "Add other 1.* related stuff."
 
@@ -238,41 +257,56 @@ class CodeNeutron(Code):
                             return self.createJSONResponse("", None, res)
         except Exception as e:
             import pdb; pdb.set_trace()
-            response = "Oops! It failed with - " + e.message
-            res = response.replace("\n", "")
-            return self.createJSONResponse("", None, res)
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
-        if self.code == '1': # if 2.1
-            network_list = NeutronClient().netlist()
-            #network_list = ['<:network>']
-            return self.createJSONResponse("", network_list, self.response)
-
-        if self.code == 'd': # if 2.2
-            if self.is_session_empty('network_delete', SESSION):
+        try:
+            if self.code == '1': # if 2.1
                 network_list = NeutronClient().netlist()
                 #network_list = ['<:network>']
-                return self.createJSONResponse("network_delete", network_list,
-                                               self.response,True)
-            elif 'network_delete' in SESSION:
-                if self.is_session_empty('network_delete_confirm', SESSION):
-                    res = str(bot.get_response('network_Delete_Confirm')).split(':')[1]
-                    lst = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("network_delete_confirm", lst,
-                                              res,
-                                              True)
-                else:
-                    if SESSION['network_delete_confirm'] == 'yes':
-                        NeutronClient().netdelete()
-                        SESSION.clear()
-                        res = str(
-                            bot.get_response('Network_Delete_Done')).split(':')[
-                                1]
-                        return self.createJSONResponse("", None, res)
-                    elif SESSION['network_delete_confirm'] == 'no':
-                        SESSION.clear()
-                        res = str(bot.get_response(
-                            'Network_Delete_Not_Confirm')).split(':')[1]
-                        return self.createJSONResponse("", None, res)
+                if len(network_list) == 0:
+                    return self.createJSONResponse("", None, "No Networks")
+                return self.createJSONResponse("", network_list, self.response)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
+
+        try:
+            if self.code == 'd': # if 2.2
+                if self.is_session_empty('network_delete', SESSION):
+                    network_list = NeutronClient().netlist()
+                    #network_list = ['<:network>']
+                    return self.createJSONResponse("network_delete", network_list,
+                                                   self.response,True)
+                elif 'network_delete' in SESSION:
+                    if self.is_session_empty('network_delete_confirm', SESSION):
+                        res = str(bot.get_response('network_Delete_Confirm')).split(':')[1]
+                        lst = ['<:yes>', '<:no>']
+                        return self.createJSONResponse("network_delete_confirm", lst,
+                                                  res,
+                                                  True)
+                    else:
+                        if SESSION['network_delete_confirm'] == 'yes':
+                            NeutronClient().netdelete()
+                            SESSION.clear()
+                            res = str(
+                                bot.get_response('Network_Delete_Done')).split(':')[
+                                    1]
+                            return self.createJSONResponse("", None, res)
+                        elif SESSION['network_delete_confirm'] == 'no':
+                            SESSION.clear()
+                            res = str(bot.get_response(
+                                'Network_Delete_Not_Confirm')).split(':')[1]
+                            return self.createJSONResponse("", None, res)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
         "Add other 2.* related stuff."
 
@@ -285,10 +319,18 @@ class CodeCinder(Code):
         self.response = response
 
     def code_checker(self):
-        if self.code == '0': # if 3.0
-            volume_list = CinderClient().volumelist()
-            #volume_list = ['<:vaolume_list>']
-            return self.createJSONResponse("", volume_list, self.response)
+        try:
+            if self.code == '0': # if 3.0
+                volume_list = CinderClient().volumelist()
+                #volume_list = ['<:volume_list>']
+                if len(volume_list) == 0:
+                    return self.createJSONResponse("", None, "No Volumes")
+                return self.createJSONResponse("", volume_list, self.response)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
         "Add other 3.* related stuff."
 
@@ -300,27 +342,34 @@ class CodeDeploy(Code):
         self.response = response
 
     def code_checker(self):
-        if self.code == '0':
-            if self.is_session_empty('type_of_deployment', SESSION):
-                deploy_list = ['<:all_in_one>', '<:multi_node>']
-                return self.createJSONResponse("type_of_deployment", deploy_list, self.response, True)
-            elif self.is_session_empty('ipaddress_confirm', SESSION):
-                ip_list = ['<:192.168.0.225>','<:192.168.0.230>']
-                return self.createJSONResponse("ipaddress_confirm", ip_list, self.response, True)
-            elif self.is_session_empty("deploy_confirm", SESSION):
-                choice_list = ['<:yes>', '<:no>']
-                return self.createJSONResponse("deploy_confirm", choice_list, self.response, True)
-            else:
-                if SESSION['deploy_confirm'] == 'yes':
-                    print SESSION['ipaddress_confirm']
-                    DeployOpenStackCloud().deploy(SESSION['ipaddress_confirm'])
-                    return self.createJSONResponse("", None, "We are deploying openstack for you please check status <a target='_blank' href='/consoleScreen?ip="+SESSION['ipaddress_confirm']+"'>Here </a>")
-                    SESSION.clear()
+        try:
+            if self.code == '0':
+                if self.is_session_empty('type_of_deployment', SESSION):
+                    deploy_list = ['<:all_in_one>', '<:multi_node>']
+                    return self.createJSONResponse("type_of_deployment", deploy_list, self.response, True)
+                elif self.is_session_empty('ipaddress_confirm', SESSION):
+                    ip_list = ['<:192.168.0.225>','<:192.168.0.230>']
+                    return self.createJSONResponse("ipaddress_confirm", ip_list, self.response, True)
+                elif self.is_session_empty("deploy_confirm", SESSION):
+                    choice_list = ['<:yes>', '<:no>']
+                    return self.createJSONResponse("deploy_confirm", choice_list, self.response, True)
                 else:
-                    SESSION.clear()
-                    res = str(bot.get_response('deploy_not_confirm')).split(
-                            ':')[1]
-                    return self.createJSONResponse("", None, res)
+                    if SESSION['deploy_confirm'] == 'yes':
+                        print SESSION['ipaddress_confirm']
+                        DeployOpenStackCloud().deploy(SESSION['ipaddress_confirm'])
+                        return self.createJSONResponse(
+                            "", None, "We are deploying openstack for you please check status <a target='_blank' href='/consoleScreen?ip="+SESSION['ipaddress_confirm']+"'>Here </a>")
+                        SESSION.clear()
+                    else:
+                        SESSION.clear()
+                        res = str(bot.get_response('deploy_not_confirm')).split(
+                                ':')[1]
+                        return self.createJSONResponse("", None, res)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
 
 
 class Decider(object):
@@ -344,4 +393,3 @@ class Decider(object):
 
 bot = OpenStackBot()
 app = Flask(__name__)
-
