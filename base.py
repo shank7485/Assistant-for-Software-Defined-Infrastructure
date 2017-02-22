@@ -171,6 +171,8 @@ class CodeNova(Code):
             if self.code == 'd': # if 1.d
                 if self.is_session_empty('vm_delete', SESSION):
                     nova_list = NovaClient().nova_vm_list()
+                    if len(nova_list) == 0:
+                        return self.createJSONResponse("", None, "No VMs")
                     return self.createJSONResponse("vm_delete", nova_list, self.response,
                                               True)
                 elif 'vm_delete' in SESSION:
@@ -278,6 +280,8 @@ class CodeNeutron(Code):
             if self.code == 'd': # if 2.2
                 if self.is_session_empty('network_delete', SESSION):
                     network_list = NeutronClient().netlist()
+                    if len(network_list) == 0:
+                        return self.createJSONResponse("", None, "No Networks")
                     #network_list = ['<:network>']
                     return self.createJSONResponse("network_delete", network_list,
                                                    self.response,True)
