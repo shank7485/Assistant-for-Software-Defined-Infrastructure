@@ -92,6 +92,11 @@ class NovaClient(OpenStackClient):
                 if ins.name == SESSION['vm_delete']:
                     self.nova.servers.delete(ins.id)
 
+    def nova_vm_delete_all(self):
+        instance_list = self.nova.servers.list()
+        for ins in instance_list:
+            self.nova.servers.delete(ins.id)
+
 
 class NeutronClient(OpenStackClient):
     def __init__(self):
@@ -132,6 +137,13 @@ class NeutronClient(OpenStackClient):
             if network['name'] == SESSION['network_delete']:
                 net_id = network['id']
                 self.neutron.delete_network(net_id)
+
+    def net_delete_all(self):
+        net_list = self.neutron.list_networks()
+        for network in net_list['networks']:
+            net_id = network['id']
+            self.neutron.delete_network(net_id)
+
 
 class CinderClient(OpenStackClient):
     def __init__(self):

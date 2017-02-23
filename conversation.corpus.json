@@ -61,6 +61,18 @@
 			"2.d:Please provide a name or select a network from the network list"
 		],
 		[
+			"Delete All Networks",
+			"2.D: Okay, kindly confirm"
+		],
+                [
+                        "Delete All Virtual Machines in my cloud",
+                        "1.D: Okay, kindly confirm"
+                ],
+                [
+                        "Delete All VMs in my cloud",
+                        "1.D: Okay, kindly confirm"
+                ],
+		[
 			"I need to delete a network.",
 			"2.d:I can do that for you. All I need is to know is which one to delete."
 		],
@@ -69,7 +81,7 @@
 			"1.0:I will create the VM for you. But please specify the flavor."
 		],
                 [
-                        "ciner volumes",
+                        "cinder volumes",
                         "3.0:Here is the list of available cinder volumes"
                 ],
 		[
@@ -313,6 +325,30 @@
                         "2.d:Please confirm!"
                 ],
 		[
+			"network_Delete_all",
+			"2.D: Please Confirm your selection"
+		],
+		[
+			"network_Delete_all",
+			"2.D: Please Confirm if you want delete all networks"
+		],
+		[
+			"vm_Delete_all",
+			"1.D: Please Confirm your selection"
+		],
+		[
+			"vm_Delete_all",
+			"1.D: Please Confirm if you want delete all VMs"
+		],
+		[
+			"Network_Delete_All_Done",
+			"0.0: All network have been deleted. Have a good day:)"
+		],
+		[
+			"VM_Delete_All_Done",
+			"0.0: All vms have been deleted. Have a good day:)"
+		],
+		[
 			"network_Delete_Confirm",
 			"2.d:Please confirm your selection"
 		],
@@ -327,6 +363,22 @@
 		[
 			"network_Delete_Done",
 			"0.0:Network deletion done.Have a good day :)"
+		],
+		[
+			"VM_Delete_Not_Confirm",
+			"1.d: Understood, what else can i do for you?"
+		],
+		[
+			"VM_Delete_All_Not_Confirm",
+			"1.D: Understood, what else can i do for you?"
+		],
+		[
+			"Network_Delete_Not_Confirm",
+			"2.d: Understood, what else can i do for you?"
+		],
+		[
+			"Network_Delete_All_Not_Confirm",
+			"2.D: Understood, what else can i do for you?"
 		],
 		[
 			"Net_List",

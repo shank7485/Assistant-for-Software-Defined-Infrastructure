@@ -7,6 +7,7 @@ import os
 from shutil import copyfile
 from sessions_file import SESSION
 
+
 class OpenStackBot(object):
     def __init__(self):
         self.corpus = 'chatterbot.corpus.openstack'
@@ -34,7 +35,6 @@ class OpenStackBot(object):
     @staticmethod
     def copy():
         directory = os.path.dirname(chatterbot.__file__)
-        # subdirectory_win = '{}{}'.format(directory, '\\corpus\\data\\openstack')
         subdirectory_nix = '{}{}'.format(directory, '/corpus/data/openstack/')
 
         src = 'conversation.corpus.json'
@@ -202,6 +202,36 @@ class CodeNova(Code):
             return self.createJSONResponse("", None, response)
 
         try:
+            if self.code == 'D':
+                if self.is_session_empty('vm_delete_all', SESSION):
+                    nova_list = NovaClient().nova_vm_list()
+                    if len(nova_list) == 0:
+                        return self.createJSONResponse("", None, "No VMs ")
+                    res = \
+                    str(bot.get_response('vm_Delete_all')).split(':')[1]
+                    lst = ['<:yes>', '<:no>']
+                    return self.createJSONResponse("vm_delete_all", lst,
+                                                   res, True)
+                else:
+                    if SESSION['vm_delete_all'] == 'yes':
+                        NovaClient().nova_vm_delete_all()
+                        SESSION.clear()
+                        res = str(
+                            bot.get_response('VM_Delete_All_Done')).split(':')[
+                            1]
+                        return self.createJSONResponse("", None, res)
+                    elif SESSION['vm_delete_all'] == 'no':
+                        SESSION.clear()
+                        res = str(bot.get_response(
+                            'VM_Delete_All_Not_Confirm')).split(':')[1]
+                        return self.createJSONResponse("", None, res)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
+
+        try:
             if self.code == '3':
                 avail_zone = NovaClient().avail_zone_session()
                 #avail_zone = ['<:az>']
@@ -305,6 +335,36 @@ class CodeNeutron(Code):
                             res = str(bot.get_response(
                                 'Network_Delete_Not_Confirm')).split(':')[1]
                             return self.createJSONResponse("", None, res)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
+
+        try:
+            if self.code == 'D':
+                if self.is_session_empty('network_delete_all', SESSION):
+                    network_list = NeutronClient().netlist()
+                    if len(network_list) == 0:
+                        return self.createJSONResponse("", None, "No Networks ")
+                    res = \
+                    str(bot.get_response('network_Delete_all')).split(':')[1]
+                    lst = ['<:yes>', '<:no>']
+                    return self.createJSONResponse("network_delete_all", lst,
+                                                   res, True)
+                else:
+                    if SESSION['network_delete_all'] == 'yes':
+                        NeutronClient().net_delete_all()
+                        SESSION.clear()
+                        res = str(
+                            bot.get_response('Network_Delete_All_Done')).split(':')[
+                            1]
+                        return self.createJSONResponse("", None, res)
+                    elif SESSION['network_delete_all'] == 'no':
+                        SESSION.clear()
+                        res = str(bot.get_response(
+                            'Network_Delete_All_Not_Confirm')).split(':')[1]
+                        return self.createJSONResponse("", None, res)
         except Exception as e:
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
