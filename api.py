@@ -1,13 +1,14 @@
-from base import app
-from base import bot
-from flask import render_template,send_from_directory
-from client import OpenStackClient
-from sessions_file import SESSION
-from base import Decider
+import os
 from flask import Response, request
+from flask import render_template,send_from_directory
 from flask.ext.login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user
-import os
+
+from assistant.base import Decider
+from assistant.base import app
+from assistant.base import bot
+from assistant.client import OpenStackClient
+from assistant.sessions_file import SESSION
 
 app.config.update(
     SECRET_KEY='secret_xxx'

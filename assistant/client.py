@@ -3,9 +3,10 @@ from keystoneauth1 import session as k_session
 from novaclient import client
 from neutronclient.v2_0 import client as neutron_client
 from cinderclient.v1 import client as cinder_client
-from sessions_file import SESSION
 import os
 from oslo_config import cfg
+
+from assistant.sessions_file import SESSION
 
 CREDENTIALS = {}
 
@@ -34,7 +35,7 @@ class ReadConfig(object):
 
 class OpenStackClient(object):
     def __init__(self):
-        self.endpoint_IP = ReadConfig('app.conf').get_endpoint()
+        self.endpoint_IP = ReadConfig('endpoint.conf').get_endpoint()
         self.endpoint = 'http://' + self.endpoint_IP + ':5000/v3'
 
     def keystone_auth(self, username, password):

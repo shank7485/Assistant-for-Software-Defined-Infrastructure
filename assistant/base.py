@@ -2,10 +2,13 @@ import chatterbot
 from chatterbot.conversation.response_selection import get_random_response
 from flask import Flask, jsonify
 import json
-from client import DeployOpenStackCloud, NovaClient, NeutronClient, CinderClient
 import os
 from shutil import copyfile
-from sessions_file import SESSION
+
+
+from assistant.client import \
+    DeployOpenStackCloud, NovaClient, NeutronClient, CinderClient
+from assistant.sessions_file import SESSION
 
 
 class OpenStackBot(object):
@@ -35,10 +38,10 @@ class OpenStackBot(object):
     @staticmethod
     def copy():
         directory = os.path.dirname(chatterbot.__file__)
-        subdirectory_nix = '{}{}'.format(directory, '/corpus/data/openstack/')
+        subdirectory = '{}{}'.format(directory, '/corpus/data/openstack/')
 
-        src = 'conversation.corpus.json'
-        dst = subdirectory_nix
+        src = 'openstack-corpus/conversation.corpus.json'
+        dst = subdirectory
         if os.path.isdir(dst):
             dst = os.path.join(dst, os.path.basename(src))
         copyfile(src, dst)
@@ -456,5 +459,10 @@ class Decider(object):
         return self.response_value
 
 
+directory = os.path.dirname(chatterbot.__file__)
+subdirectory = '{}{}'.format(directory, '/corpus/data/openstack/')
+if not os.path.exists(subdirectory):
+    os.makedirs(subdirectory)
+
 bot = OpenStackBot()
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
