@@ -2,19 +2,19 @@
 	"conversations": [
                 [
                         "Spin up an instance",
-                        "1.0:Sure. I am on my way to spin an instance for you. But I need to know to know the Flavor. Please select from this list"
+                        "1.0:Sure. I am on my way to spin an instance for you. But I need to know the Flavor. Please select from this list"
                 ],
                 [
                         "launch an instance",
-                        "1.0:Sure. I am on my way to launch an instance for you. But I need to know to know the Flavor. Please select from this list"
+                        "1.0:Sure. I am on my way to launch an instance for you. But I need to know the Flavor. Please select from this list"
                 ],
                 [
                         "Launch Virtual Machine",
-                        "1.0:Sure. I am on my way to launch a VM for you. But I need to know to know the Flavor. Please select from this list"
+                        "1.0:Sure. I am on my way to launch a VM for you. But I need to know the Flavor. Please select from this list"
                 ],	
                 [
 			"Create a VM",
-			"1.0:Sure. I am on my way to create your VM. But I need to know to know the Flavor. Please select from this list"
+			"1.0:Sure. I am on my way to create your VM. But I need to know the Flavor. Please select from this list"
 		],
 		[
 			"Can you create a VM for me.",
