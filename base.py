@@ -435,24 +435,26 @@ class CodeDeploy(Code):
             return self.createJSONResponse("", None, response)
 
 
+# Extend this dict to add new classes.
+resource_class_keypair = {
+    '0': CodeText,
+    '1': CodeNova,
+    '2': CodeNeutron,
+    '3': CodeCinder,
+    '4': CodeDeploy,
+}
+
+
 class Decider(object):
     def __init__(self, code, response):
-        self.response_value = None
-        # code = code.split('.')  I think this should be there
-        if code[0] == '0': # 0.*
-            self.response_value = CodeText(code[-1], response).code_checker()
-        elif code[0] == '1': # 1.*
-            self.response_value = CodeNova(code[-1], response).code_checker()
-        elif code[0] == '2': # 2.*
-            self.response_value = CodeNeutron(code[-1], response).code_checker()
-        elif code[0] == '3': # 3.*
-            self.response_value = CodeCinder(code[-1], response).code_checker()
-        elif code[0] == '4':
-            self.response_value = CodeDeploy(code[-1], response).code_checker()
-        # extend this elif condition for other classes.
+        # Decide if General_response/nova/neutron/cinder etc.
+        resource = resource_class_keypair[code[0]]
+        # Decide if creation/list/deletion of the given response.
+        self.response_value = resource(code[-1], response).code_checker()
 
     def get_response(self):
         return self.response_value
+
 
 bot = OpenStackBot()
 app = Flask(__name__)
