@@ -439,6 +439,54 @@ class CodeDeploy(Code):
             return self.createJSONResponse("", None, response)
 
 
+class CodeCleanup(Code):
+    "Code: 5.*"
+    def __init__(self, code, response):
+        super(CodeCleanup, self).__init__()
+        self.code = code
+        self.response = response
+
+    def code_checker(self):
+        try:
+            if self.code == '0':
+                if self.is_session_empty('cloud_clean_up', SESSION):
+                    instance_list = NovaClient().nova_vm_list()
+                    network_list = NeutronClient().netlist()
+                    # TODO(ndahiwade): Add to the if condition as the cloud
+                    # components get added in the future.
+                    if len(network_list) == 0 and len(instance_list) == 0:
+                        return self.createJSONResponse("", None,
+                                                       "No VMs and Networks")
+                    res = \
+                        str(bot.get_response('Cloud_Clean_up')).split(':')[
+                            1]
+                    lst = ['<:yes>', '<:no>']
+                    return self.createJSONResponse("cloud_clean_up", lst,
+                                                   res, True)
+                else:
+                    if SESSION['cloud_clean_up'] == 'yes':
+                    # TODO(ndahiwade): Add to the bulk deletion with future
+                    # enhancements ( Eg. Storage)
+                        NovaClient().nova_vm_delete_all()
+                        NeutronClient().net_delete_all()
+                        SESSION.clear()
+                        res = str(
+                            bot.get_response('Cloud_Clean_Up_Done')).split(
+                            ':')[
+                            1]
+                        return self.createJSONResponse("", None, res)
+                    elif SESSION['cloud_clean_up'] == 'no':
+                        SESSION.clear()
+                        res = str(bot.get_response(
+                            'Cloud_Clean_Up_Not_Confirm')).split(':')[1]
+                        return self.createJSONResponse("", None, res)
+        except Exception as e:
+            response = "Oops! It failed with - " + str(e)
+            if "\n" in response:
+                response = response.replace("\n", "")
+            return self.createJSONResponse("", None, response)
+
+
 # Extend this dict to add new classes.
 resource_class_keypair = {
     '0': CodeText,
@@ -446,6 +494,7 @@ resource_class_keypair = {
     '2': CodeNeutron,
     '3': CodeCinder,
     '4': CodeDeploy,
+    '5': CodeCleanup,
 }
 
 

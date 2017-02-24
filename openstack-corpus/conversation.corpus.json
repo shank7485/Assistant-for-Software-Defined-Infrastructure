@@ -192,9 +192,38 @@
                         "Deploy",
                         "4.0:Sure, I will deploy an Openstack cloud for you. So can I know if you want all in one deployment or multi node deployment."
                 ],
-		[
-
-		],
+                [
+                        "Clean up Cloud",
+                        "5.0: Sure, Please Wait.."
+                ],
+                [
+                        "Restart Cloud",
+                        "5.0: Sure, Please Wait.."
+                ],
+                [
+                        "Reset my Cloud",
+                        "5.0: Sure, Please Wait.."
+                ],
+                [
+                        "Cloud_Clean_up",
+                        "5.0: Sure, Please Confirm"
+                ],
+                [
+                        "Cloud_Clean_up",
+                        "5.0: Are you sure you want to clean up your cloud?"
+                ],
+                [
+                        "Cloud_Clean_Up_Done",
+                        "5.0: Your cloud has been completely cleaned up. You can thank me later ;)"
+                ],
+                [
+                        "Cloud_Clean_Up_Done",
+                        "5.0: Your cloud has been Reset. You can thank me later ;)"
+                ],
+                [
+                        "Cloud_Clean_Up_Not_Confirm",
+                        "5.0: Understood. What else can I do for you?"
+                ],
 		[
 			"#################################################",
 			"ADD HUMAN TEXTS ABOVE. ADD COMMANDS BELOW.",
