@@ -459,7 +459,6 @@ class Decider(object):
     def get_response(self):
         return self.response_value
 
-import pdb; pdb.set_trace()
 CopyCorpus().copy()
 bot = OpenStackBot()
 app = Flask(__name__, template_folder='../templates')
