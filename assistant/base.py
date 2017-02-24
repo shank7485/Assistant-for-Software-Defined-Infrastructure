@@ -9,11 +9,12 @@ from shutil import copyfile
 from assistant.client import \
     DeployOpenStackCloud, NovaClient, NeutronClient, CinderClient
 from assistant.sessions_file import SESSION
+from assistant.utils import CopyCorpus
 
 
 class OpenStackBot(object):
     def __init__(self):
-        self.corpus = 'chatterbot.corpus.openstack'
+        self.corpus = 'chatterbot.corpus.openstack.conversation'
         self.chatbot = chatterbot.ChatBot(
             'OpenStack Bot',
             logic_adapters=[
@@ -458,11 +459,8 @@ class Decider(object):
     def get_response(self):
         return self.response_value
 
-
-directory = os.path.dirname(chatterbot.__file__)
-subdirectory = '{}{}'.format(directory, '/corpus/data/openstack/')
-if not os.path.exists(subdirectory):
-    os.makedirs(subdirectory)
-
+import pdb; pdb.set_trace()
+CopyCorpus().copy()
 bot = OpenStackBot()
 app = Flask(__name__, template_folder='../templates')
+
