@@ -1,69 +1,65 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>OpenStack Hachathon</title>
     <link rel="stylesheet" href="static/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-  <body id="splash" ng-app='horizon.app' ng-strict-di>
-  <div class="container login">
-    <div class="row">
-      <div class="col-xs-11 col-sm-8 col-md-6 col-lg-5 horizontal-center">
-<form id="" class="ng-pristine ng-valid ng-scope" action="/login"
-      method="POST"
-      autocomplete="off"
-      ng-controller="hzLoginController">
-  <input type='hidden' name='csrfmiddlewaretoken' value='QNM3VV7K656lPRELuNNZ88xOCfpGSluv' />
-  <div class="panel panel-default">
-    <div class="panel-heading">
-<div class="text-center">
-  <img class="splash-logo" src=/static/openstack.png>
-</div>
-      <h3 class="login-title">
-        Log in
-      </h3>
-    </div>
-    <div class="panel-body">
-        <div class="fake_credentials" style="display: none">
-          <input type="text" name="fake_email" value="" />
-          <input type="password" name="fake_password" value="" />
-        </div>
-<div class="help_text alert alert-info" style="color: {{ color }}" >
-      {{ message }}
-</div>
-      <fieldset hz-login-finder>
-<div class="form-group ">
-      <label class="control-label  " for="username">User Name</label>
-      <span class="hz-icon-required fa fa-asterisk"></span>
-    <div class=" ">
-        <input autofocus="autofocus" class="form-control" id="username" name="username" type="text" required />
-    </div>
-</div>
-<div class="form-group ">
-      <label class="control-label  " for="password">Password</label>
-      <span class="hz-icon-required fa fa-asterisk"></span>
-    <div class=" ">
-        <input class="form-control" id="password" name="password" type="password" required/>
-    </div>
-</div>
-      </fieldset>
-    </div>
-    <div class="panel-footer">
-        <button id="loginBtn" type="submit" class="btn btn-primary pull-right">
-          <span ng-show="auth_type==='credentials'">Sign In</span>
-          <span ng-hide="auth_type==='credentials'" ng-cloak>Connect</span>
-        </button>
-        <div class="clearfix"></div>
-    </div>
-  </div>
-</form>
-      </div>
-    </div>
-  </div>
-</div>
-  </body>
-</html>
 
+<body id="splash" ng-app='horizon.app' ng-strict-di>
+    <div class="container login">
+        <div class="row">
+            <div class="col-xs-11 col-sm-8 col-md-6 col-lg-5 horizontal-center">
+                <form id="" class="ng-pristine ng-valid ng-scope" action="/login" method="POST" autocomplete="off" ng-controller="hzLoginController">
+                    <input type='hidden' name='csrfmiddlewaretoken' value='QNM3VV7K656lPRELuNNZ88xOCfpGSluv' />
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-center">
+                                <img class="splash-logo" src=/static/openstack.png>
+                            </div>
+                            <h3 class="login-title">Log in</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="fake_credentials" style="display: none">
+                                <input type="text" name="fake_email" value="" />
+                                <input type="password" name="fake_password" value="" />
+                            </div>
+                            <div class="help_text alert alert-info" style="color: {{ color }}">
+                                {{ message }}
+                            </div>
+                            <fieldset hz-login-finder>
+                                <div class="form-group ">
+                                    <label class="control-label  " for="username">User Name</label>
+                                    <span class="hz-icon-required fa fa-asterisk"></span>
+                                    <div class=" ">
+                                        <input autofocus="autofocus" class="form-control" id="username" name="username" type="text" required />
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label  " for="password">Password</label>
+                                    <span class="hz-icon-required fa fa-asterisk"></span>
+                                    <div class=" ">
+                                        <input class="form-control" id="password" name="password" type="password" required/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="loginBtn" type="submit" class="btn btn-primary pull-right">
+                                <span ng-show="auth_type==='credentials'">Sign In</span>
+                                <span ng-hide="auth_type==='credentials'" ng-cloak>Connect</span>
+                            </button>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
