@@ -1,5 +1,6 @@
 import chatterbot
-from chatterbot.conversation.response_selection import get_random_response
+from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.response_selection import get_random_response
 from flask import Flask, jsonify
 import json
 import os
@@ -19,17 +20,17 @@ class OpenStackBot(object):
             'OpenStack Bot',
             logic_adapters=[
                 {
-                   'import_path': 'chatterbot.adapters.logic.ClosestMatchAdapter'
+                   'import_path': 'chatterbot.logic.BestMatch',
                 },
                 {
-                   'import_path': 'chatterbot.adapters.logic.LowConfidenceAdapter',
+                   'import_path': 'chatterbot.logic.LowConfidenceAdapter',
                    'threshold': 0.65,
                    'default_response': 'I am sorry, but I do not understand.'
                 }
             ],
-            trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
             response_selection_method=get_random_response
         )
+        self.chatbot.set_trainer(ChatterBotCorpusTrainer)
         self.chatbot.train("chatterbot.corpus.english.greetings", self.corpus)
 
     def get_response(self, question):
