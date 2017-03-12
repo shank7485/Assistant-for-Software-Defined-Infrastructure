@@ -1,6 +1,6 @@
 import os
 from flask import Response, request
-from flask import render_template,send_from_directory
+from flask import render_template, send_from_directory
 from flask.ext.login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user
 
@@ -85,16 +85,15 @@ def load_user(userid):
 @app.route('/getConsoleLog')
 def getConsoleLog():
     ip = request.args.get('ip')
-    os.system("scp -i /home/ubuntu/nish_key-2.pem  "
-              "ubuntu@"+str(ip)+":/home/ubuntu/log_" + str(ip) + ".txt static/")
-    return send_from_directory('static', 'log_' +str(ip)+ '.txt')
-    # UI: User clicks and goes to processLogin
+    os.system("scp -i /home/ubuntu/deploy_key.pem  "
+              "ubuntu@" + str(ip) + ":/home/ubuntu/log_" + str(ip) +
+              ".txt /home/ubuntu/")
+    return send_from_directory('/home/ubuntu/', 'log_' +str(ip)+ '.txt')
 
 
 @app.route('/consoleScreen')
 def console():
     ip = request.args.get('ip')
-    # UI: User clicks and goes to processLogin
     return render_template('console.html', ip=ip)
 
 
@@ -134,5 +133,4 @@ def set():
 
 
 if __name__ == '__main__':
-    bot.copy()
     app.run(host='0.0.0.0', port=8081)

@@ -186,7 +186,7 @@
 		],
 		[
 			"Deploy OpenStack cloud",
-			"4.0:Cool. As they say, a walk of thousand miles starts with a single step. So can I know if you want all in one deployment or multi node deployment."
+			"4.0:Cool. Can I know if you want all in one deployment (currently supported) or multi node deployment."
 		],
                 [
                         "Deploy",
@@ -415,7 +415,7 @@
 		],
 		[
 			"type_of_deployment",
-			"4.0:Please select an IP address/Server to deploy your all-in-one OpenStack cloud "
+			"4.0:Please type in an IP address/Server to deploy your all-in-one OpenStack cloud. Also, please make the private key to access the IP is named as deploy_key and is places in /home/ubuntu/."
 		],
 		[
 			"ipaddress_confirm",

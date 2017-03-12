@@ -167,4 +167,5 @@ class CinderClient(OpenStackClient):
 class DeployOpenStackCloud():
 
     def deploy(self,ip):
-            os.system("cd /home/ubuntu/OpenStack-Hackathon-OSIC/static; ./first.sh %s" % ip)
+        dir_path = str(os.path.dirname(os.path.realpath(__file__))) + "/static"
+        os.system("cd " + dir_path + "; ./first.sh %s" % ip)

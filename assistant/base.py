@@ -413,20 +413,29 @@ class CodeDeploy(Code):
         try:
             if self.code == '0':
                 if self.is_session_empty('type_of_deployment', SESSION):
-                    deploy_list = ['<:all_in_one>', '<:multi_node>']
-                    return self.createJSONResponse("type_of_deployment", deploy_list, self.response, True)
+                    deploy_list = ['<:all_in_one>']
+                    return self.createJSONResponse(
+                        "type_of_deployment", deploy_list, self.response, True)
                 elif self.is_session_empty('ipaddress_confirm', SESSION):
-                    ip_list = ['<:192.168.0.225>','<:192.168.0.230>']
-                    return self.createJSONResponse("ipaddress_confirm", ip_list, self.response, True)
+                    # ip_list = ['<:192.168.0.46>']
+                    return self.createJSONResponse(
+                        "ipaddress_confirm", None, self.response, False, True)
                 elif self.is_session_empty("deploy_confirm", SESSION):
                     choice_list = ['<:yes>', '<:no>']
-                    return self.createJSONResponse("deploy_confirm", choice_list, self.response, True)
+                    res = self.response + " Deployment IP: " + SESSION["ipaddress_confirm"]
+                    return self.createJSONResponse(
+                        "deploy_confirm", choice_list, res, True)
                 else:
                     if SESSION['deploy_confirm'] == 'yes':
                         print SESSION['ipaddress_confirm']
-                        DeployOpenStackCloud().deploy(SESSION['ipaddress_confirm'])
+                        DeployOpenStackCloud().deploy(
+                            SESSION['ipaddress_confirm'])
                         return self.createJSONResponse(
-                            "", None, "We are deploying openstack for you please check status <a target='_blank' href='/consoleScreen?ip="+SESSION['ipaddress_confirm']+"'>Here </a>")
+                            "", None, "We are deploying openstack for you "
+                                      "please check status <a target='_blank' "
+                                      "href='/consoleScreen?ip=" +
+                                      SESSION['ipaddress_confirm'] +
+                                      "'>Here </a>")
                         SESSION.clear()
                     else:
                         SESSION.clear()
