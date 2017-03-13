@@ -48,9 +48,8 @@ class OpenStackClient(object):
                                project_domain_id='default')
            self.sess = k_session.Session(auth=auth)
            CREDENTIALS[username] = password
-           nova = client.Client("2.1", session=self.sess)
-           nova.flavors.list()
-           return True
+           user_id = self.sess.get_user_id()
+           return (True, user_id)
         except:
            return False
 

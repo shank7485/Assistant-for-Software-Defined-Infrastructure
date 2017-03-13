@@ -23,14 +23,16 @@ class User(UserMixin):
 
     def __init__(self, id):
         self.id = id
-        self.name = "user"
-        self.password = "user"
-
-    def __repr__(self):
-        return "%d/%s/%s" % (self.id, self.name, self.password)
 
 
-users = [User(id) for id in range(1, 21)]
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
+
+
+@app.route('/')
+def index():
+   return render_template('login.html')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -38,9 +40,11 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if OpenStackClient().keystone_auth(username, password):
+        auth = OpenStackClient().keystone_auth(username, password)
+        if auth:
             print "login window"
-            user = User("1")
+            user_id = auth[1]
+            user = User(user_id)
             login_user(user)
             return render_template('chat-screen.html')
         else:
@@ -76,13 +80,8 @@ def page_not_found(e):
     return Response('<p> Login failed </p>')
 
 
-# callback to reload the user object        
-@login_manager.user_loader
-def load_user(userid):
-    return User(userid)
-
-
 @app.route('/getConsoleLog')
+@login_required
 def getConsoleLog():
     ip = request.args.get('ip')
     os.system("scp -i /home/ubuntu/deploy_key.pem  "
@@ -92,14 +91,10 @@ def getConsoleLog():
 
 
 @app.route('/consoleScreen')
+@login_required
 def console():
     ip = request.args.get('ip')
     return render_template('console.html', ip=ip)
-
-
-@app.route('/')
-def index():
-   return render_template('login.html')
 
 
 @app.route('/chat')
