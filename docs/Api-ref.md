@@ -1,4 +1,4 @@
-#Assistant for SDI API Documentation:
+#API Documentation:
 
 * URLS/Endpoints: 
     
