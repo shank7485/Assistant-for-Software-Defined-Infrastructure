@@ -11,7 +11,7 @@ from assistant.client import OpenStackClient
 from assistant.sessions_file import SESSION
 
 app.config.update(
-    SECRET_KEY='secret_xxx'
+    SECRET_KEY=os.urandom(24)
 )
 
 login_manager = LoginManager()
