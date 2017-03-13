@@ -26,9 +26,30 @@ class TestEndPoint(base.TestBase):
     def test_chat_page_status(self):
         # send HTTP GET request to the application on the chat page
         # with a msg/question to get a response from the bot
-        response = self.client.get('chat?question=Hi',
+        response = self.client.get('/chat?question=Hi',
                                    content_type='html/text')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+
+    def test_set_endpoint_status(self):
+        # send HTTP GET request to the application on the set page
+        response = self.client.get('/set',
+                                   content_type='html/text')
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('Redirecting', response.data)
+
+    def test_consoleScreen_endpoint_status(self):
+        # send HTTP GET request to the application on the consoleScreen page
+        response = self.client.get('/consoleScreen',
+                                   content_type='html/text')
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('Redirecting', response.data)
+
+    def test_getConsoleLog_endpoint_status(self):
+        # send HTTP GET request to the application on the getConsoleLog page
+        response = self.client.get('/getConsoleLog',
+                                   content_type='html/text')
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('Redirecting', response.data)
 
     # TODO(ndahiwade): Add other endpoints in the App to check if the
     # endpoints are working fine
