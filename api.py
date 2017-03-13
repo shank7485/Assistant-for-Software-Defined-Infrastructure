@@ -103,6 +103,7 @@ def index():
 
 
 @app.route('/chat')
+@login_required
 def end_point():
     try:
         # To chatterbot
@@ -120,6 +121,7 @@ def end_point():
 
 
 @app.route('/set')
+@login_required
 def set():
     key = request.args.get('key')
     value = request.args.get('value')
