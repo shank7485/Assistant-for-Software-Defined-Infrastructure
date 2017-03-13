@@ -1,6 +1,6 @@
 #API Documentation:
 
-* URLS/Endpoints: 
+* URLs/Endpoints: 
     
     ```
     /,
@@ -12,7 +12,7 @@
     /getConsoleLog
     ```
 
-* Methods Supported(Currently):
+* Methods Supported (Currently):
     
     ```
     /login -- GET, POST
