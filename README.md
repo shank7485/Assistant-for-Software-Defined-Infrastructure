@@ -6,33 +6,43 @@ The main idea here to reduce the complexity in using an OpenStack cloud for novi
 
 ## Installation:
 
-Clone repo. 
+* Clone repo.
 
-```https://github.com/shank7485/OpenStack-Hackathon-OSIC.git```
+  ```
+  https://github.com/shank7485/OpenStack-Hackathon-OSIC.git
+  ```
 
-Edit `endpoint.conf` to add OpenStack Keystone endpoint IP.
+* Edit endpoint.conf to add OpenStack Keystone endpoint IP.
 
-Create Virtual Environment.	
+* Create Virtual Environment.	
 
-```virtualenv venv```
+  ```
+  virtualenv venv
+  ```
 
-Source it.	
+* Source it.
+  
+  ```
+  source venv/bin/activate/
+  ```
 
-```source venv/bin/activate/```
+* Install requirements.txt.	
 
-Install requirements.txt.	
+  ```
+  cd OpenStack-Hackathon-OSIC; pip install -r requirements.txt
+  ```
 
-```cd OpenStack-Hackathon-OSIC; pip install -r requirements.txt```
+* For deployment, add private key with name `deploy_key.pem` in `/home/ubuntu/` to deploy another OpenStack cloud on another server. The other server should be SSH'able using the `deploy_key.pem`. 
 
-For deployment, add private key with name `deploy_key.pem` in `/home/ubuntu/` to deploy another OpenStack cloud on another server. The other server should be SSH'able using the `deploy_key.pem`. 
+* Run the API server.	
 
-Run the API server.	
+  ```
+  python api.py
+  ```
 
-```python api.py```
+* Open the API IP/URL in web brower by going to `http://<IP>:8081` to see a login page. Login with OpenStack credentials.
 
-Open the API IP/URL in web brower by going to `http://<IP>:8081` to see a login page. Login with OpenStack credentials.
-
-Now you have an assistant waiting to recieve your commands. Just chat with it and it will reply back.
+* Now you have an assistant waiting to recieve your commands. Just chat with it and it will reply back.
 
 ## System Diagram
 ![Diagram](https://raw.githubusercontent.com/shank7485/OpenStack-Hackathon-OSIC/master/docs/Diagram.png)
