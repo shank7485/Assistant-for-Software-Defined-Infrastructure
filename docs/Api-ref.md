@@ -26,7 +26,7 @@
     /set – key, value
     /consoleScreen – ip
     /getConsoleLog – ip
-    others – N/A
+    Others – N/A
     ```
 
 * Data Params:
