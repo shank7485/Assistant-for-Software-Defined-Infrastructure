@@ -18,10 +18,18 @@ class TestAPI(base.TestBase):
     def test_correct_login(self):
         # Check if the login works with correct credentials
         response = self.client.post('/login', data=dict(username='admin',
-                                                        password='admin'),
+                                                        password='secrete'),
                                     follow_redirects=True)
         self.assertIn('Send', response.data)
-        self.assertIn('Openstack Assistant', response.data)
+        self.assertIn('Openstack Assistant',
+                      response.data)
+
+    def test_incorrect_login(self):
+        # Check if the login fails with incorrect credentials
+        response = self.client.post('/login', data=dict(username='xyz',
+                                                        password='xyz'),
+                                    follow_redirects=True)
+        self.assertIn('Invalid Username/Password', response.data)
 
     def test_correct_logout(self):
         # send HTTP GET request to the application on the logout page
@@ -31,6 +39,12 @@ class TestAPI(base.TestBase):
         self.assertIn(
             'You should be redirected automatically to target URL',
             response.data)
+
+    def test_chat_api(self):
+        self.login('admin', 'secrete')
+        response = self.client.get('/chat?question=Hi',
+                                   content_type='html/text')
+        self.assertIn('Hello', response.data)
 
     # TODO(ndahiwade): Add other API endpoints to this
 

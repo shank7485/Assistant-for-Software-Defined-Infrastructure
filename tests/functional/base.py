@@ -11,3 +11,14 @@ class TestBase(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    # helper methods
+    def login(self, username, password):
+        return self.client.post('/login',
+                                data=dict(username=username,
+                                          password=password),
+                                follow_redirects=True)
+
+    def logout(self):
+        return self.client.get('/logout', content_type='html/text',
+                               follow_redirects=True)
