@@ -45,6 +45,24 @@ class TestAPI(base.TestBase):
         response = self.client.get('/chat?question=Hi',
                                    content_type='html/text')
         self.assertIn('Hello', response.data)
+        self.logout()
+
+    def test_list_vms(self):
+        self.login('admin', 'secrete')
+        response = self.client.get('/chat?question=list vms',
+                                   content_type='html/text')
+        self.assertIn('Virtual Machines', response.data)
+        self.logout()
+
+    def test_list_networks(self):
+        self.login('admin', 'secrete')
+        response = self.client.get('/chat?question=list nets',
+                                   content_type='html/text')
+        self.assertIn('public',
+                      response.data)
+        self.assertIn('private',
+                      response.data)
+        self.logout()
 
     # TODO(ndahiwade): Add other API endpoints to this
 
