@@ -1,4 +1,4 @@
-#API Documentation:
+# API Documentation:
 
 * URLs/Endpoints: 
     
@@ -81,7 +81,9 @@
 * APIs exposed:
     
     ```
-    /login
+    login,
+    All other APIs are redirected to the login API,
+    so they are not publicly exposed.
     ```
 
 * Command Line Arguments:
@@ -106,7 +108,7 @@
 * Web Services:
 
     ```
-    Flask
+    N/A
     ```
 
 * Description/Functionality:
