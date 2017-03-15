@@ -78,6 +78,18 @@ class TestAPI(base.TestBase):
         self.assertIn('Here is the list of available volumes', msg)
         self.logout()
 
+    def test_create_vm(self):
+        self.create_test_vm('Test_VM_2')
+        self.login('admin', 'secrete')
+        res = self.client.get('/chat?question=list vms')
+        response = json.loads(res.data)
+        vm_list = response.get('list')
+        vm_value = filter(lambda vm: vm['value'] == 'Test_VM_2', vm_list)
+        self.assertEqual('Test_VM_2', vm_value[0].get('value'))
+        self.logout()
+        # TODO(ndahiwade): Add Cleanup, otherwise resources will keep
+        #  getting created
+
     # TODO(ndahiwade): Add other API endpoints to this
 
 if __name__ == '__main__':
