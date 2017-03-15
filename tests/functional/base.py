@@ -1,10 +1,13 @@
-from api import app
-
+import os
 import unittest
+
+from api import app
 
 
 class TestBase(unittest.TestCase):
 
+    username = os.environ['OS_USERNAME']
+    password = os.environ['OS_PASSWORD']
     default_flavor = 'm1.tiny'
     default_image = 'cirros-0.3.4-x86_64-uec'
     default_network = 'private'
@@ -18,10 +21,10 @@ class TestBase(unittest.TestCase):
         pass
 
     # helper methods
-    def login(self, username, password):
+    def login(self):
         return self.client.post('/login',
-                                data=dict(username=username,
-                                          password=password),
+                                data=dict(username=self.username,
+                                          password=self.password),
                                 follow_redirects=True)
 
     def logout(self):
@@ -29,7 +32,7 @@ class TestBase(unittest.TestCase):
                                follow_redirects=True)
 
     def create_test_vm(self, vm_name):
-        self.login('admin', 'secrete')
+        self.login()
         self.client.get('/chat?question=create vm',
                         content_type='html/text')
         self.client.get('/set?key=flavor&value='+self.default_flavor)

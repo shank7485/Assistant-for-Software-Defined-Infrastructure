@@ -42,7 +42,7 @@ class TestAPI(base.TestBase):
             response.data)
 
     def test_chat_api(self):
-        self.login('admin', 'secrete')
+        self.login()
         res = self.client.get('/chat?question=Hi',
                               content_type='html/text')
         response = json.loads(res.data)
@@ -51,7 +51,7 @@ class TestAPI(base.TestBase):
         self.logout()
 
     def test_list_vms(self):
-        self.login('admin', 'secrete')
+        self.login()
         res = self.client.get('/chat?question=list vms',
                               content_type='html/text')
         response = json.loads(res.data)
@@ -60,7 +60,7 @@ class TestAPI(base.TestBase):
         self.logout()
 
     def test_list_networks(self):
-        self.login('admin', 'secrete')
+        self.login()
         response = self.client.get('/chat?question=list nets',
                                    content_type='html/text')
         self.assertIn('public',
@@ -70,7 +70,7 @@ class TestAPI(base.TestBase):
         self.logout()
 
     def test_list_volumes(self):
-        self.login('admin', 'secrete')
+        self.login()
         res = self.client.get('/chat?question=list volumes',
                               content_type='html/text')
         response = json.loads(res.data)
@@ -80,7 +80,7 @@ class TestAPI(base.TestBase):
 
     def test_create_vm(self):
         self.create_test_vm('Test_VM_2')
-        self.login('admin', 'secrete')
+        self.login()
         res = self.client.get('/chat?question=list vms')
         response = json.loads(res.data)
         vm_list = response.get('list')
