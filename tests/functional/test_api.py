@@ -1,3 +1,4 @@
+import json
 import unittest
 
 import base
@@ -42,16 +43,20 @@ class TestAPI(base.TestBase):
 
     def test_chat_api(self):
         self.login('admin', 'secrete')
-        response = self.client.get('/chat?question=Hi',
-                                   content_type='html/text')
-        self.assertIn('Hello', response.data)
+        res = self.client.get('/chat?question=Hi',
+                              content_type='html/text')
+        response = json.loads(res.data)
+        msg = response.get('message')
+        self.assertIn('Hello', msg)
         self.logout()
 
     def test_list_vms(self):
         self.login('admin', 'secrete')
-        response = self.client.get('/chat?question=list vms',
-                                   content_type='html/text')
-        self.assertIn('Virtual Machines', response.data)
+        res = self.client.get('/chat?question=list vms',
+                              content_type='html/text')
+        response = json.loads(res.data)
+        msg = response.get('message')
+        self.assertIn('Virtual Machines', msg)
         self.logout()
 
     def test_list_networks(self):
@@ -62,6 +67,15 @@ class TestAPI(base.TestBase):
                       response.data)
         self.assertIn('private',
                       response.data)
+        self.logout()
+
+    def test_list_volumes(self):
+        self.login('admin', 'secrete')
+        res = self.client.get('/chat?question=list volumes',
+                              content_type='html/text')
+        response = json.loads(res.data)
+        msg = response.get('message')
+        self.assertIn('Here is the list of available volumes', msg)
         self.logout()
 
     # TODO(ndahiwade): Add other API endpoints to this
