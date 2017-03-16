@@ -155,6 +155,7 @@ class CodeNova(Code):
                                 ':')[1]
                             return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -167,6 +168,7 @@ class CodeNova(Code):
                     return self.createJSONResponse("", None, "No VMs")
                 return self.createJSONResponse("", nova_list,  self.response)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -201,6 +203,7 @@ class CodeNova(Code):
                                     ':')[1])
                             return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -231,6 +234,7 @@ class CodeNova(Code):
                             'VM_Delete_All_Not_Confirm')).split(':')[1]
                         return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -242,6 +246,7 @@ class CodeNova(Code):
                 #avail_zone = ['<:az>']
                 return self.createJSONResponse("", avail_zone, self.response)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -293,6 +298,7 @@ class CodeNeutron(Code):
                                 'Network_Create_Not_Confirm')).split(':')[1]
                             return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -306,6 +312,7 @@ class CodeNeutron(Code):
                     return self.createJSONResponse("", None, "No Networks")
                 return self.createJSONResponse("", network_list, self.response)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -341,6 +348,7 @@ class CodeNeutron(Code):
                                 'Network_Delete_Not_Confirm')).split(':')[1]
                             return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -371,6 +379,7 @@ class CodeNeutron(Code):
                             'Network_Delete_All_Not_Confirm')).split(':')[1]
                         return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -395,6 +404,7 @@ class CodeCinder(Code):
                     return self.createJSONResponse("", None, "No Volumes")
                 return self.createJSONResponse("", volume_list, self.response)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -443,6 +453,7 @@ class CodeDeploy(Code):
                                 ':')[1]
                         return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
@@ -491,6 +502,7 @@ class CodeCleanup(Code):
                             'Cloud_Clean_Up_Not_Confirm')).split(':')[1]
                         return self.createJSONResponse("", None, res)
         except Exception as e:
+            SESSION.clear()
             response = "Oops! It failed with - " + str(e)
             if "\n" in response:
                 response = response.replace("\n", "")
