@@ -18,8 +18,9 @@ class TestAPI(base.TestBase):
 
     def test_correct_login(self):
         # Check if the login works with correct credentials
-        response = self.client.post('/login', data=dict(username='admin',
-                                                        password='secrete'),
+        response = self.client.post('/login',
+                                    data=dict(username=self.username,
+                                              password=self.password),
                                     follow_redirects=True)
         self.assertIn('Send', response.data)
         self.assertIn('Openstack Assistant',
@@ -42,6 +43,7 @@ class TestAPI(base.TestBase):
             response.data)
 
     def test_chat_api(self):
+        """ Testing chat api with the response message. """
         self.login()
         res = self.client.get('/chat?question=Hi',
                               content_type='html/text')
@@ -51,15 +53,21 @@ class TestAPI(base.TestBase):
         self.logout()
 
     def test_list_vms(self):
+        """ Testing listing VMs with the response message. """
         self.login()
         res = self.client.get('/chat?question=list vms',
                               content_type='html/text')
         response = json.loads(res.data)
         msg = response.get('message')
-        self.assertIn('Virtual Machines', msg)
+        if response.get('list')==None:
+            self.assertIn('No VMs', msg)
+        else:
+            self.assertIn('Virtual Machines', msg)
         self.logout()
 
     def test_list_networks(self):
+        """ Test listing network with public and private being
+        default networks. """
         self.login()
         response = self.client.get('/chat?question=list nets',
                                    content_type='html/text')
@@ -70,6 +78,7 @@ class TestAPI(base.TestBase):
         self.logout()
 
     def test_list_volumes(self):
+        """ Test listing volumes with the response message. """
         self.login()
         res = self.client.get('/chat?question=list volumes',
                               content_type='html/text')
@@ -79,6 +88,7 @@ class TestAPI(base.TestBase):
         self.logout()
 
     def test_create_vm(self):
+        """ Testing Creating, Listing and Deleting a VM. """
         self.create_test_vm('Test_VM_2')
         self.login()
         res = self.client.get('/chat?question=list vms')
@@ -87,10 +97,24 @@ class TestAPI(base.TestBase):
         vm_value = filter(lambda vm: vm['value'] == 'Test_VM_2', vm_list)
         self.assertEqual('Test_VM_2', vm_value[0].get('value'))
         self.logout()
-        # TODO(ndahiwade): Add Cleanup, otherwise resources will keep
-        #  getting created
+        # Clean up
+        self.delete_test_vm('Test_VM_2')
 
-    # TODO(ndahiwade): Add other API endpoints to this
+    def test_create_network(self):
+        """ Testing Creating, Listing and Deleting Network. """
+        self.create_test_network('Test_Net_2', 'Test_Subnet_2',
+                                 '10.10.1.0/24')
+        self.login()
+        res = self.client.get('/chat?question=list networks')
+        response = json.loads(res.data)
+        vm_list = response.get('list')
+        vm_value = filter(lambda vm: vm['value'] == 'Test_Net_2', vm_list)
+        self.assertEqual('Test_Net_2', vm_value[0].get('value'))
+        self.logout()
+        # Clean up
+        self.delete_test_network('Test_Net_2')
+
+    # TODO(ndahiwade): Add other API tests to this
 
 if __name__ == '__main__':
     unittest.main()
