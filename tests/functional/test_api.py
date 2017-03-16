@@ -107,9 +107,9 @@ class TestAPI(base.TestBase):
         self.login()
         res = self.client.get('/chat?question=list networks')
         response = json.loads(res.data)
-        vm_list = response.get('list')
-        vm_value = filter(lambda vm: vm['value'] == 'Test_Net_2', vm_list)
-        self.assertEqual('Test_Net_2', vm_value[0].get('value'))
+        net_list = response.get('list')
+        net_value = filter(lambda net: net['value'] == 'Test_Net_2', net_list)
+        self.assertEqual('Test_Net_2', net_value[0].get('value'))
         self.logout()
         # Clean up
         self.delete_test_network('Test_Net_2')
