@@ -9,7 +9,7 @@ The main idea here to reduce the complexity in using an OpenStack cloud for novi
 * Clone repo.
 
   ```
-  git clone https://github.com/shank7485/OpenStack-Hackathon-OSIC.git
+  git clone https://github.com/shank7485/Assistant-for-Software-Defined-Infrastructure.git
   ```
 
 * Edit endpoint.conf to add OpenStack Keystone endpoint IP.
