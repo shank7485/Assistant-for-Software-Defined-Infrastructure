@@ -29,7 +29,7 @@ The main idea here to reduce the complexity in using an OpenStack cloud for novi
 * Install requirements.txt.	
 
   ```
-  cd OpenStack-Hackathon-OSIC; pip install -r requirements.txt
+  cd Assistant-for-Software-Defined-Infrastructure; pip install -r requirements.txt
   ```
 
 * For deployment, add private key with name `deploy_key.pem` in `/home/ubuntu/` to deploy another OpenStack cloud on another server. The other server should be SSH'able using the `deploy_key.pem`. 
@@ -45,4 +45,4 @@ The main idea here to reduce the complexity in using an OpenStack cloud for novi
 * Now you have an assistant waiting to recieve your commands. Just chat with it and it will reply back.
 
 ## System Diagram
-![Diagram](https://raw.githubusercontent.com/shank7485/OpenStack-Hackathon-OSIC/master/docs/Diagram.png)
+![Diagram](https://raw.githubusercontent.com/shank7485/Assistant-for-Software-Defined-Infrastructure/master/docs/Diagram.png)
