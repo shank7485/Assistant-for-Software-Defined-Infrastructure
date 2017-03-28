@@ -149,18 +149,18 @@
    	       key=subnet_name, value=’Test_Subnet’
  	       key=cidr, value=’10.10.2.0/24’
  	       key=network_create_confirm, value=’yes’
- 	       key=network_delete, value=’Test_Net’
-    	   key=network_delete_confirm, value=’yes’
+           key=network_delete, value=’Test_Net’
+           key=network_delete_confirm, value=’yes’
   	       key=vm_delete_all, value=’yes’
-    	   key=network_delete_all, value=’yes’
+           key=network_delete_all, value=’yes’
            key=type_of_deployment, value=’all-in-one’
    	       key=ipaddress_confirm, value=’192.168.9.13’
            key=deploy_confirm, value=’yes’
-    	   key=cloud_clean_up, value=’yes’
+           key=cloud_clean_up, value=’yes’
     ```
     ```
     /chat -- https://github.com/shank7485/Assistant-for-Software-Defined-Infrastructure/blob/master/openstack-corpus/conversation.corpus.json
-             The above link contains all the sample questions and answers which also form part of the initial dataset we     need to feed the bot.
+             The above link contains all the sample questions and answers which also form part of the initial dataset we need to feed the bot.
              Note: It would be impossible to reproduce the exact questions a user might ask.
     ```
     
