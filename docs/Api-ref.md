@@ -160,7 +160,7 @@
     ```
     ```
     /chat -- https://github.com/shank7485/Assistant-for-Software-Defined-Infrastructure/blob/master/openstack-corpus/conversation.corpus.json
-             The above link contains all the sample questions and answers which also form part of the initial dataset we                  need to feed the bot.
+             The above link contains all the sample questions and answers which also form part of the initial dataset we     need to feed the bot.
              Note: It would be impossible to reproduce the exact questions a user might ask.
     ```
     
@@ -174,21 +174,21 @@
     Ansible provides an automation platform to simplify system and application deployment.
     Ansible manages systems using Secure Shell (SSH) instead of unique protocols that require remote daemons or agents.
 
-    When the user clicks to get the Console logs from the chat screen, these are the four steps performed:
-    1)	Configuration
-    2)	Install and bootstrap Ansible
-    3)	Run playbooks (which are YAML files for orchestration)
-    4)	Install and Verify Services (This step is displayed on the screen)
+    When the user clicks to get the Console logs from the chat screen,these are the four steps performed:
+    1) Configuration
+    2) Install and bootstrap Ansible
+    3) Run playbooks (which are YAML files for orchestration)
+    4) Install and Verify Services (This step is displayed on the screen)
 
     Some of the services which you can see being installed and verified can be categorized as:
-    1)	Infrastructure services:
+    1) Infrastructure services:
         ♣	MariaDB with Galera
         ♣	RabbitMQ
         ♣	Memcached
         ♣	Load Balancer
         ♣	Utility container
         ♣	Log aggregation host
-    2)	OpenStack services:
+    2) OpenStack services:
         ♣	Block Storage (cinder)
         ♣	Compute (nova)
         ♣	Dashboard (horizon)
