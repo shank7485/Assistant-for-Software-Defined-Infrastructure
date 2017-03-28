@@ -159,7 +159,7 @@
            key=cloud_clean_up, value=’yes’
     ```
     ```
-    /chat -- (https://github.com/shank7485/Assistant-for-Software-Defined-Infrastructure/blob/master/openstack-corpus/conversation.corpus.json)
+    /chat -- [Conversation Corpus] (https://github.com/shank7485/Assistant-for-Software-Defined-Infrastructure/blob/master/openstack-corpus/conversation.corpus.json)
              The above link contains all the sample questions and answers which also form part of the initial dataset we need to feed the bot.
              Note: It would be impossible to reproduce the exact questions a user might ask.
     ```
