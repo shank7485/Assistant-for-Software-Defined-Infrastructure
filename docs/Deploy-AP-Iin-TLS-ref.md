@@ -120,7 +120,7 @@ sudo service apache2 restart
 /etc/init.d/apache2 restart
 ```
 Make directory for SSL keys and certs. 
-This is for testing purposes only. For actual deployment, operator needs to certs/keys.
+## This is for testing purposes ONLY. For actual deployment, operator needs to certs/keys.
 ```
 sudo mkdir /etc/apache2/ssl
 # Generate Cert and Keys. (test keys)
