@@ -1,6 +1,6 @@
 api.wsgi:
 /home/ubuntu/Assistant-for-Software-Defined-Infrastructure/
-   api.py, api.wsgi
+   api.wsgi
    
    api.wsgi:
    ```
