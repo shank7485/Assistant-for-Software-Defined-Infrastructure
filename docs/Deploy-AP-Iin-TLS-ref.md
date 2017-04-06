@@ -125,7 +125,6 @@ Make directory for SSL keys and certs.
 sudo mkdir /etc/apache2/ssl
 # Generate Cert and Keys. (test keys)
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
-# Copy default-ssl.conf contents
 ```
 
 Copy from reference default-ssl.conf
